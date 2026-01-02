@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Achievements | Swami Vivekananda</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root { --primary-orange: #f26522; --navy-dark: #0a1d37; }
+        .text-orange { color: var(--primary-orange); }
+        .bg-orange { background-color: var(--primary-orange); }
+        .bg-navy { background-color: var(--navy-dark); }
+        .achievement-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .achievement-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); }
+    </style>
+</head>
+<body class="bg-gray-50 text-slate-800">
+
+    <nav class="sticky top-0 z-50 bg-white shadow-md px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex flex-col">
+                <span class="text-2xl font-black text-slate-900 tracking-tighter" data-key="nav-logo">VIVEKANANDA</span>
+                <span class="text-[10px] uppercase tracking-[0.3em] font-bold text-orange" data-key="nav-tagline">Authentic Archive</span>
+            </div>
+            <div class="hidden lg:flex items-center space-x-8 font-bold text-sm uppercase tracking-wide">
+                <a href="index.html" class="hover:text-orange transition" data-key="nav-home">Home</a>
+                <a href="timeline.html" class="hover:text-orange transition" data-key="nav-life">Life</a>
+                <a href="teachings.html" class="hover:text-orange transition" data-key="nav-teachings">Teachings</a>
+                <a href="achievements.html" class="text-orange" data-key="nav-achievements">Achievements</a>
+                <a href="works.html" class="hover:text-orange transition" data-key="nav-works">Works</a>
+                <a href="legacy.html" class="hover:text-orange transition" data-key="nav-legacy">Legacy</a>
+                <a href="quotes.html" class="hover:text-orange transition" data-key="nav-quotes">Quotes</a>
+                <a href="about.html" class="hover:text-orange transition" data-key="nav-about">About</a>
+            </div>
+            <button onclick="toggleLanguage()" id="langBtn" class="bg-orange text-white px-6 py-2 rounded-full font-bold shadow-lg transition active:scale-95">हिन्दी</button>
+        </div>
+    </nav>
+
+    <section class="bg-navy py-20 px-6 text-white overflow-hidden relative">
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <h1 class="text-5xl font-black mb-6" data-key="page-title">Major Achievements</h1>
+            <p class="text-xl opacity-90 leading-relaxed font-light" data-key="page-desc">
+                His groundbreaking work reshaped global perceptions of Indian philosophy, inspired organized humanitarian service, and established enduring institutions that continue his mission today.
+            </p>
+        </div>
+        <div class="absolute top-0 right-0 w-64 h-64 bg-orange/10 rounded-full -mr-32 -mt-32 blur-3xl"></div>
+    </section>
+
+    <section class="py-20 px-6">
+        <div id="achievements-container" class="max-w-7xl mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        </div>
+    </section>
+
+    <section class="bg-orange py-12 px-6 text-white">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-8 text-center">
+            <div>
+                <div class="text-4xl font-black mb-2">1893</div>
+                <div class="uppercase tracking-widest text-xs font-bold opacity-80" data-key="stat-1">Chicago Parliament</div>
+            </div>
+            <div>
+                <div class="text-4xl font-black mb-2">1897</div>
+                <div class="uppercase tracking-widest text-xs font-bold opacity-80" data-key="stat-2">Mission Founded</div>
+            </div>
+            <div>
+                <div class="text-4xl font-black mb-2">Global</div>
+                <div class="uppercase tracking-widest text-xs font-bold opacity-80" data-key="stat-3">Enduring Impact</div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-navy py-10 text-center text-white/60 text-sm">
+        <p data-key="footer-text">© 2024 Swami Vivekananda Archive - Factual & Authentic Reference</p>
+    </footer>
+
+    <script>
+        const achievementData = [
+            {
+                en_t: "Parliament of World's Religions (1893)",
+                hi_t: "विश्व धर्म संसद (1893)",
+                en_d: "Represented Hinduism and Indian spirituality at Chicago's Parliament of Religions. His famous opening 'Sisters and Brothers of America' received a standing ovation. Delivered multiple powerful speeches on universal tolerance, acceptance, and the unity of all religions. This historic event marked the first significant introduction of Vedanta, Yoga, and Hindu philosophy to the Western world, establishing him as a major global spiritual voice.",
+                hi_d: "शिकागो की धर्म संसद में हिंदू धर्म और भारतीय आध्यात्मिकता का प्रतिनिधित्व किया। उनके प्रसिद्ध उद्घाटन 'अमेरिका के बहनों और भाइयों' को खड़े होकर तालियां मिलीं। सार्वभौमिक सहिष्णुता, स्वीकृति और सभी धर्मों की एकता पर कई शक्तिशाली भाषण दिए। इस ऐतिहासिक कार्यक्रम ने पश्चिमी दुनिया में वेदांत, योग और हिंदू दर्शन के पहले महत्वपूर्ण परिचय को चिह्नित किया, उन्हें एक प्रमुख वैश्विक आध्यात्मिक आवाज के रूप में स्थापित किया।"
+            },
+            {
+                en_t: "Introduction of Vedanta to the West",
+                hi_t: "पश्चिम में वेदांत का परिचय",
+                en_d: "Systematically introduced Indian spiritual philosophy to the United States and Europe through lectures, writings, and personal interactions. Established Vedanta Societies in New York, San Francisco, and other major cities. Taught complex philosophical concepts in accessible language, bridging Eastern wisdom and Western logic. Made concepts like meditation, karma, reincarnation, and self-realization familiar to Western audiences for the first time.",
+                hi_d: "व्याख्यानों, लेखन और व्यक्तिगत बातचीत के माध्यम से व्यवस्थित रूप से संयुक्त राज्य अमेरिका और यूरोप में भारतीय आध्यात्मिक दर्शन पेश किया। न्यूयॉर्क, सैन फ्रांसिस्को और अन्य प्रमुख शहरों में वेदांत समाज स्थापित किए। जटिल दार्शनिक अवधारणाओं को सुलभ भाषा में सिखाया, पूर्वी ज्ञान और पश्चिमी तर्क को जोड़ा। पहली बार पश्चिमी दर्शकों के लिए ध्यान, कर्म, पुनर्जन्म और आत्म-साक्षात्कार जैसी अवधारणाओं को परिचित कराया।"
+            },
+            {
+                en_t: "Founding of Ramakrishna Mission (1897)",
+                hi_t: "रामकृष्ण मिशन की स्थापना (1897)",
+                en_d: "Established Ramakrishna Mission to combine spiritual practice with humanitarian service, education, healthcare, and disaster relief. The organization's motto 'Atmano Mokshartham Jagat Hitaya Cha' embodies service for self-liberation and world welfare. Created a structured monastic order dedicated to both spiritual development and social service. Today, the Mission operates hospitals, schools, colleges, rural development centers, and relief operations across India and internationally.",
+                hi_d: "आध्यात्मिक अभ्यास को मानवीय सेवा, शिक्षा, स्वास्थ्य देखभाल और आपदा राहत के साथ जोड़ने के लिए रामकृष्ण मिशन की स्थापना की। संगठन का आदर्श वाक्य 'आत्मनो मोक्षार्थं जगत हिताय च' आत्म-मुक्ति और विश्व कल्याण के लिए सेवा को मूर्त रूप देता है। आध्यात्मिक विकास और सामाजिक सेवा दोनों के लिए समर्पित एक संरचित संन्यासी आदेश बनाया। आज, मिशन भारत और अंतरराष्ट्रीय स्तर पर अस्पतालों, स्कूलों, कॉलेजों, ग्रामीण विकास केंद्रों और राहत कार्यों का संचालन करता है।"
+            },
+            {
+                en_t: "Establishment of Ramakrishna Order",
+                hi_t: "रामकृष्ण संघ की स्थापना",
+                en_d: "Organized Sri Ramakrishna's monastic disciples into a well-structured spiritual order with clear rules, training programs, and a universal humanitarian outlook. Created systems for spiritual education, monastic discipline, and practical service. Established standards of training that produced generations of monks and teachers who spread Vedanta worldwide. The Order became a model of organized spiritual life combining contemplation with active social engagement.",
+                hi_d: "श्री रामकृष्ण के संन्यासी शिष्यों को स्पष्ट नियमों, प्रशिक्षण कार्यक्रमों और एक सार्वभौमिक मानवीय दृष्टिकोण के साथ एक अच्छी तरह से संरचित आध्यात्मिक संघ में संगठित किया। आध्यात्मिक शिक्षा, संन्यासी अनुशासन और व्यावहारिक सेवा के लिए प्रणाली बनाई। प्रशिक्षण के मानक स्थापित किए जिसने पीढ़ियों के भिक्षुओं और शिक्षकों का उत्पादन किया जिन्होंने दुनिया भर में वेदांत फैलाया। संघ सक्रिय सामाजिक भागीदारी के साथ चिंतन को मिलाकर संगठित आध्यात्मिक जीवन का एक मॉडल बन गया।"
+            },
+            {
+                en_t: "Belur Math: Universal Spiritual Center",
+                hi_t: "बेलूर मठ: सार्वभौमिक आध्यात्मिक केंद्र",
+                en_d: "Founded Belur Math in 1898 as the permanent headquarters of the Ramakrishna Order. Designed the temple architecture to symbolize harmony among religions, incorporating Hindu, Islamic, and Christian architectural elements. Established it as a center for spiritual training, interfaith dialogue, and humanitarian activities. The Math continues to serve as the spiritual and administrative headquarters, training monks and coordinating global activities of the Ramakrishna Mission.",
+                hi_d: "1898 में रामकृष्ण संघ के स्थायी मुख्यालय के रूप में बेलूर मठ की स्थापना की। हिंदू, इस्लामी और ईसाई वास्तुशिल्प तत्वों को शामिल करते हुए, धर्मों के बीच सद्भाव का प्रतीक बनने के लिए मंदिर वास्तुकला को डिजाइन किया। इसे आध्यात्मिक प्रशिक्षण, अंतरधार्मिक संवाद और मानवीय गतिविधियों के केंद्र के रूप में स्थापित किया। मठ आध्यात्मिक और प्रशासनिक मुख्यालय के रूप में सेवा करना जारी रखता है, भिक्षुओं को प्रशिक्षण देता है और रामकृष्ण मिशन की वैश्विक गतिविधियों का समन्वय करता है।"
+            },
+            {
+                en_t: "National Awakening & Youth Inspiration",
+                hi_t: "राष्ट्रीय जागरण और युवा प्रेरणा",
+                en_d: "Inspired self-respect, confidence, and patriotic spirit among Indians during colonial rule through powerful speeches and writings. Challenged the inferiority complex imposed by colonialism, reminding Indians of their rich spiritual heritage. His messages about strength, fearlessness, and self-reliance influenced freedom fighters and social reformers. Motivated youth to combine spiritual values with practical action for national development. His call to 'Be strong!' and 'Arise, awake!' became rallying cries for generations of Indian youth.",
+                hi_d: "औपनिवेशिक शासन के दौरान शक्तिशाली भाषणों और लेखन के माध्यम से भारतीयों में आत्म-सम्मान, आत्मविश्वास और देशभक्ति की भावना को प्रेरित किया। उपनिवेशवाद द्वारा थोपी गई हीन भावना को चुनौती दी, भारतीयों को उनकी समृद्ध आध्यात्मिक विरासत की याद दिलाई। शक्ति, निर्भयता और आत्मनिर्भरता के बारे में उनके संदेशों ने स्वतंत्रता सेनानियों और सामाजिक सुधारकों को प्रभावित किया। युवाओं को राष्ट्रीय विकास के लिए आध्यात्मिक मूल्यों को व्यावहारिक कार्रवाई के साथ जोड़ने के लिए प्रेरित किया। 'मजबूत बनो!' और 'उठो, जागो!' उनकी पुकार भारतीय युवाओं की पीढ़ियों के लिए रैली के नारे बन गए।"
+            },
+            {
+                en_t: "Literary & Philosophical Contributions",
+                hi_t: "साहित्यिक और दार्शनिक योगदान",
+                en_d: "Authored and delivered numerous lectures that became foundational texts of modern Vedanta: Raja Yoga, Karma Yoga, Bhakti Yoga, Jnana Yoga. His Complete Works (9 volumes) contain lectures, letters, poems, and conversations covering philosophy, religion, education, and social reform. Presented complex spiritual concepts in clear, logical, and accessible language. His writings continue to be studied globally as authoritative sources on Indian philosophy and practical spirituality.",
+                hi_d: "कई व्याख्यान लिखे और दिए जो आधुनिक वेदांत के मूलभूत ग्रंथ बन गए: राज योग, कर्म योग, भक्ति योग, ज्ञान योग। उनके संपूर्ण कार्य (9 खंड) में दर्शन, धर्म, शिक्षा और सामाजिक सुधार को कवर करने वाले व्याख्यान, पत्र, कविताएं और बातचीत शामिल हैं। जटिल आध्यात्मिक अवधारणाओं को स्पष्ट, तार्किक और सुलभ भाषा में प्रस्तुत किया। उनके लेखन को विश्व स्तर पर भारतीय दर्शन और व्यावहारिक आध्यात्मिकता के आधिकारिक स्रोतों के रूप में अध्ययन किया जाता रहता है।"
+            },
+            {
+                en_t: "Social Reform Advocacy",
+                hi_t: "सामाजिक सुधार की वकालत",
+                en_d: "Strongly advocated for women's education, empowerment, and social equality. Condemned caste discrimination and untouchability as violations of spiritual principles. Called for mass education, especially for the poor and marginalized. Emphasized practical spirituality over empty ritualism. His progressive views challenged orthodox practices while remaining rooted in spiritual wisdom. Influenced subsequent social reform movements in India.",
+                hi_d: "महिला शिक्षा, सशक्तिकरण और सामाजिक समानता के लिए दृढ़ता से वकालत की। जाति भेदभाव और अस्पृश्यता को आध्यात्मिक सिद्धांतों के उल्लंघन के रूप में निंदा की। जनशिक्षा, विशेष रूप से गरीबों और हाशिए पर रहने वालों के लिए बुलाया। खाली कर्मकांड पर व्यावहारिक आध्यात्मिकता पर जोर दिया। उनके प्रगतिशील विचारों ने आध्यात्मिक ज्ञान में निहित रहते हुए रूढ़िवादी प्रथाओं को चुनौती दी। भारत में बाद के सामाजिक सुधार आंदोलनों को प्रभावित किया।"
+            }
+        ];
+
+        let currentLang = 'en';
+
+        function renderAchievements() {
+            const container = document.getElementById('achievements-container');
+            container.innerHTML = '';
+            achievementData.forEach(item => {
+                container.innerHTML += `
+                    <div class="bg-white p-8 rounded-xl shadow-sm border-l-4 border-orange achievement-card">
+                        <h3 class="text-xl font-black text-navy mb-4">${currentLang === 'en' ? item.en_t : item.hi_t}</h3>
+                        <p class="text-slate-600 leading-relaxed text-sm">
+                            ${currentLang === 'en' ? item.en_d : item.hi_d}
+                        </p>
+                    </div>
+                `;
+            });
+        }
+
+        const uiContent = {
+            "en": {
+                "nav-logo": "VIVEKANANDA",
+                "nav-tagline": "Authentic Archive",
+                "nav-home": "Home",
+                "nav-life": "Life",
+                "nav-teachings": "Teachings",
+                "nav-achievements": "Achievements",
+                "nav-works": "Works",
+                "nav-legacy": "Legacy",
+                "nav-quotes": "Quotes",
+                "nav-about": "About",
+                "page-title": "Major Achievements",
+                "page-desc": "His groundbreaking work reshaped global perceptions of Indian philosophy, inspired organized humanitarian service, and established enduring institutions that continue his mission today.",
+                "stat-1": "Chicago Parliament",
+                "stat-2": "Mission Founded",
+                "stat-3": "Enduring Impact",
+                "footer-text": "© 2024 Swami Vivekananda Archive - Factual & Authentic Reference"
+            },
+            "hi": {
+                "nav-logo": "विवेकानंद",
+                "nav-tagline": "प्रामाणिक संग्रहालय",
+                "nav-home": "होम",
+                "nav-life": "जीवन",
+                "nav-teachings": "शिक्षाएं",
+                "nav-achievements": "उपलब्धियां",
+                "nav-works": "कृतियां",
+                "nav-legacy": "विरासत",
+                "nav-quotes": "अनमोल वचन",
+                "nav-about": "हमारे बारे में",
+                "page-title": "प्रमुख उपलब्धियां",
+                "page-desc": "उनके अभूतपूर्व कार्य ने भारतीय दर्शन की वैश्विक धारणाओं को नया आकार दिया, संगठित मानवीय सेवा को प्रेरित किया, और स्थायी संस्थानों की स्थापना की जो आज भी उनके मिशन को जारी रखते हैं।",
+                "stat-1": "शिकागो संसद",
+                "stat-2": "मिशन की स्थापना",
+                "stat-3": "स्थायी प्रभाव",
+                "footer-text": "© 2024 स्वामी विवेकानंद आर्काइव - तथ्यात्मक और प्रामाणिक संदर्भ"
+            }
+        };
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'hi' : 'en';
+            document.getElementById('langBtn').innerText = currentLang === 'en' ? 'हिन्दी' : 'English';
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (uiContent[currentLang][key]) el.innerText = uiContent[currentLang][key];
+            });
+            renderAchievements();
+        }
+
+        renderAchievements();
+    </script>
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teachings & Philosophy | Swami Vivekananda</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root { --primary-orange: #f26522; --navy-dark: #0a1d37; }
+        .text-orange { color: var(--primary-orange); }
+        .bg-orange { background-color: var(--primary-orange); }
+        .bg-navy { background-color: var(--navy-dark); }
+        .hover-card:hover { transform: translateY(-10px); transition: all 0.3s ease; }
+    </style>
+</head>
+<body class="bg-gray-50 text-slate-800">
+
+    <nav class="sticky top-0 z-50 bg-white shadow-md px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex flex-col">
+                <span class="text-2xl font-black text-slate-900 tracking-tighter" data-key="nav-logo">VIVEKANANDA</span>
+                <span class="text-[10px] uppercase tracking-[0.3em] font-bold text-orange" data-key="nav-tagline">Authentic Archive</span>
+            </div>
+            <div class="hidden lg:flex items-center space-x-8 font-bold text-sm uppercase tracking-wide">
+                <a href="index.html" class="hover:text-orange transition" data-key="nav-home">Home</a>
+                <a href="timeline.html" class="hover:text-orange transition" data-key="nav-life">Life</a>
+                <a href="teachings.html" class="text-orange" data-key="nav-teachings">Teachings</a>
+                <a href="works.html" class="hover:text-orange transition" data-key="nav-works">Works</a>
+                <a href="legacy.html" class="hover:text-orange transition" data-key="nav-legacy">Legacy</a>
+                <a href="quotes.html" class="hover:text-orange transition" data-key="nav-quotes">Quotes</a>
+                <a href="about.html" class="hover:text-orange transition" data-key="nav-about">About</a>
+            </div>
+            <button onclick="toggleLanguage()" id="langBtn" class="bg-orange text-white px-6 py-2 rounded-full font-bold shadow-lg">हिन्दी</button>
+        </div>
+    </nav>
+
+    <section class="bg-navy py-16 px-6 text-center text-white">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-4xl font-black mb-6" data-key="page-title">Teachings & Philosophy</h1>
+            <p class="text-lg opacity-80 leading-relaxed" data-key="page-intro">
+                Swami Vivekananda's philosophy was rooted in Vedanta, but expressed in a practical, modern, and universal form. 
+                His teachings focus on inner strength, self-realization, service to humanity, and the inherent divinity within every individual.
+            </p>
+        </div>
+    </section>
+
+    <section class="py-20 px-6">
+        <div id="teachings-grid" class="max-w-7xl mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        </div>
+    </section>
+
+    <section class="bg-orange py-16 px-6 text-white text-center">
+        <h2 class="text-3xl font-black mb-10" data-key="summary-title">Summary of Key Ideas</h2>
+        <div id="summary-list" class="max-w-5xl mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        </div>
+    </section>
+
+    <footer class="bg-navy py-10 text-center text-white/60 text-sm">
+        <p data-key="footer-text">© 2024 Swami Vivekananda Archive - Factual & Authentic Reference</p>
+    </footer>
+
+    <script>
+        const teachings = [
+            { 
+                icon: "fa-om", 
+                en_t: "Core Spiritual Belief", 
+                hi_t: "मुख्य आध्यात्मिक विश्वास", 
+                en_d: "The soul (Atman) is divine by nature and identical with Brahman (ultimate reality). The purpose of life is to realize this inherent divinity through work, worship, psychic control, or philosophical inquiry. Every being is potentially divine.", 
+                hi_d: "आत्मा स्वभाव से दिव्य है और ब्रह्म (परम वास्तविकता) के समान है। जीवन का उद्देश्य काम, पूजा, मानसिक नियंत्रण या दार्शनिक जांच के माध्यम से इस अंतर्निहित दिव्यता को महसूस करना है। प्रत्येक प्राणी संभावित रूप से दिव्य है।" 
+            },
+            { 
+                icon: "fa-globe", 
+                en_t: "Universal Religion & Tolerance", 
+                hi_t: "सार्वभौमिक धर्म और सहिष्णुता", 
+                en_d: "All religions are different paths leading to the same ultimate truth. No religion is superior or inferior. True spirituality embraces all paths and respects diversity. 'As different streams having different sources all mingle in the sea, so different paths taken by men all lead to Thee.'", 
+                hi_d: "सभी धर्म एक ही परम सत्य की ओर ले जाने वाले विभिन्न मार्ग हैं। कोई भी धर्म श्रेष्ठ या निम्न नहीं है। सच्ची आध्यात्मिकता सभी मार्गों को गले लगाती है और विविधता का सम्मान करती है। 'जैसे विभिन्न स्रोतों से निकली धाराएं समुद्र में मिल जाती हैं, वैसे ही मनुष्य द्वारा लिए गए विभिन्न मार्ग आपकी ओर ले जाते हैं।'" 
+            },
+            { 
+                icon: "fa-hand-holding-heart", 
+                en_t: "Practical Vedanta & Service", 
+                hi_t: "व्यावहारिक वेदांत और सेवा", 
+                en_d: "Spirituality must translate into action. Serving the poor, sick, and suffering is equivalent to serving God. 'Service to man is service to God.' Religion that doesn't help improve society is useless. Compassion and selfless work are the highest forms of worship.", 
+                hi_d: "आध्यात्मिकता को कार्य में अनुवाद करना चाहिए। गरीबों, बीमारों और पीड़ितों की सेवा करना भगवान की सेवा करने के समान है। 'मनुष्य की सेवा भगवान की सेवा है।' धर्म जो समाज को सुधारने में मदद नहीं करता वह बेकार है। करुणा और निस्वार्थ कार्य पूजा के सर्वोच्च रूप हैं।" 
+            },
+            { 
+                icon: "fa-dumbbell", 
+                en_t: "Strength & Fearlessness", 
+                hi_t: "शक्ति और निर्भयता", 
+                en_d: "Strength—physical, mental, moral, and spiritual—is essential for both individual and national progress. Weakness is the root of all misery and evil. Fear, superstition, and self-doubt must be overcome. 'You are the creator of your own destiny.' Courage and confidence lead to self-realization.", 
+                hi_d: "शक्ति—शारीरिक, मानसिक, नैतिक और आध्यात्मिक—व्यक्तिगत और राष्ट्रीय प्रगति दोनों के लिए आवश्यक है। कमजोरी सभी दुख और बुराई की जड़ है। डर, अंधविश्वास और आत्म-संदेह को दूर करना होगा। 'आप अपने स्वयं के भाग्य के निर्माता हैं।' साहस और आत्मविश्वास आत्म-साक्षात्कार की ओर ले जाते हैं।" 
+            },
+            { 
+                icon: "fa-book-open", 
+                en_t: "Education & Character Building", 
+                hi_t: "शिक्षा और चरित्र निर्माण", 
+                en_d: "True education manifests the perfection already within. It should build character, develop concentration, strengthen willpower, and cultivate moral integrity. Education without character is dangerous. 'We want that education by which character is formed, strength of mind increased, intellect expanded, and by which one can stand on one's own feet.'", 
+                hi_d: "सच्ची शिक्षा पहले से मौजूद पूर्णता को प्रकट करती है। इसे चरित्र का निर्माण करना चाहिए, एकाग्रता विकसित करनी चाहिए, इच्छाशक्ति को मजबूत करना चाहिए और नैतिक अखंडता को विकसित करना चाहिए। चरित्र के बिना शिक्षा खतरनाक है। 'हम वह शिक्षा चाहते हैं जिससे चरित्र का निर्माण हो, मन की शक्ति बढ़े, बुद्धि का विस्तार हो और जिससे कोई अपने पैरों पर खड़ा हो सके।'" 
+            },
+            { 
+                icon: "fa-users", 
+                en_t: "Unity of Humanity & Social Reform", 
+                hi_t: "मानवता की एकता और सामाजिक सुधार", 
+                en_d: "All humans are expressions of one universal consciousness. Discrimination based on caste, creed, race, or gender is against spiritual truth. Social reform, women's education, and eradication of untouchability are essential. 'The moment I have realized God sitting in the temple of every human body, the moment I stand in reverence before every human being.'", 
+                hi_d: "सभी मनुष्य एक सार्वभौमिक चेतना की अभिव्यक्ति हैं। जाति, पंथ, नस्ल या लिंग के आधार पर भेदभाव आध्यात्मिक सत्य के खिलाफ है। सामाजिक सुधार, महिला शिक्षा और अस्पृश्यता का उन्मूलन आवश्यक है। 'जिस क्षण मैंने हर मानव शरीर के मंदिर में भगवान को बैठा हुआ महसूस किया है, उस क्षण मैं हर मानव के सामने श्रद्धा से खड़ा हूं।'" 
+            },
+            {
+                icon: "fa-route",
+                en_t: "Four Yogas (Paths)",
+                hi_t: "चार योग (मार्ग)",
+                en_d: "Vivekananda taught four paths to realize God: Karma Yoga (path of selfless action), Bhakti Yoga (path of devotion), Raja Yoga (path of meditation and mental discipline), and Jnana Yoga (path of knowledge and discrimination). Different temperaments suit different paths, but all lead to the same goal.",
+                hi_d: "विवेकानंद ने भगवान को महसूस करने के लिए चार मार्ग सिखाए: कर्म योग (निस्वार्थ कर्म का मार्ग), भक्ति योग (भक्ति का मार्ग), राज योग (ध्यान और मानसिक अनुशासन का मार्ग), और ज्ञान योग (ज्ञान और विवेक का मार्ग)। विभिन्न स्वभाव विभिन्न मार्गों के अनुकूल हैं, लेकिन सभी एक ही लक्ष्य की ओर ले जाते हैं।"
+            },
+            {
+                icon: "fa-seedling",
+                en_t: "Nation Building",
+                hi_t: "राष्ट्र निर्माण",
+                en_d: "India's regeneration depends on uplifting the masses, particularly through education and economic development. Youth must be strong, educated, and socially conscious. Spiritual values should guide material progress. 'The only way to cure the masses is to give them education, to give them strength.'",
+                hi_d: "भारत का पुनर्जनन जनता को ऊपर उठाने पर निर्भर करता है, विशेष रूप से शिक्षा और आर्थिक विकास के माध्यम से। युवाओं को मजबूत, शिक्षित और सामाजिक रूप से जागरूक होना चाहिए। आध्यात्मिक मूल्यों को भौतिक प्रगति का मार्गदर्शन करना चाहिए। 'जनता को ठीक करने का एकमात्र तरीका उन्हें शिक्षा देना, उन्हें शक्ति देना है।'"
+            }
+        ];
+
+        const summaries = [
+            { en: "Divinity within all beings", hi: "सभी प्राणियों में दिव्यता" },
+            { en: "All religions lead to truth", hi: "सभी धर्म सत्य की ओर ले जाते हैं" },
+            { en: "Strength conquers weakness", hi: "शक्ति कमजोरी पर विजय पाती है" },
+            { en: "Service is the highest worship", hi: "सेवा सर्वोच्च पूजा है" },
+            { en: "Character is true education", hi: "चरित्र सच्ची शिक्षा है" },
+            { en: "Humanity is one family", hi: "मानवता एक परिवार है" },
+            { en: "Four paths to realization", hi: "साक्षात्कार के चार मार्ग" },
+            { en: "Uplift the masses", hi: "जनता को ऊपर उठाओ" }
+        ];
+
+        let currentLang = 'en';
+
+        function renderPage() {
+            const grid = document.getElementById('teachings-grid');
+            const summaryBox = document.getElementById('summary-list');
+            grid.innerHTML = '';
+            summaryBox.innerHTML = '';
+
+            teachings.forEach(item => {
+                grid.innerHTML += `
+                    <div class="bg-white p-8 rounded-2xl shadow-sm border-b-4 border-gray-100 hover:border-orange hover-card group">
+                        <div class="w-14 h-14 bg-orange/10 text-orange rounded-lg flex items-center justify-center text-2xl mb-6 group-hover:bg-orange group-hover:text-white transition">
+                            <i class="fa-solid ${item.icon}"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-navy mb-4">${currentLang === 'en' ? item.en_t : item.hi_t}</h3>
+                        <p class="text-slate-600 leading-relaxed text-sm">${currentLang === 'en' ? item.en_d : item.hi_d}</p>
+                    </div>
+                `;
+            });
+
+            summaries.forEach(s => {
+                summaryBox.innerHTML += `
+                    <div class="bg-white/10 border border-white/20 p-4 rounded-lg font-bold text-sm">
+                        ${currentLang === 'en' ? s.en : s.hi}
+                    </div>
+                `;
+            });
+        }
+
+        const uiContent = {
+            "en": {
+                "nav-logo": "VIVEKANANDA",
+                "nav-tagline": "Authentic Archive",
+                "nav-home": "Home",
+                "nav-life": "Life",
+                "nav-teachings": "Teachings",
+                "nav-works": "Works",
+                "nav-legacy": "Legacy",
+                "nav-quotes": "Quotes",
+                "nav-about": "About",
+                "page-title": "Teachings & Philosophy",
+                "page-intro": "Swami Vivekananda's philosophy was rooted in Vedanta, but expressed in a practical, modern, and universal form. His teachings focus on inner strength, self-realization, service to humanity, and the inherent divinity within every individual.",
+                "summary-title": "Summary of Key Ideas",
+                "footer-text": "© 2024 Swami Vivekananda Archive - Factual & Authentic Reference"
+            },
+            "hi": {
+                "nav-logo": "विवेकानंद",
+                "nav-tagline": "प्रामाणिक संग्रहालय",
+                "nav-home": "होम",
+                "nav-life": "जीवन",
+                "nav-teachings": "शिक्षाएं",
+                "nav-works": "कृतियां",
+                "nav-legacy": "विरासत",
+                "nav-quotes": "अनमोल वचन",
+                "nav-about": "हमारे बारे में",
+                "page-title": "शिक्षाएं और दर्शन",
+                "page-intro": "स्वामी विवेकानंद का दर्शन वेदांत में निहित था, लेकिन एक व्यावहारिक, आधुनिक और सार्वभौमिक रूप में व्यक्त किया गया। उनकी शिक्षाएं आंतरिक शक्ति, आत्म-साक्षात्कार, मानवता की सेवा और प्रत्येक व्यक्ति के भीतर निहित दिव्यता पर ध्यान केंद्रित करती हैं।",
+                "summary-title": "मुख्य विचारों का सारांश",
+                "footer-text": "© 2024 स्वामी विवेकानंद आर्काइव - तथ्यात्मक और प्रामाणिक संदर्भ"
+            }
+        };
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'hi' : 'en';
+            document.getElementById('langBtn').innerText = currentLang === 'en' ? 'हिन्दी' : 'English';
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (uiContent[currentLang][key]) el.innerText = uiContent[currentLang][key];
+            });
+            renderPage();
+        }
+
+        renderPage();
+    </script>
+</body>
+</html>

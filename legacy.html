@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legacy & Influence | Swami Vivekananda</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root { --primary-orange: #f26522; --navy-dark: #0a1d37; }
+        .text-orange { color: var(--primary-orange); }
+        .bg-orange { background-color: var(--primary-orange); }
+        .bg-navy { background-color: var(--navy-dark); }
+        .legacy-card { border-top: 4px solid var(--primary-orange); }
+    </style>
+</head>
+<body class="bg-gray-50 text-slate-800">
+
+    <nav class="sticky top-0 z-50 bg-white shadow-md px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex flex-col">
+                <span class="text-2xl font-black text-slate-900 tracking-tighter" data-key="nav-logo">VIVEKANANDA</span>
+                <span class="text-[10px] uppercase tracking-[0.3em] font-bold text-orange" data-key="nav-tagline">Authentic Archive</span>
+            </div>
+            <div class="hidden lg:flex items-center space-x-8 font-bold text-sm uppercase tracking-wide">
+                <a href="index.html" class="hover:text-orange transition" data-key="nav-home">Home</a>
+                <a href="timeline.html" class="hover:text-orange transition" data-key="nav-life">Life</a>
+                <a href="teachings.html" class="hover:text-orange transition" data-key="nav-teachings">Teachings</a>
+                <a href="achievements.html" class="hover:text-orange transition" data-key="nav-achievements">Achievements</a>
+                <a href="works.html" class="hover:text-orange transition" data-key="nav-works">Works</a>
+                <a href="legacy.html" class="text-orange" data-key="nav-legacy">Legacy</a>
+                <a href="quotes.html" class="hover:text-orange transition" data-key="nav-quotes">Quotes</a>
+                <a href="about.html" class="hover:text-orange transition" data-key="nav-about">About</a>
+            </div>
+            <button onclick="toggleLanguage()" id="langBtn" class="bg-orange text-white px-6 py-2 rounded-full font-bold shadow-lg">हिन्दी</button>
+        </div>
+    </nav>
+
+    <section class="bg-navy py-20 px-6 text-center text-white relative overflow-hidden">
+        <div class="max-w-4xl mx-auto relative z-10">
+            <h1 class="text-5xl font-black mb-6" data-key="page-title">Legacy & Influence</h1>
+            <p class="text-xl opacity-80 font-light leading-relaxed" data-key="page-intro">
+                Institutions, ideas, and inspiration that continue to influence spiritual thought, education, social service, and national consciousness across the world. His impact transcends time, geography, and religious boundaries.
+            </p>
+        </div>
+        <div class="absolute inset-0 opacity-10 flex items-center justify-center text-8xl">
+            <i class="fa-solid fa-earth-asia"></i>
+        </div>
+    </section>
+
+    <section class="py-20 px-6">
+        <div id="legacy-grid" class="max-w-7xl mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        </div>
+    </section>
+
+    <section class="bg-gray-100 py-20 px-6 border-y border-gray-200">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl font-black text-navy mb-6" data-key="banner-title">Cultural & National Influence</h2>
+            <p class="text-lg text-slate-600 leading-relaxed" data-key="banner-text">
+                He played a pivotal role in shaping modern Indian identity by linking spiritual values with national development, self-respect, discipline, and unity beyond social divisions. His vision continues to inspire nation-building efforts.
+            </p>
+        </div>
+    </section>
+
+    <footer class="bg-navy py-10 text-center text-white/60 text-sm">
+        <p data-key="footer-text">© 2024 Swami Vivekananda Archive - Factual & Authentic Reference</p>
+    </footer>
+
+    <script>
+        const legacyData = [
+            {
+                en_t: "Spiritual Renaissance",
+                hi_t: "आध्यात्मिक पुनर्जागरण",
+                en_d: "Redefined spirituality as active, practical, and socially engaged rather than passive withdrawal. Introduced the concept of 'Practical Vedanta' where spiritual realization must lead to service. His synthesis of ancient wisdom with modern rationality created a new framework for spirituality relevant to contemporary life. Influenced subsequent spiritual movements globally, making Eastern philosophy accessible to Western seekers.",
+                hi_d: "आध्यात्मिकता को निष्क्रिय वापसी के बजाय सक्रिय, व्यावहारिक और सामाजिक रूप से लगे हुए के रूप में फिर से परिभाषित किया। 'व्यावहारिक वेदांत' की अवधारणा पेश की जहां आध्यात्मिक साक्षात्कार को सेवा की ओर ले जाना चाहिए। आधुनिक तर्कसंगतता के साथ प्राचीन ज्ञान के उनके संश्लेषण ने समकालीन जीवन के लिए प्रासंगिक आध्यात्मिकता के लिए एक नया ढांचा बनाया। बाद के आध्यात्मिक आंदोलनों को विश्व स्तर पर प्रभावित किया, पूर्वी दर्शन को पश्चिमी साधकों के लिए सुलभ बनाया।"
+            },
+            {
+                en_t: "Impact on Indian Society",
+                hi_t: "भारतीय समाज पर प्रभाव",
+                en_d: "Restored Indian self-confidence during colonial rule by emphasizing India's rich spiritual heritage. Challenged colonial narratives of Indian inferiority. Advocated social reform including women's education, eradication of caste discrimination, and mass upliftment. Inspired freedom fighters like Subhas Chandra Bose, Aurobindo, and social reformers. His call for strength, self-reliance, and character-building shaped modern Indian consciousness.",
+                hi_d: "भारत की समृद्ध आध्यात्मिक विरासत पर जोर देकर औपनिवेशिक शासन के दौरान भारतीय आत्मविश्वास को बहाल किया। भारतीय हीनता की औपनिवेशिक कथाओं को चुनौती दी। महिला शिक्षा, जाति भेदभाव उन्मूलन और सामूहिक उत्थान सहित सामाजिक सुधार की वकालत की। सुभाष चंद्र बोस, अरबिंदो जैसे स्वतंत्रता सेनानियों और सामाजिक सुधारकों को प्रेरित किया। शक्ति, आत्मनिर्भरता और चरित्र निर्माण के लिए उनकी पुकार ने आधुनिक भारतीय चेतना को आकार दिया।"
+            },
+            {
+                en_t: "Influence on Youth & Leadership",
+                hi_t: "युवाओं और नेतृत्व पर प्रभाव",
+                en_d: "His messages of courage, strength, and fearlessness continue to motivate students and youth movements worldwide. Emphasized character-building, moral integrity, and combining idealism with practical action. Many educational institutions adopt his principles. Youth organizations in India celebrate National Youth Day on his birthday (January 12). His writings remain prescribed reading in leadership programs emphasizing servant-leadership and value-based action.",
+                hi_d: "साहस, शक्ति और निर्भयता के उनके संदेश दुनिया भर में छात्रों और युवा आंदोलनों को प्रेरित करना जारी रखते हैं। चरित्र निर्माण, नैतिक अखंडता और आदर्शवाद को व्यावहारिक कार्रवाई के साथ जोड़ने पर जोर दिया। कई शैक्षणिक संस्थान उनके सिद्धांतों को अपनाते हैं। भारत में युवा संगठन उनके जन्मदिन (12 जनवरी) पर राष्ट्रीय युवा दिवस मनाते हैं। उनके लेखन सेवक-नेतृत्व और मूल्य-आधारित कार्रवाई पर जोर देने वाले नेतृत्व कार्यक्रमों में निर्धारित पढ़ने बने रहते हैं।"
+            },
+            {
+                en_t: "Contribution to Education Philosophy",
+                hi_t: "शिक्षा दर्शन में योगदान",
+                en_d: "Promoted holistic education focusing on character development, moral values, concentration, and physical fitness alongside academics. Emphasized that education should 'manifest the perfection already within.' Advocated mass education especially for marginalized communities. Influenced educational policies prioritizing value-based learning. Many schools and universities follow curricula inspired by his educational vision combining intellectual development with ethical grounding.",
+                hi_d: "शैक्षणिक के साथ-साथ चरित्र विकास, नैतिक मूल्यों, एकाग्रता और शारीरिक फिटनेस पर ध्यान केंद्रित करते हुए समग्र शिक्षा को बढ़ावा दिया। जोर दिया कि शिक्षा को 'पहले से मौजूद पूर्णता को प्रकट' करना चाहिए। विशेष रूप से हाशिए के समुदायों के लिए जनशिक्षा की वकालत की। मूल्य-आधारित शिक्षा को प्राथमिकता देने वाली शैक्षिक नीतियों को प्रभावित किया। कई स्कूल और विश्वविद्यालय नैतिक आधार के साथ बौद्धिक विकास को जोड़ते हुए उनके शैक्षिक दृष्टिकोण से प्रेरित पाठ्यक्रम का पालन करते हैं।"
+            },
+            {
+                en_t: "Ramakrishna Mission's Continuing Work",
+                hi_t: "रामकृष्ण मिशन का निरंतर कार्य",
+                en_d: "The Mission he founded operates over 200 centers worldwide running hospitals, dispensaries, mobile clinics, schools, colleges, vocational training centers, libraries, and rural development projects. Provides disaster relief, tribal welfare, and community health services without distinction of caste, creed, or religion. Embodies his vision of combining spirituality with humanitarian service. The organization has received numerous national and international awards for social service excellence.",
+                hi_d: "उनके द्वारा स्थापित मिशन दुनिया भर में 200 से अधिक केंद्रों का संचालन करता है जो अस्पतालों, औषधालयों, मोबाइल क्लीनिकों, स्कूलों, कॉलेजों, व्यावसायिक प्रशिक्षण केंद्रों, पुस्तकालयों और ग्रामीण विकास परियोजनाओं को चलाते हैं। जाति, पंथ या धर्म के भेद के बिना आपदा राहत, आदिवासी कल्याण और सामुदायिक स्वास्थ्य सेवाएं प्रदान करता है। आध्यात्मिकता को मानवीय सेवा के साथ जोड़ने के उनके दृष्टिकोण को मूर्त रूप देता है। संगठन को सामाजिक सेवा उत्कृष्टता के लिए कई राष्ट्रीय और अंतर्राष्ट्रीय पुरस्कार मिले हैं।"
+            },
+            {
+                en_t: "Global Interfaith Dialogue",
+                hi_t: "वैश्विक अंतरधार्मिक संवाद",
+                en_d: "His 1893 Chicago address pioneered modern interfaith dialogue and religious pluralism. Established that all religions are valid paths to the same truth. Influenced global discussions on religious harmony, tolerance, and mutual respect. His principles guide contemporary interfaith initiatives and organizations promoting peace through religious understanding. UNESCO and other international bodies cite his work in promoting cultural and religious diversity.",
+                hi_d: "उनके 1893 शिकागो संबोधन ने आधुनिक अंतरधार्मिक संवाद और धार्मिक बहुलवाद का अग्रणी किया। स्थापित किया कि सभी धर्म एक ही सत्य के लिए मान्य मार्ग हैं। धार्मिक सद्भाव, सहिष्णुता और पारस्परिक सम्मान पर वैश्विक चर्चाओं को प्रभावित किया। उनके सिद्धांत धार्मिक समझ के माध्यम से शांति को बढ़ावा देने वाले समकालीन अंतरधार्मिक पहलों और संगठनों का मार्गदर्शन करते हैं। यूनेस्को और अन्य अंतर्राष्ट्रीय निकाय सांस्कृतिक और धार्मिक विविधता को बढ़ावा देने में उनके काम का हवाला देते हैं।"
+            },
+            {
+                en_t: "Influence on Western Spirituality",
+                hi_t: "पश्चिमी आध्यात्मिकता पर प्रभाव",
+                en_d: "Introduced meditation, yoga, and Vedanta to the West in a scientific, non-religious framework. Paved the way for subsequent teachers who brought Eastern practices to Western audiences. His rational approach to spirituality appealed to intellectuals and academics. Influenced psychological theories, particularly transpersonal psychology. Many modern mindfulness and meditation movements trace their roots to his teachings.",
+                hi_d: "पश्चिम में ध्यान, योग और वेदांत को एक वैज्ञानिक, गैर-धार्मिक ढांचे में पेश किया। बाद के शिक्षकों के लिए मार्ग प्रशस्त किया जिन्होंने पूर्वी प्रथाओं को पश्चिमी दर्शकों के लिए लाया। आध्यात्मिकता के लिए उनके तर्कसंगत दृष्टिकोण ने बुद्धिजीवियों और शिक्षाविदों को आकर्षित किया। मनोवैज्ञानिक सिद्धांतों, विशेष रूप से ट्रांसपर्सनल मनोविज्ञान को प्रभावित किया। कई आधुनिक माइंडफुलनेस और ध्यान आंदोलन अपनी जड़ों को उनकी शिक्षाओं में खोजते हैं।"
+            },
+            {
+                en_t: "Literary & Academic Impact",
+                hi_t: "साहित्यिक और शैक्षणिक प्रभाव",
+                en_d: "His writings are studied in universities worldwide in departments of philosophy, religion, Indian studies, and comparative literature. Scholars analyze his synthesis of Eastern and Western thought, his interpretation of Vedanta, and his social philosophy. His letters and speeches are primary sources for understanding 19th-century India. Numerous biographies, research papers, and academic studies continue to explore his multifaceted legacy.",
+                hi_d: "उनके लेखन का दुनिया भर के विश्वविद्यालयों में दर्शनशास्त्र, धर्म, भारतीय अध्ययन और तुलनात्मक साहित्य के विभागों में अध्ययन किया जाता है। विद्वान पूर्वी और पश्चिमी विचार के उनके संश्लेषण, वेदांत की उनकी व्याख्या और उनके सामाजिक दर्शन का विश्लेषण करते हैं। उनके पत्र और भाषण 19वीं सदी के भारत को समझने के लिए प्राथमिक स्रोत हैं। कई जीवनी, शोध पत्र और शैक्षणिक अध्ययन उनकी बहुआयामी विरासत की खोज जारी रखते हैं।"
+            }
+        ];
+
+        let currentLang = 'en';
+
+        function renderLegacy() {
+            const grid = document.getElementById('legacy-grid');
+            grid.innerHTML = '';
+            legacyData.forEach(item => {
+                grid.innerHTML += `
+                    <div class="bg-white p-8 rounded-xl shadow-sm legacy-card">
+                        <h3 class="text-xl font-bold text-navy mb-4">${currentLang === 'en' ? item.en_t : item.hi_t}</h3>
+                        <p class="text-slate-600 leading-relaxed text-sm">
+                            ${currentLang === 'en' ? item.en_d : item.hi_d}
+                        </p>
+                    </div>
+                `;
+            });
+        }
+
+        const uiContent = {
+            "en": { 
+                "nav-logo": "VIVEKANANDA",
+                "nav-tagline": "Authentic Archive",
+                "nav-home": "Home",
+                "nav-life": "Life",
+                "nav-teachings": "Teachings",
+                "nav-achievements": "Achievements",
+                "nav-works": "Works",
+                "nav-legacy": "Legacy",
+                "nav-quotes": "Quotes",
+                "nav-about": "About",
+                "page-title": "Legacy & Influence", 
+                "page-intro": "Institutions, ideas, and inspiration that continue to influence spiritual thought, education, social service, and national consciousness across the world. His impact transcends time, geography, and religious boundaries.",
+                "banner-title": "Cultural & National Influence",
+                "banner-text": "He played a pivotal role in shaping modern Indian identity by linking spiritual values with national development, self-respect, discipline, and unity beyond social divisions. His vision continues to inspire nation-building efforts.",
+                "footer-text": "© 2024 Swami Vivekananda Archive - Factual & Authentic Reference"
+            },
+            "hi": { 
+                "nav-logo": "विवेकानंद",
+                "nav-tagline": "प्रामाणिक संग्रहालय",
+                "nav-home": "होम",
+                "nav-life": "जीवन",
+                "nav-teachings": "शिक्षाएं",
+                "nav-achievements": "उपलब्धियां",
+                "nav-works": "कृतियां",
+                "nav-legacy": "विरासत",
+                "nav-quotes": "अनमोल वचन",
+                "nav-about": "हमारे बारे में",
+                "page-title": "विरासत और प्रभाव", 
+                "page-intro": "संस्थान, विचार और प्रेरणा जो दुनिया भर में आध्यात्मिक विचार, शिक्षा, सामाजिक सेवा और राष्ट्रीय चेतना को प्रभावित करना जारी रखते हैं। उनका प्रभाव समय, भूगोल और धार्मिक सीमाओं से परे है।",
+                "banner-title": "सांस्कृतिक और राष्ट्रीय प्रभाव",
+                "banner-text": "आध्यात्मिक मूल्यों को राष्ट्रीय विकास, आत्म-सम्मान, अनुशासन और सामाजिक विभाजन से परे एकता के साथ जोड़कर आधुनिक भारतीय पहचान को आकार देने में उन्होंने महत्वपूर्ण भूमिका निभाई। उनकी दृष्टि राष्ट्र निर्माण के प्रयासों को प्रेरित करना जारी रखती है।",
+                "footer-text": "© 2024 स्वामी विवेकानंद आर्काइव - तथ्यात्मक और प्रामाणिक संदर्भ"
+            }
+        };
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'hi' : 'en';
+            document.getElementById('langBtn').innerText = currentLang === 'en' ? 'हिन्दी' : 'English';
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (uiContent[currentLang][key]) el.innerText = uiContent[currentLang][key];
+            });
+            renderLegacy();
+        }
+
+        renderLegacy();
+    </script>
+</body>
+</html>

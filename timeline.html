@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Life & Timeline | Swami Vivekananda</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root { --primary-orange: #f26522; --navy-dark: #0a1d37; }
+        .text-orange { color: var(--primary-orange); }
+        .bg-orange { background-color: var(--primary-orange); }
+        .bg-navy { background-color: var(--navy-dark); }
+        .timeline-line { position: absolute; left: 50%; transform: translateX(-50%); width: 2px; height: 100%; background: #e2e8f0; z-index: 0; }
+        @media (max-width: 768px) { .timeline-line { left: 20px; } }
+    </style>
+</head>
+<body class="bg-gray-50 text-slate-800">
+
+    <nav class="sticky top-0 z-50 bg-white shadow-md px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex flex-col">
+                <span class="text-2xl font-black text-slate-900 tracking-tighter" data-key="nav-logo">VIVEKANANDA</span>
+                <span class="text-[10px] uppercase tracking-[0.3em] font-bold text-orange" data-key="nav-tagline">Authentic Archive</span>
+            </div>
+            <div class="hidden lg:flex items-center space-x-8 font-bold text-sm uppercase tracking-wide">
+                <a href="index.html" class="hover:text-orange transition" data-key="nav-home">Home</a>
+                <a href="timeline.html" class="text-orange" data-key="nav-life">Life</a>
+                <a href="teachings.html" class="hover:text-orange transition" data-key="nav-teachings">Teachings</a>
+                <a href="works.html" class="hover:text-orange transition" data-key="nav-works">Works</a>
+                <a href="legacy.html" class="hover:text-orange transition" data-key="nav-legacy">Legacy</a>
+                <a href="quotes.html" class="hover:text-orange transition" data-key="nav-quotes">Quotes</a>
+                <a href="about.html" class="hover:text-orange transition" data-key="nav-about">About</a>
+            </div>
+            <button onclick="toggleLanguage()" id="langBtn" class="bg-orange text-white px-6 py-2 rounded-full font-bold shadow-lg transition hover:scale-105">हिन्दी</button>
+        </div>
+    </nav>
+
+    <section class="bg-navy py-12 px-6 text-center text-white">
+        <h1 class="text-4xl font-black" data-key="title">Life & Timeline</h1>
+    </section>
+
+    <section class="py-20 px-6 relative">
+        <div class="timeline-line"></div>
+        <div id="timeline-container" class="max-w-6xl mx-auto relative space-y-24">
+        </div>
+    </section>
+
+    <footer class="bg-navy py-10 text-center text-white/60 text-sm">
+        <p data-key="footer-text">© 2024 Swami Vivekananda Archive - Factual & Authentic Reference</p>
+    </footer>
+
+    <script>
+        const timelineData = [
+            { year: "1863", en_t: "Birth", hi_t: "जन्म", en_d: "Born as Narendranath Datta on 12 January 1863 in Calcutta. Raised in an educated, progressive family that encouraged rational thinking, spiritual inquiry, and exposure to both Western and Indian philosophical traditions.", hi_d: "12 जनवरी 1863 को कलकत्ता में नरेंद्रनाथ दत्त के रूप में जन्म। एक शिक्षित, प्रगतिशील परिवार में पालन-पोषण जो तर्कसंगत सोच, आध्यात्मिक जिज्ञासा और पश्चिमी और भारतीय दार्शनिक परंपराओं दोनों के संपर्क को प्रोत्साहित करता था।" },
+            { year: "1871–1878", en_t: "Early Education", hi_t: "प्रारंभिक शिक्षा", en_d: "Displayed exceptional intelligence, photographic memory, and leadership qualities. Showed early inclination toward spiritual and philosophical questions, often challenging conventional religious beliefs. Excelled in academics, music, and athletics.", hi_d: "असाधारण बुद्धि, फोटोग्राफिक स्मृति और नेतृत्व गुणों का प्रदर्शन। आध्यात्मिक और दार्शनिक प्रश्नों की ओर प्रारंभिक झुकाव, अक्सर पारंपरिक धार्मिक मान्यताओं को चुनौती देते हुए। शिक्षा, संगीत और खेलकूद में उत्कृष्ट।" },
+            { year: "1879", en_t: "College Education", hi_t: "कॉलेज शिक्षा", en_d: "Enrolled at Presidency College, then Scottish Church College. Studied philosophy, logic, Western thought, and literature. Developed critical thinking and began questioning traditional religious dogma while maintaining spiritual curiosity.", hi_d: "प्रेसीडेंसी कॉलेज, फिर स्कॉटिश चर्च कॉलेज में दाखिला। दर्शनशास्त्र, तर्कशास्त्र, पश्चिमी विचार और साहित्य का अध्ययन। आलोचनात्मक सोच विकसित की और आध्यात्मिक जिज्ञासा बनाए रखते हुए पारंपरिक धार्मिक सिद्धांतों पर सवाल उठाने लगे।" },
+            { year: "1881", en_t: "Meeting Sri Ramakrishna", hi_t: "श्री रामकृष्ण से मिलन", en_d: "First meeting with Sri Ramakrishna Paramahamsa at Dakshineshwar Temple. Asked the famous question: 'Have you seen God?' This encounter marked a turning point, beginning the conflict between his rational skepticism and experiential spirituality.", hi_d: "दक्षिणेश्वर मंदिर में श्री रामकृष्ण परमहंस से पहली मुलाकात। प्रसिद्ध प्रश्न पूछा: 'क्या आपने भगवान को देखा है?' यह मुलाकात एक महत्वपूर्ण मोड़ था, जिसने उनके तर्कसंगत संदेह और अनुभवात्मक आध्यात्मिकता के बीच संघर्ष की शुरुआत की।" },
+            { year: "1884", en_t: "Family Crisis", hi_t: "पारिवारिक संकट", en_d: "Father's sudden death left the family in severe financial distress. Struggled to find employment while supporting family members. This period of hardship intensified his search for spiritual truth and understanding of suffering.", hi_d: "पिता की आकस्मिक मृत्यु ने परिवार को गंभीर आर्थिक संकट में डाल दिया। परिवार के सदस्यों का समर्थन करते हुए रोजगार खोजने के लिए संघर्ष किया। कठिनाई की इस अवधि ने आध्यात्मिक सत्य और दुख की समझ की उनकी खोज को तीव्र कर दिया।" },
+            { year: "1885–1886", en_t: "Discipleship & Loss", hi_t: "शिष्यत्व और खोया", en_d: "Devoted himself to selfless service during Sri Ramakrishna's terminal illness. Witnessed his guru's Mahasamadhi on 16 August 1886. This profound loss strengthened his spiritual conviction and commitment to his master's teachings.", hi_d: "श्री रामकृष्ण की अंतिम बीमारी के दौरान निस्वार्थ सेवा के लिए खुद को समर्पित कर दिया। 16 अगस्त 1886 को अपने गुरु की महासमाधि देखी। इस गहन क्षति ने उनके आध्यात्मिक विश्वास और अपने गुरु की शिक्षाओं के प्रति प्रतिबद्धता को मजबूत किया।" },
+            { year: "1886", en_t: "Monastic Vows", hi_t: "संन्यास की शपथ", en_d: "Formally accepted monastic life and took the name Swami Vivekananda. Along with fellow disciples, established the first monastery at Baranagar. Committed himself fully to renunciation, meditation, and spiritual practice.", hi_d: "औपचारिक रूप से संन्यासी जीवन स्वीकार किया और स्वामी विवेकानंद नाम धारण किया। साथी शिष्यों के साथ, बड़ानगर में पहला मठ स्थापित किया। त्याग, ध्यान और आध्यात्मिक अभ्यास के लिए खुद को पूरी तरह से प्रतिबद्ध किया।" },
+            { year: "1888–1892", en_t: "Wandering Monk Period", hi_t: "परिव्राजक काल", en_d: "Traveled extensively across India on foot for nearly five years. Witnessed extreme poverty, caste discrimination, and social inequality. This journey transformed his understanding of spirituality from individual salvation to collective upliftment. Visited Himalayan regions, Rajasthan, South India, experiencing diverse cultures and spiritual traditions.", hi_d: "लगभग पांच वर्षों तक पैदल पूरे भारत की व्यापक यात्रा की। अत्यधिक गरीबी, जाति भेदभाव और सामाजिक असमानता देखी। इस यात्रा ने आध्यात्मिकता की उनकी समझ को व्यक्तिगत मोक्ष से सामूहिक उत्थान में बदल दिया। हिमालयी क्षेत्रों, राजस्थान, दक्षिण भारत का दौरा किया, विविध संस्कृतियों और आध्यात्मिक परंपराओं का अनुभव किया।" },
+            { year: "1892", en_t: "Kanyakumari Meditation", hi_t: "कन्याकुमारी ध्यान", en_d: "At the southern tip of India, meditated for three days on a rock (now called Vivekananda Rock Memorial). Had a profound vision of India's past glory and future potential. Conceived the idea of attending the Parliament of Religions to represent Indian spirituality.", hi_d: "भारत के दक्षिणी छोर पर, एक चट्टान पर तीन दिनों तक ध्यान किया (अब विवेकानंद रॉक मेमोरियल कहा जाता है)। भारत की पिछली महिमा और भविष्य की क्षमता का एक गहन दर्शन हुआ। भारतीय आध्यात्मिकता का प्रतिनिधित्व करने के लिए धर्म संसद में भाग लेने का विचार आया।" },
+            { year: "1893", en_t: "Parliament of World's Religions", hi_t: "विश्व धर्म संसद", en_d: "Represented Hinduism at Chicago's Parliament of Religions (11-27 September 1893). Famous opening address: 'Sisters and Brothers of America.' Emphasized universal tolerance, acceptance, and the fundamental unity of all religions. His speeches captivated audiences and established him as a major global spiritual voice. This marked the first significant introduction of Vedanta and Yoga to the Western world.", hi_d: "शिकागो की धर्म संसद में हिंदू धर्म का प्रतिनिधित्व किया (11-27 सितंबर 1893)। प्रसिद्ध उद्घाटन संबोधन: 'अमेरिका के बहनों और भाइयों।' सार्वभौमिक सहिष्णुता, स्वीकृति और सभी धर्मों की मौलिक एकता पर जोर दिया। उनके भाषणों ने दर्शकों को मोहित कर लिया और उन्हें एक प्रमुख वैश्विक आध्यात्मिक आवाज के रूप में स्थापित किया। यह पश्चिमी दुनिया में वेदांत और योग के पहले महत्वपूर्ण परिचय को चिह्नित करता है।" },
+            { year: "1893–1896", en_t: "Western Mission & Teachings", hi_t: "पश्चिमी मिशन और शिक्षण", en_d: "Lectured extensively across United States and Europe for nearly three years. Founded Vedanta societies in New York and other cities. Taught Raja Yoga, Karma Yoga, Bhakti Yoga, and Jnana Yoga. Met prominent intellectuals, scientists, and spiritual seekers. Published 'Raja Yoga' explaining meditation systematically. Attracted devoted students and disciples who helped spread his teachings.", hi_d: "लगभग तीन वर्षों तक संयुक्त राज्य अमेरिका और यूरोप में व्यापक रूप से व्याख्यान दिए। न्यूयॉर्क और अन्य शहरों में वेदांत समाजों की स्थापना की। राज योग, कर्म योग, भक्ति योग और ज्ञान योग सिखाया। प्रमुख बुद्धिजीवियों, वैज्ञानिकों और आध्यात्मिक साधकों से मिले। ध्यान को व्यवस्थित रूप से समझाते हुए 'राज योग' प्रकाशित किया। समर्पित छात्रों और शिष्यों को आकर्षित किया जिन्होंने उनकी शिक्षाओं को फैलाने में मदद की।" },
+            { year: "1897", en_t: "Triumphant Return to India", hi_t: "भारत में विजयी वापसी", en_d: "Returned to India to a hero's welcome. Delivered powerful lectures in major cities inspiring national pride and self-confidence. Famous speeches included 'My Plan of Campaign' outlining vision for India's regeneration. Emphasized education, women's empowerment, eradication of poverty, and removal of social evils while maintaining spiritual values.", hi_d: "भारत लौटे तो एक नायक के स्वागत का सामना किया। प्रमुख शहरों में शक्तिशाली व्याख्यान दिए जिन्होंने राष्ट्रीय गौरव और आत्मविश्वास को प्रेरित किया। प्रसिद्ध भाषणों में 'मेरी अभियान योजना' शामिल थी जो भारत के पुनर्जनन के लिए दृष्टि को रेखांकित करती थी। शिक्षा, महिला सशक्तिकरण, गरीबी उन्मूलन और आध्यात्मिक मूल्यों को बनाए रखते हुए सामाजिक बुराइयों को दूर करने पर जोर दिया।" },
+            { year: "1897", en_t: "Founding of Ramakrishna Mission", hi_t: "रामकृष्ण मिशन की स्थापना", en_d: "Established Ramakrishna Mission on 1 May 1897 at Baranagar. Created to combine spiritual practice with social service, education, healthcare, and disaster relief. Mission's motto: 'Atmano Mokshartham Jagat Hitaya Cha' (For one's own salvation and for the welfare of the world). Organized monastic order with clear structure, training, and universal humanitarian outlook.", hi_d: "1 मई 1897 को बड़ानगर में रामकृष्ण मिशन की स्थापना की। आध्यात्मिक अभ्यास को सामाजिक सेवा, शिक्षा, स्वास्थ्य देखभाल और आपदा राहत के साथ जोड़ने के लिए बनाया गया। मिशन का आदर्श वाक्य: 'आत्मनो मोक्षार्थं जगत हिताय च' (अपने स्वयं के उद्धार के लिए और दुनिया के कल्याण के लिए)। स्पष्ट संरचना, प्रशिक्षण और सार्वभौमिक मानवीय दृष्टिकोण के साथ संन्यासी आदेश का आयोजन किया।" },
+            { year: "1898", en_t: "Belur Math Established", hi_t: "बेलूर मठ की स्थापना", en_d: "Established permanent headquarters at Belur Math on the banks of River Ganges near Calcutta. Designed to symbolize harmony among all religions with architectural elements from Hindu, Islamic, and Christian traditions. Became center for spiritual training, philosophical study, and humanitarian activities. Still serves as the headquarters of Ramakrishna Math and Mission.", hi_d: "कलकत्ता के पास गंगा नदी के तट पर बेलूर मठ में स्थायी मुख्यालय स्थापित किया। हिंदू, इस्लामी और ईसाई परंपराओं के वास्तुशिल्प तत्वों के साथ सभी धर्मों के बीच सद्भाव का प्रतीक बनने के लिए डिज़ाइन किया गया। आध्यात्मिक प्रशिक्षण, दार्शनिक अध्ययन और मानवीय गतिविधियों का केंद्र बन गया। अभी भी रामकृष्ण मठ और मिशन के मुख्यालय के रूप में कार्य करता है।" },
+            { year: "1899–1900", en_t: "Second Western Visit", hi_t: "दूसरी पश्चिमी यात्रा", en_d: "Undertook second journey to the West despite declining health. Visited California, attended Congress of History of Religions in Paris. Continued teaching and strengthened organizational foundations in America and Europe. Met with students and disciples, gave lectures on practical spirituality. Health deteriorated significantly during this period.", hi_d: "गिरते स्वास्थ्य के बावजूद पश्चिम की दूसरी यात्रा की। कैलिफोर्निया का दौरा किया, पेरिस में धर्मों के इतिहास की कांग्रेस में भाग लिया। शिक्षण जारी रखा और अमेरिका और यूरोप में संगठनात्मक नींव को मजबूत किया। छात्रों और शिष्यों से मिले, व्यावहारिक आध्यात्मिकता पर व्याख्यान दिए। इस अवधि के दौरान स्वास्थ्य में काफी गिरावट आई।" },
+            { year: "1901–1902", en_t: "Final Days", hi_t: "अंतिम दिन", en_d: "Returned to India in deteriorating health. Despite illness, continued guiding disciples and planning Mission activities. Established pattern of daily worship and training at Belur Math. Predicted his own passing, saying he would not live to be forty. Spent final months in meditation, teaching, and organizational work.", hi_d: "बिगड़ती सेहत में भारत लौटे। बीमारी के बावजूद, शिष्यों का मार्गदर्शन और मिशन गतिविधियों की योजना बनाना जारी रखा। बेलूर मठ में दैनिक पूजा और प्रशिक्षण का पैटर्न स्थापित किया। अपनी मृत्यु की भविष्यवाणी की, कहा कि वह चालीस वर्ष तक जीवित नहीं रहेंगे। अंतिम महीने ध्यान, शिक्षण और संगठनात्मक कार्य में बिताए।" },
+            { year: "1902", en_t: "Mahasamadhi", hi_t: "महासमाधि", en_d: "On 4 July 1902, at age 39, attained Mahasamadhi (conscious exit from body) at Belur Math. Maintained his daily routine until the end - teaching disciples, meditating, and working. Passed away during evening meditation. Left behind a transformed understanding of Hinduism, powerful organizational structure for humanitarian work, and inspired millions globally. His teachings continue to guide spiritual seekers and social workers worldwide.", hi_d: "4 जुलाई 1902 को, 39 वर्ष की आयु में, बेलूर मठ में महासमाधि (शरीर से सचेत निकास) प्राप्त की। अंत तक अपनी दैनिक दिनचर्या बनाए रखी - शिष्यों को पढ़ाना, ध्यान करना और काम करना। शाम के ध्यान के दौरान निधन हो गया। हिंदू धर्म की एक परिवर्तित समझ, मानवीय कार्य के लिए शक्तिशाली संगठनात्मक संरचना, और विश्व स्तर पर लाखों को प्रेरित किया। उनकी शिक्षाएं दुनिया भर में आध्यात्मिक साधकों और सामाजिक कार्यकर्ताओं का मार्गदर्शन करना जारी रखती हैं।" }
+        ];
+
+        let currentLang = 'en';
+
+        function renderTimeline() {
+            const container = document.getElementById('timeline-container');
+            container.innerHTML = '';
+
+            timelineData.forEach((item, index) => {
+                const isEven = index % 2 === 0;
+                const html = `
+                    <div class="flex flex-col md:flex-row items-center gap-8 ${isEven ? '' : 'md:flex-row-reverse'}">
+                        <div class="flex-1 w-full ${isEven ? 'md:text-right' : 'md:text-left'}">
+                            <span class="bg-orange/10 text-orange font-bold px-4 py-1 rounded-full text-sm">${item.year}</span>
+                            <h3 class="text-2xl font-black text-navy mt-2 mb-3">${currentLang === 'en' ? item.en_t : item.hi_t}</h3>
+                            <p class="text-slate-600 bg-white p-5 rounded-xl shadow-sm border-t-4 border-orange leading-relaxed">
+                                ${currentLang === 'en' ? item.en_d : item.hi_d}
+                            </p>
+                        </div>
+
+                        <div class="z-10 flex-shrink-0 w-12 h-12 bg-orange text-white rounded-full flex items-center justify-center font-bold border-4 border-white shadow-lg">
+                            ${index + 1}
+                        </div>
+
+                        <div class="flex-1 w-full">
+                            <div class="aspect-video bg-gray-200 rounded-2xl flex items-center justify-center text-gray-400 italic shadow-md overflow-hidden border-2 border-dashed border-gray-300">
+                                [Image for ${item.year}]
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += html;
+            });
+        }
+
+        const uiContent = {
+            "en": { "nav-logo": "VIVEKANANDA", "nav-tagline": "Authentic Archive", "nav-home": "Home", "nav-life": "Life", "nav-teachings": "Teachings", "nav-works": "Works", "nav-legacy": "Legacy", "nav-quotes": "Quotes", "nav-about": "About", "title": "Life & Timeline", "footer-text": "© 2024 Swami Vivekananda Archive - Factual & Authentic Reference" },
+            "hi": { "nav-logo": "विवेकानंद", "nav-tagline": "प्रामाणिक संग्रहालय", "nav-home": "होम", "nav-life": "जीवन", "nav-teachings": "शिक्षाएं", "nav-works": "कृतियां", "nav-legacy": "विरासत", "nav-quotes": "अनमोल वचन", "nav-about": "हमारे बारे में", "title": "जीवन और कालक्रम", "footer-text": "© 2024 स्वामी विवेकानंद आर्काइव - तथ्यात्मक और प्रामाणिक संदर्भ" }
+        };
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'hi' : 'en';
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (uiContent[currentLang][key]) el.innerText = uiContent[currentLang][key];
+            });
+            document.getElementById('langBtn').innerText = currentLang === 'en' ? 'हिन्दी' : 'English';
+            renderTimeline();
+        }
+
+        renderTimeline();
+    </script>
+</body>
+</html>

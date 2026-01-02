@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swami Vivekananda Archive</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root { --primary-orange: #f26522; --navy-dark: #0a1d37; }
+        .text-orange { color: var(--primary-orange); }
+        .bg-orange { background-color: var(--primary-orange); }
+        .bg-navy { background-color: var(--navy-dark); }
+        .dropdown:hover .dropdown-menu { display: block; }
+    </style>
+</head>
+<body class="bg-gray-50 text-slate-800">
+
+    <nav class="sticky top-0 z-50 bg-white shadow-md px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex flex-col">
+                <span class="text-2xl font-black text-slate-900 tracking-tighter" data-key="nav-logo">VIVEKANANDA</span>
+                <span class="text-[10px] uppercase tracking-[0.3em] font-bold text-orange" data-key="nav-tagline">Authentic Archive</span>
+            </div>
+            <div class="hidden lg:flex items-center space-x-8 font-bold text-sm uppercase tracking-wide">
+                <a href="index.html" class="text-orange" data-key="nav-home">Home</a>
+                <a href="timeline.html" class="hover:text-orange transition" data-key="nav-life">Life</a>
+                <div class="relative dropdown">
+                    <a href="#" class="hover:text-orange transition flex items-center" data-key="nav-teachings">
+                        Teachings <i class="fa-solid fa-chevron-down ml-1 text-[10px]"></i>
+                    </a>
+                    <div class="dropdown-menu absolute hidden bg-white shadow-xl rounded-lg py-4 w-48 mt-2 border-t-4 border-orange">
+                        <a href="teachings.html" class="block px-6 py-2 hover:bg-orange hover:text-white transition" data-key="drop-phil">Philosophy</a>
+                        <a href="achievements.html" class="block px-6 py-2 hover:bg-orange hover:text-white transition" data-key="drop-achieve">Achievements</a>
+                    </div>
+                </div>
+                <a href="works.html" class="hover:text-orange transition" data-key="nav-works">Works</a>
+                <a href="legacy.html" class="hover:text-orange transition" data-key="nav-legacy">Legacy</a>
+                <a href="quotes.html" class="hover:text-orange transition" data-key="nav-quotes">Quotes</a>
+                <a href="about.html" class="hover:text-orange transition" data-key="nav-about">About</a>
+            </div>
+            <button onclick="toggleLanguage()" id="langBtn" class="bg-orange text-white px-6 py-2 rounded-full font-bold shadow-lg hover:brightness-110 transition active:scale-95">
+                हिन्दी
+            </button>
+        </div>
+    </nav>
+
+    <header class="relative bg-white pt-16 pb-24 px-6">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+            <div class="order-2 lg:order-1">
+                <div class="w-20 h-1 bg-orange mb-6"></div>
+                <h1 class="text-6xl font-black text-slate-900 mb-6 leading-[1.1]" data-key="hero-title">Swami Vivekananda</h1>
+                <p class="text-2xl font-light text-slate-500 italic mb-8 border-l-4 border-orange pl-6" data-key="hero-quote">
+                    "Arise, awake, and stop not till the goal is reached."
+                </p>
+                <p class="text-lg text-slate-600 leading-relaxed max-w-xl mb-10" data-key="hero-desc">
+                    A monk, philosopher, and reformer who played a crucial role in introducing Indian philosophy to the modern world. His teachings inspired millions and continue to guide spiritual seekers globally.
+                </p>
+                <div class="flex space-x-4">
+                    <a href="timeline.html" class="bg-navy text-white px-8 py-4 rounded font-bold uppercase tracking-wider hover:bg-slate-800 transition" data-key="btn-explore">Explore Archive</a>
+                    <a href="timeline.html" class="border-2 border-slate-200 px-8 py-4 rounded font-bold uppercase tracking-wider hover:bg-gray-50 transition" data-key="btn-timeline">View Timeline</a>
+                </div>
+            </div>
+            <div class="order-1 lg:order-2 relative">
+                <div class="aspect-[4/5] bg-gray-200 rounded-2xl shadow-2xl overflow-hidden relative group">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                    <div class="absolute inset-0 flex items-center justify-center text-gray-400 italic">Portrait Image</div>
+                </div>
+                <div class="absolute -bottom-6 -left-6 bg-orange p-6 rounded-lg shadow-xl text-white">
+                    <p class="text-3xl font-black">1863 – 1902</p>
+                    <p class="text-xs uppercase tracking-widest opacity-80" data-key="hero-years">Spanning 39 Years</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="bg-navy py-20 px-6 text-white text-center">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="text-orange font-bold uppercase tracking-[0.3em] text-sm mb-4" data-key="about-label">About This Website</h2>
+            <p class="text-xl font-light leading-relaxed opacity-90" data-key="about-text">
+                This website presents a structured and authentic view of Swami Vivekananda's life, ideas, and contributions. It aims to provide clear, factual information about his spiritual journey, philosophical teachings, and lasting impact on both India and the world.
+            </p>
+        </div>
+    </section>
+
+    <section class="py-20 px-6 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-12 text-navy" data-key="vision-title">Core Vision</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white p-8 rounded-xl shadow-sm border-b-4 border-orange hover:shadow-lg transition">
+                    <div class="w-12 h-12 bg-orange/10 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-person-praying text-2xl text-orange"></i>
+                    </div>
+                    <p class="font-bold text-gray-800 text-lg mb-2" data-key="v1-title">Divine Potential</p>
+                    <p class="text-slate-600 text-sm" data-key="v1">Every individual possesses infinite divine potential within</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-sm border-b-4 border-orange hover:shadow-lg transition">
+                    <div class="w-12 h-12 bg-orange/10 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-om text-2xl text-orange"></i>
+                    </div>
+                    <p class="font-bold text-gray-800 text-lg mb-2" data-key="v2-title">Self-Realization</p>
+                    <p class="text-slate-600 text-sm" data-key="v2">True religion lies in self-realization and service</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-sm border-b-4 border-orange hover:shadow-lg transition">
+                    <div class="w-12 h-12 bg-orange/10 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-dumbbell text-2xl text-orange"></i>
+                    </div>
+                    <p class="font-bold text-gray-800 text-lg mb-2" data-key="v3-title">Strength & Character</p>
+                    <p class="text-slate-600 text-sm" data-key="v3">Strength and character are essential for growth</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-sm border-b-4 border-orange hover:shadow-lg transition">
+                    <div class="w-12 h-12 bg-orange/10 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-earth-asia text-2xl text-orange"></i>
+                    </div>
+                    <p class="font-bold text-gray-800 text-lg mb-2" data-key="v4-title">Universal Brotherhood</p>
+                    <p class="text-slate-600 text-sm" data-key="v4">Humanity is one family beyond all divisions</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-navy py-10 text-center text-white/60 text-sm">
+        <p data-key="footer-text">© 2024 Swami Vivekananda Archive - Factual & Authentic Reference</p>
+    </footer>
+
+    <script>
+        const content = {
+            "en": {
+                "nav-logo": "VIVEKANANDA",
+                "nav-tagline": "Authentic Archive",
+                "nav-home": "Home",
+                "nav-life": "Life",
+                "nav-teachings": "Teachings",
+                "nav-works": "Works",
+                "nav-legacy": "Legacy",
+                "nav-quotes": "Quotes",
+                "nav-about": "About",
+                "drop-phil": "Philosophy",
+                "drop-achieve": "Achievements",
+                "hero-title": "Swami Vivekananda",
+                "hero-quote": "Arise, awake, and stop not till the goal is reached.",
+                "hero-desc": "A monk, philosopher, and reformer who played a crucial role in introducing Indian philosophy to the modern world. His teachings inspired millions and continue to guide spiritual seekers globally.",
+                "hero-years": "Spanning 39 Years",
+                "btn-explore": "Explore Archive",
+                "btn-timeline": "View Timeline",
+                "about-label": "About This Website",
+                "about-text": "This website presents a structured and authentic view of Swami Vivekananda's life, ideas, and contributions. It aims to provide clear, factual information about his spiritual journey, philosophical teachings, and lasting impact on both India and the world.",
+                "vision-title": "Core Vision",
+                "v1-title": "Divine Potential",
+                "v1": "Every individual possesses infinite divine potential within",
+                "v2-title": "Self-Realization",
+                "v2": "True religion lies in self-realization and service",
+                "v3-title": "Strength & Character",
+                "v3": "Strength and character are essential for growth",
+                "v4-title": "Universal Brotherhood",
+                "v4": "Humanity is one family beyond all divisions",
+                "footer-text": "© 2024 Swami Vivekananda Archive - Factual & Authentic Reference"
+            },
+            "hi": {
+                "nav-logo": "विवेकानंद",
+                "nav-tagline": "प्रामाणिक संग्रहालय",
+                "nav-home": "होम",
+                "nav-life": "जीवन",
+                "nav-teachings": "शिक्षाएं",
+                "nav-works": "कृतियां",
+                "nav-legacy": "विरासत",
+                "nav-quotes": "अनमोल वचन",
+                "nav-about": "हमारे बारे में",
+                "drop-phil": "दर्शन",
+                "drop-achieve": "उपलब्धियां",
+                "hero-title": "स्वामी विवेकानंद",
+                "hero-quote": "उठो, जागो और तब तक मत रुको जब तक लक्ष्य प्राप्त न हो जाए।",
+                "hero-desc": "एक संन्यासी, दार्शनिक और सुधारक जिन्होंने आधुनिक दुनिया में भारतीय दर्शन को पेश करने में महत्वपूर्ण भूमिका निभाई। उनकी शिक्षाओं ने लाखों को प्रेरित किया।",
+                "hero-years": "39 वर्षों का जीवन",
+                "btn-explore": "संग्रह देखें",
+                "btn-timeline": "कालक्रम देखें",
+                "about-label": "इस वेबसाइट के बारे में",
+                "about-text": "यह वेबसाइट स्वामी विवेकानंद के जीवन, विचारों और योगदान का एक संरचित और प्रामाणिक दृष्टिकोण प्रस्तुत करती है। इसका उद्देश्य उनकी आध्यात्मिक यात्रा, दार्शनिक शिक्षाओं और भारत तथा दुनिया पर स्थायी प्रभाव के बारे में स्पष्ट, तथ्यात्मक जानकारी प्रदान करना है।",
+                "vision-title": "मुख्य दृष्टि",
+                "v1-title": "दिव्य क्षमता",
+                "v1": "प्रत्येक व्यक्ति के भीतर अनंत दिव्य क्षमता है",
+                "v2-title": "आत्म-साक्षात्कार",
+                "v2": "सच्चा धर्म आत्म-साक्षात्कार और सेवा में निहित है",
+                "v3-title": "शक्ति और चरित्र",
+                "v3": "विकास के लिए शक्ति और चरित्र आवश्यक हैं",
+                "v4-title": "सार्वभौमिक भाईचारा",
+                "v4": "मानवता सभी विभाजनों से परे एक परिवार है",
+                "footer-text": "© 2024 स्वामी विवेकानंद आर्काइव - तथ्यात्मक और प्रामाणिक संदर्भ"
+            }
+        };
+
+        let currentLang = 'en';
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'hi' : 'en';
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (content[currentLang][key]) {
+                    el.innerText = content[currentLang][key];
+                }
+            });
+            document.getElementById('langBtn').innerText = currentLang === 'en' ? 'हिन्दी' : 'English';
+        }
+    </script>
+</body>
+</html>
