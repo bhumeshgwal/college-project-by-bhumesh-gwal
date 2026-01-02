@@ -12,6 +12,8 @@
         .bg-orange { background-color: var(--primary-orange); }
         .bg-navy { background-color: var(--navy-dark); }
         .dropdown:hover .dropdown-menu { display: block; }
+        .nav-card { transition: all 0.3s ease; }
+        .nav-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
     </style>
 </head>
 <body class="bg-gray-50 text-slate-800">
@@ -56,19 +58,16 @@
                 <p class="text-lg text-slate-600 leading-relaxed max-w-xl mb-10" data-key="hero-desc">
                     A monk, philosopher, and reformer who played a crucial role in introducing Indian philosophy to the modern world. His teachings inspired millions and continue to guide spiritual seekers globally.
                 </p>
-                <div class="flex space-x-4">
+                <div class="hidden md:flex space-x-4">
                     <a href="timeline.html" class="bg-navy text-white px-8 py-4 rounded font-bold uppercase tracking-wider hover:bg-slate-800 transition" data-key="btn-explore">Explore Archive</a>
                     <a href="timeline.html" class="border-2 border-slate-200 px-8 py-4 rounded font-bold uppercase tracking-wider hover:bg-gray-50 transition" data-key="btn-timeline">View Timeline</a>
                 </div>
             </div>
-                <div class="order-1 lg:order-2 relative">
+            <div class="order-1 lg:order-2 relative">
                 <div class="aspect-[4/5] bg-gray-200 rounded-2xl shadow-2xl overflow-hidden relative group">
-                        <img src="swamiji01.jpeg" alt="Swami Vivekananda" class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition duration-500"></div>
-              </div>
-
-
-
+                    <img src="swamiji01.jpeg" alt="Swami Vivekananda" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                </div>
                 <div class="absolute -bottom-6 -left-6 bg-orange p-6 rounded-lg shadow-xl text-white">
                     <p class="text-3xl font-black">1863 – 1902</p>
                     <p class="text-xs uppercase tracking-widest opacity-80" data-key="hero-years">Spanning 39 Years</p>
@@ -76,6 +75,64 @@
             </div>
         </div>
     </header>
+
+    <!-- Mobile-Friendly Navigation Cards -->
+    <section class="py-16 px-6 bg-gray-100">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-3 text-navy" data-key="explore-title">Explore the Archive</h2>
+            <p class="text-center text-slate-600 mb-10 max-w-2xl mx-auto" data-key="explore-subtitle">Click on any section below to learn more about Swami Vivekananda's life, teachings, and legacy</p>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                <a href="timeline.html" class="nav-card bg-white p-6 rounded-xl shadow-sm border-b-4 border-orange text-center">
+                    <div class="w-12 h-12 bg-orange/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fa-solid fa-timeline text-2xl text-orange"></i>
+                    </div>
+                    <h3 class="font-bold text-navy text-sm mb-1" data-key="card-life">Life & Timeline</h3>
+                    <p class="text-xs text-slate-500" data-key="card-life-desc">1863-1902</p>
+                </a>
+
+                <a href="teachings.html" class="nav-card bg-white p-6 rounded-xl shadow-sm border-b-4 border-orange text-center">
+                    <div class="w-12 h-12 bg-orange/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fa-solid fa-book-open text-2xl text-orange"></i>
+                    </div>
+                    <h3 class="font-bold text-navy text-sm mb-1" data-key="card-teach">Teachings</h3>
+                    <p class="text-xs text-slate-500" data-key="card-teach-desc">Philosophy</p>
+                </a>
+
+                <a href="achievements.html" class="nav-card bg-white p-6 rounded-xl shadow-sm border-b-4 border-orange text-center">
+                    <div class="w-12 h-12 bg-orange/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fa-solid fa-trophy text-2xl text-orange"></i>
+                    </div>
+                    <h3 class="font-bold text-navy text-sm mb-1" data-key="card-achieve">Achievements</h3>
+                    <p class="text-xs text-slate-500" data-key="card-achieve-desc">Major Works</p>
+                </a>
+
+                <a href="works.html" class="nav-card bg-white p-6 rounded-xl shadow-sm border-b-4 border-orange text-center">
+                    <div class="w-12 h-12 bg-orange/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fa-solid fa-book text-2xl text-orange"></i>
+                    </div>
+                    <h3 class="font-bold text-navy text-sm mb-1" data-key="card-works">Books</h3>
+                    <p class="text-xs text-slate-500" data-key="card-works-desc">Complete Works</p>
+                </a>
+
+                <a href="legacy.html" class="nav-card bg-white p-6 rounded-xl shadow-sm border-b-4 border-orange text-center">
+                    <div class="w-12 h-12 bg-orange/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fa-solid fa-globe text-2xl text-orange"></i>
+                    </div>
+                    <h3 class="font-bold text-navy text-sm mb-1" data-key="card-legacy">Legacy</h3>
+                    <p class="text-xs text-slate-500" data-key="card-legacy-desc">Global Impact</p>
+                </a>
+
+                <a href="quotes.html" class="nav-card bg-white p-6 rounded-xl shadow-sm border-b-4 border-orange text-center">
+                    <div class="w-12 h-12 bg-orange/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fa-solid fa-quote-left text-2xl text-orange"></i>
+                    </div>
+                    <h3 class="font-bold text-navy text-sm mb-1" data-key="card-quotes">Quotes</h3>
+                    <p class="text-xs text-slate-500" data-key="card-quotes-desc">Wisdom</p>
+                </a>
+            </div>
+        </div>
+    </section>
 
     <section class="bg-navy py-20 px-6 text-white text-center">
         <div class="max-w-3xl mx-auto">
@@ -141,11 +198,25 @@
                 "drop-phil": "Philosophy",
                 "drop-achieve": "Achievements",
                 "hero-title": "Swami Vivekananda",
-                "hero-quote": "Arise, awake, and stop not till the goal is reached.",
+                "hero-quote": ""Arise, awake, and stop not till the goal is reached."",
                 "hero-desc": "A monk, philosopher, and reformer who played a crucial role in introducing Indian philosophy to the modern world. His teachings inspired millions and continue to guide spiritual seekers globally.",
                 "hero-years": "Spanning 39 Years",
                 "btn-explore": "Explore Archive",
                 "btn-timeline": "View Timeline",
+                "explore-title": "Explore the Archive",
+                "explore-subtitle": "Click on any section below to learn more about Swami Vivekananda's life, teachings, and legacy",
+                "card-life": "Life & Timeline",
+                "card-life-desc": "1863-1902",
+                "card-teach": "Teachings",
+                "card-teach-desc": "Philosophy",
+                "card-achieve": "Achievements",
+                "card-achieve-desc": "Major Works",
+                "card-works": "Books",
+                "card-works-desc": "Complete Works",
+                "card-legacy": "Legacy",
+                "card-legacy-desc": "Global Impact",
+                "card-quotes": "Quotes",
+                "card-quotes-desc": "Wisdom",
                 "about-label": "About This Website",
                 "about-text": "This website presents a structured and authentic view of Swami Vivekananda's life, ideas, and contributions. It aims to provide clear, factual information about his spiritual journey, philosophical teachings, and lasting impact on both India and the world.",
                 "vision-title": "Core Vision",
@@ -172,11 +243,25 @@
                 "drop-phil": "दर्शन",
                 "drop-achieve": "उपलब्धियां",
                 "hero-title": "स्वामी विवेकानंद",
-                "hero-quote": "उठो, जागो और तब तक मत रुको जब तक लक्ष्य प्राप्त न हो जाए।",
+                "hero-quote": ""उठो, जागो और तब तक मत रुको जब तक लक्ष्य प्राप्त न हो जाए।"",
                 "hero-desc": "एक संन्यासी, दार्शनिक और सुधारक जिन्होंने आधुनिक दुनिया में भारतीय दर्शन को पेश करने में महत्वपूर्ण भूमिका निभाई। उनकी शिक्षाओं ने लाखों को प्रेरित किया।",
                 "hero-years": "39 वर्षों का जीवन",
                 "btn-explore": "संग्रह देखें",
                 "btn-timeline": "कालक्रम देखें",
+                "explore-title": "संग्रह देखें",
+                "explore-subtitle": "स्वामी विवेकानंद के जीवन, शिक्षाओं और विरासत के बारे में अधिक जानने के लिए नीचे किसी भी अनुभाग पर क्लिक करें",
+                "card-life": "जीवन और कालक्रम",
+                "card-life-desc": "1863-1902",
+                "card-teach": "शिक्षाएं",
+                "card-teach-desc": "दर्शन",
+                "card-achieve": "उपलब्धियां",
+                "card-achieve-desc": "प्रमुख कार्य",
+                "card-works": "पुस्तकें",
+                "card-works-desc": "संपूर्ण कृतियां",
+                "card-legacy": "विरासत",
+                "card-legacy-desc": "वैश्विक प्रभाव",
+                "card-quotes": "अनमोल वचन",
+                "card-quotes-desc": "ज्ञान",
                 "about-label": "इस वेबसाइट के बारे में",
                 "about-text": "यह वेबसाइट स्वामी विवेकानंद के जीवन, विचारों और योगदान का एक संरचित और प्रामाणिक दृष्टिकोण प्रस्तुत करती है। इसका उद्देश्य उनकी आध्यात्मिक यात्रा, दार्शनिक शिक्षाओं और भारत तथा दुनिया पर स्थायी प्रभाव के बारे में स्पष्ट, तथ्यात्मक जानकारी प्रदान करना है।",
                 "vision-title": "मुख्य दृष्टि",
@@ -206,7 +291,4 @@
         }
     </script>
 </body>
-
 </html>
-
-
