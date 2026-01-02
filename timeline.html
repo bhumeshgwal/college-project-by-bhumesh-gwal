@@ -13,7 +13,11 @@
         .bg-navy { background-color: var(--navy-dark); }
         .timeline-line { position: absolute; left: 50%; transform: translateX(-50%); width: 2px; height: 100%; background: #e2e8f0; z-index: 0; }
         @media (max-width: 768px) { .timeline-line { left: 20px; } }
-        .timeline-image { width: 100%; height: 100%; object-fit: cover; }
+        .timeline-image { width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.3s; }
+        .timeline-image.loaded { opacity: 1; }
+        .img-portrait { aspect-ratio: 3/4; max-height: 500px; }
+        .img-landscape { aspect-ratio: 16/9; max-height: 350px; }
+        .img-square { aspect-ratio: 1/1; max-height: 400px; }
     </style>
 </head>
 <body class="bg-gray-50 text-slate-800">
@@ -73,6 +77,26 @@
         ];
 
         let currentLang = 'en';
+
+        function adjustImageContainer(img, index) {
+            const container = document.getElementById(`img-container-${index}`);
+            const aspectRatio = img.naturalWidth / img.naturalHeight;
+            
+            // Remove default aspect-video
+            container.classList.remove('aspect-video');
+            
+            // Apply appropriate class based on aspect ratio
+            if (aspectRatio < 0.9) {
+                container.classList.add('img-portrait');
+            } else if (aspectRatio > 1.5) {
+                container.classList.add('img-landscape');
+            } else {
+                container.classList.add('img-square');
+            }
+            
+            // Fade in image
+            img.classList.add('loaded');
+        }
 
         function renderTimeline() {
             const container = document.getElementById('timeline-container');
