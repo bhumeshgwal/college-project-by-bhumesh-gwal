@@ -3,131 +3,582 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us | Swami Vivekananda Archive</title>
+    <title>About | Swami Vivekananda Archive</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        :root { --primary-orange: #f26522; --navy-dark: #0a1d37; }
-        .text-orange { color: var(--primary-orange); }
-        .bg-orange { background-color: var(--primary-orange); }
-        .bg-navy { background-color: var(--navy-dark); }
-        .contact-card { transition: all 0.3s ease; }
-        .contact-card:hover { border-color: var(--primary-orange); background-color: #fffaf5; }
+        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Inter:wght@300;400;700;900&display=swap');
+
+        :root {
+            --saffron: #f26522;
+            --black: #0f0f0f;
+            --cursor-green: #00ff41;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--black);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        .syncopate { font-family: 'Syncopate', sans-serif; }
+
+        /* CURSOR */
+        #cursor {
+            position: fixed;
+            width: 12px;
+            height: 12px;
+            background: radial-gradient(circle at 30% 30%, #a2ffb8, var(--cursor-green) 80%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            box-shadow: 0 5px 15px rgba(0, 255, 65, 0.4);
+            transform: translate(-50%, -50%);
+            transition: background 0.3s ease;
+        }
+
+        #cursor.hover {
+            background: radial-gradient(circle at 30% 30%, #ffb8a2, var(--saffron) 80%);
+            box-shadow: 0 5px 15px rgba(242, 101, 34, 0.4);
+        }
+
+        .grain {
+            position: fixed;
+            inset: 0;
+            z-index: 9998;
+            opacity: 0.03;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.5'/%3E%3C/svg%3E");
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(20px);
+            background: rgba(15, 15, 15, 0.85);
+            border-bottom: 1px solid rgba(242, 101, 34, 0.1);
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-section {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 900;
+            letter-spacing: -0.05em;
+        }
+
+        .logo-tagline {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: var(--saffron);
+            font-weight: 700;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: color 0.3s ease;
+            cursor: none;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--saffron);
+        }
+
+        .lang-btn {
+            background: var(--saffron);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: none;
+            transition: all 0.3s ease;
+        }
+
+        /* HERO */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            padding: 8rem 2rem 4rem;
+        }
+
+        .giant-title {
+            position: absolute;
+            font-size: 15vw;
+            line-height: 0.8;
+            color: var(--saffron);
+            opacity: 0.03;
+            z-index: 0;
+            pointer-events: none;
+            white-space: nowrap;
+            font-weight: 900;
+        }
+
+        .ashok-chakra {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 40vw;
+            height: 40vw;
+            max-width: 500px;
+            max-height: 500px;
+            opacity: 0.04;
+            z-index: 1;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+        }
+
+        .ashok-chakra svg {
+            width: 100%;
+            height: 100%;
+            fill: var(--saffron);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            max-width: 900px;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            margin-bottom: 2rem;
+            line-height: 1;
+        }
+
+        .hero-desc {
+            font-size: 1.3rem;
+            opacity: 0.7;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        /* CONTENT SECTIONS */
+        .content-section {
+            padding: 6rem 2rem;
+            position: relative;
+        }
+
+        .content-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--saffron);
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .about-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 4px solid var(--saffron);
+            border-radius: 12px;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .about-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(242, 101, 34, 0.25);
+        }
+
+        .about-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(242, 101, 34, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-icon i {
+            font-size: 1.8rem;
+            color: var(--saffron);
+        }
+
+        .card-title {
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .card-text {
+            font-size: 0.95rem;
+            opacity: 0.7;
+            line-height: 1.7;
+        }
+
+        /* PLACEHOLDER CONTENT */
+        .placeholder {
+            background: rgba(242, 101, 34, 0.05);
+            border: 2px dashed rgba(242, 101, 34, 0.2);
+            padding: 4rem 2rem;
+            text-align: center;
+            border-radius: 12px;
+            margin: 2rem 0;
+        }
+
+        .placeholder-icon {
+            font-size: 4rem;
+            color: var(--saffron);
+            opacity: 0.3;
+            margin-bottom: 1rem;
+        }
+
+        .placeholder-text {
+            font-size: 1.2rem;
+            opacity: 0.5;
+            font-style: italic;
+        }
+
+        footer {
+            padding: 3rem 2rem;
+            text-align: center;
+            background: var(--black);
+            border-top: 1px solid rgba(242, 101, 34, 0.1);
+            opacity: 0.5;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
-<body class="bg-gray-50 text-slate-800">
+<body>
 
-    <nav class="sticky top-0 z-50 bg-white shadow-md px-6 py-4">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="flex flex-col">
-                <span class="text-2xl font-black text-slate-900 tracking-tighter">VIVEKANANDA</span>
-                <span class="text-[10px] uppercase tracking-[0.3em] font-bold text-orange">Authentic Archive</span>
+    <div class="grain"></div>
+    <div id="cursor"></div>
+
+    <!-- ASHOK CHAKRA -->
+    <div class="ashok-chakra" id="chakra">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="1"/>
+            <circle cx="50" cy="50" r="8" fill="currentColor"/>
+            <g id="spokes">
+                <line x1="50" y1="50" x2="50" y2="10" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="50" y1="50" x2="68" y2="14" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="50" y1="50" x2="82" y2="24" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="50" y1="50" x2="90" y2="40" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="50" y1="50" x2="90" y2="50" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="50" y1="50" x2="90" y2="60" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="50" y1="50" x2="82" y2="76" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="50" y1="50" x2="68" y2="86" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="50" y1="50" x2="50" y2="90" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="50" y1="50" x2="32" y2="86" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="50" y1="50" x2="18" y2="76" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="50" y1="50" x2="10" y2="60" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="50" y1="50" x2="10" y2="50" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="50" y1="50" x2="10" y2="40" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="50" y1="50" x2="18" y2="24" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="50" y1="50" x2="32" y2="14" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="50" y1="50" x2="59" y2="12" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="50" y1="50" x2="75" y2="18" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="50" y1="50" x2="86" y2="32" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="50" y1="50" x2="88" y2="55" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="50" y1="50" x2="86" y2="68" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="50" y1="50" x2="75" y2="82" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="50" y1="50" x2="59" y2="88" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="50" y1="50" x2="41" y2="88" stroke="currentColor" stroke-width="1.5"/>
+            </g>
+        </svg>
+    </div>
+
+    <!-- NAV -->
+    <nav>
+        <div class="nav-content">
+            <div class="logo-section">
+                <span class="logo-text syncopate" data-key="nav-logo">VIVEKANANDA</span>
+                <span class="logo-tagline syncopate" data-key="nav-tagline">Authentic Archive</span>
             </div>
-            <div class="hidden lg:flex items-center space-x-8 font-bold text-sm uppercase tracking-wide">
-                <a href="index.html" class="hover:text-orange transition">Home</a>
-                <a href="timeline.html" class="hover:text-orange transition">Life</a>
-                <a href="teachings.html" class="hover:text-orange transition">Teachings</a>
-                <a href="achievements.html" class="hover:text-orange transition">Achievements</a>
-                <a href="works.html" class="hover:text-orange transition">Works</a>
-                <a href="legacy.html" class="hover:text-orange transition">Legacy</a>
-                <a href="quotes.html" class="hover:text-orange transition">Quotes</a>
-                <a href="about.html" class="text-orange">About</a>
+
+            <div class="nav-links">
+                <a href="index.html" data-key="nav-home">Home</a>
+                <a href="timeline.html" data-key="nav-life">Life</a>
+                <a href="teachings.html" data-key="nav-teachings">Teachings</a>
+                <a href="works.html" data-key="nav-works">Works</a>
+                <a href="legacy.html" data-key="nav-legacy">Legacy</a>
+                <a href="quotes.html" data-key="nav-quotes">Quotes</a>
+                <a href="about.html" class="active" data-key="nav-about">About</a>
             </div>
+
+            <button onclick="toggleLanguage()" id="langBtn" class="lang-btn">हिन्दी</button>
         </div>
     </nav>
 
-    <section class="bg-navy py-16 px-6 text-center text-white">
-        <h1 class="text-4xl font-black mb-4">About Me / हमारे बारे में</h1>
-        <div class="w-20 h-1 bg-orange mx-auto"></div>
+    <!-- HERO -->
+    <section class="hero-section">
+        <div class="giant-title syncopate">ABOUT</div>
+        <div class="hero-content">
+            <h1 class="hero-title syncopate" data-key="hero-title">About This <span style="color: var(--saffron);">Archive</span></h1>
+            <p class="hero-desc" data-key="hero-desc">
+                A comprehensive, authentic digital resource dedicated to preserving and sharing the life, teachings, and legacy of Swami Vivekananda.
+            </p>
+        </div>
     </section>
 
-    <main class="max-w-4xl mx-auto py-20 px-6">
-        <div class="bg-white p-10 rounded-2xl shadow-sm border-t-8 border-orange">
-            <h2 class="text-3xl font-black text-navy mb-6">Namaste / नमस्ते,</h2>
+    <!-- MISSION SECTION -->
+    <section class="content-section">
+        <div class="content-container">
+            <h2 class="section-title syncopate" data-key="mission-title">Our Mission</h2>
             
-            <div class="prose prose-lg max-w-none mb-10">
-                <p class="text-xl leading-relaxed text-slate-600 mb-6">
-                    मेरा नाम <strong class="text-navy">भुमेश ग्वाल (Bhumesh Gwal)</strong> है। मैं इस वेबसाइट का निर्माता हूँ।
-                </p>
-                
-                <p class="text-lg leading-relaxed text-slate-600 mb-6">
-                    यह वेबसाइट स्वामी विवेकानंद के जीवन, विचारों और योगदान को छात्रों, शोधकर्ताओं और पाठकों तक <strong>संगठित, तथ्यात्मक और प्रामाणिक रूप में</strong> पहुँचाने के उद्देश्य से बनाई गई है।
-                </p>
+            <div class="placeholder">
+                <div class="placeholder-icon"><i class="fa-solid fa-compass"></i></div>
+                <p class="placeholder-text">Mission statement content to be added</p>
+            </div>
+        </div>
+    </section>
 
-                <p class="text-lg leading-relaxed text-slate-600 mb-6">
-                    मेरा उद्देश्य है कि स्वामी विवेकानंद की शिक्षाएं, उनका दर्शन और उनकी विरासत सभी के लिए सुलभ हो—विशेष रूप से युवाओं के लिए जो प्रेरणा और मार्गदर्शन की खोज में हैं।
-                </p>
-
-                <div class="bg-orange/5 border-l-4 border-orange p-6 rounded-lg my-8">
-                    <p class="text-slate-700 italic">
-                        "This archive is a humble attempt to present the life and teachings of one of India's greatest spiritual leaders in a clear, accessible, and factual manner."
+    <!-- FEATURES SECTION -->
+    <section class="content-section">
+        <div class="content-container">
+            <h2 class="section-title syncopate" data-key="features-title">What We Offer</h2>
+            
+            <div class="card-grid">
+                <div class="about-card">
+                    <div class="about-icon">
+                        <i class="fa-solid fa-book-open"></i>
+                    </div>
+                    <h3 class="card-title" data-key="feat1-title">Complete Works</h3>
+                    <p class="card-text" data-key="feat1-text">
+                        Access to all published writings, lectures, and correspondence with translations
                     </p>
                 </div>
 
-                <p class="text-lg leading-relaxed text-slate-600">
-                    यदि आपके पास कोई सुझाव, प्रतिक्रिया या सुधार के लिए जानकारी है, तो कृपया मुझसे संपर्क करें। आपका योगदान इस वेबसाइट को और बेहतर बनाने में सहायक होगा।
-                </p>
-            </div>
+                <div class="about-card">
+                    <div class="about-icon">
+                        <i class="fa-solid fa-timeline"></i>
+                    </div>
+                    <h3 class="card-title" data-key="feat2-title">Historical Timeline</h3>
+                    <p class="card-text" data-key="feat2-text">
+                        Chronological journey through key events and transformative moments
+                    </p>
+                </div>
 
-            <hr class="my-10 opacity-20">
-
-            <h3 class="text-2xl font-bold text-navy uppercase tracking-widest mb-8 text-center">संपर्क करें / Contact Me</h3>
-            
-            <div class="grid md:grid-cols-2 gap-6">
-                <a href="mailto:bhumeshom@gmail.com" class="contact-card border-2 border-slate-200 p-6 rounded-xl flex items-center group">
-                    <div class="w-14 h-14 bg-orange/10 text-orange rounded-full flex items-center justify-center mr-4 group-hover:bg-orange group-hover:text-white transition text-xl">
-                        <i class="fa-solid fa-envelope"></i>
+                <div class="about-card">
+                    <div class="about-icon">
+                        <i class="fa-solid fa-language"></i>
                     </div>
-                    <div>
-                        <p class="text-xs font-bold uppercase text-slate-400 mb-1">Email</p>
-                        <p class="font-bold text-navy text-lg">bhumeshom@gmail.com</p>
-                    </div>
-                </a>
-
-                <a href="tel:8982300250" class="contact-card border-2 border-slate-200 p-6 rounded-xl flex items-center group">
-                    <div class="w-14 h-14 bg-orange/10 text-orange rounded-full flex items-center justify-center mr-4 group-hover:bg-orange group-hover:text-white transition text-xl">
-                        <i class="fa-solid fa-phone"></i>
-                    </div>
-                    <div>
-                        <p class="text-xs font-bold uppercase text-slate-400 mb-1">WhatsApp / Phone</p>
-                        <p class="font-bold text-navy text-lg">+91 8982300250</p>
-                    </div>
-                </a>
-
-                <a href="https://www.instagram.com/b_h_u_m_e_s_h" target="_blank" class="contact-card border-2 border-slate-200 p-6 rounded-xl flex items-center group">
-                    <div class="w-14 h-14 bg-orange/10 text-orange rounded-full flex items-center justify-center mr-4 group-hover:bg-orange group-hover:text-white transition text-xl">
-                        <i class="fa-brands fa-instagram"></i>
-                    </div>
-                    <div>
-                        <p class="text-xs font-bold uppercase text-slate-400 mb-1">Instagram</p>
-                        <p class="font-bold text-navy text-lg">@b_h_u_m_e_s_h</p>
-                    </div>
-                </a>
-
-                <a href="https://in.linkedin.com/in/bhumesh-gwal-03aa0836b" target="_blank" class="contact-card border-2 border-slate-200 p-6 rounded-xl flex items-center group">
-                    <div class="w-14 h-14 bg-orange/10 text-orange rounded-full flex items-center justify-center mr-4 group-hover:bg-orange group-hover:text-white transition text-xl">
-                        <i class="fa-brands fa-linkedin-in"></i>
-                    </div>
-                    <div>
-                        <p class="text-xs font-bold uppercase text-slate-400 mb-1">LinkedIn</p>
-                        <p class="font-bold text-navy text-lg">Bhumesh Gwal</p>
-                    </div>
-                </a>
-            </div>
-
-            <div class="mt-10 text-center">
-                <p class="text-slate-500 text-sm">
-                    धन्यवाद / Thank you for visiting this archive. <br>
-                    <span class="text-orange font-bold">जय स्वामी विवेकानंद!</span>
-                </p>
+                    <h3 class="card-title" data-key="feat3-title">Bilingual Content</h3>
+                    <p class="card-text" data-key="feat3-text">
+                        All content available in both English and Hindi for wider accessibility
+                    </p>
+                </div>
             </div>
         </div>
-    </main>
+    </section>
 
-    <footer class="bg-navy py-10 text-center text-white/40 text-sm">
-        <p>© 2024 Swami Vivekananda Archive | Designed & Developed by Bhumesh Gwal</p>
-        <p class="mt-2 text-xs opacity-60">Built with dedication for students, researchers, and spiritual seekers.</p>
+    <!-- SOURCES SECTION -->
+    <section class="content-section">
+        <div class="content-container">
+            <h2 class="section-title syncopate" data-key="sources-title">Sources & References</h2>
+            
+            <div class="placeholder">
+                <div class="placeholder-icon"><i class="fa-solid fa-database"></i></div>
+                <p class="placeholder-text">Bibliography and source references to be added</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section class="content-section">
+        <div class="content-container">
+            <h2 class="section-title syncopate" data-key="contact-title">Get In Touch</h2>
+            
+            <div class="placeholder">
+                <div class="placeholder-icon"><i class="fa-solid fa-envelope"></i></div>
+                <p class="placeholder-text">Contact information and form to be added</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p data-key="footer-text">© 2024 Swami Vivekananda Archive - Factual & Authentic Reference</p>
     </footer>
 
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        const content = {
+            "en": {
+                "nav-logo": "VIVEKANANDA",
+                "nav-tagline": "Authentic Archive",
+                "nav-home": "Home",
+                "nav-life": "Life",
+                "nav-teachings": "Teachings",
+                "nav-works": "Works",
+                "nav-legacy": "Legacy",
+                "nav-quotes": "Quotes",
+                "nav-about": "About",
+                "hero-title": "About This Archive",
+                "hero-desc": "A comprehensive, authentic digital resource dedicated to preserving and sharing the life, teachings, and legacy of Swami Vivekananda.",
+                "mission-title": "Our Mission",
+                "features-title": "What We Offer",
+                "feat1-title": "Complete Works",
+                "feat1-text": "Access to all published writings, lectures, and correspondence with translations",
+                "feat2-title": "Historical Timeline",
+                "feat2-text": "Chronological journey through key events and transformative moments",
+                "feat3-title": "Bilingual Content",
+                "feat3-text": "All content available in both English and Hindi for wider accessibility",
+                "sources-title": "Sources & References",
+                "contact-title": "Get In Touch",
+                "footer-text": "© 2024 Swami Vivekananda Archive - Factual & Authentic Reference"
+            },
+            "hi": {
+                "nav-logo": "विवेकानंद",
+                "nav-tagline": "प्रामाणिक संग्रहालय",
+                "nav-home": "होम",
+                "nav-life": "जीवन",
+                "nav-teachings": "शिक्षाएं",
+                "nav-works": "कृतियां",
+                "nav-legacy": "विरासत",
+                "nav-quotes": "अनमोल वचन",
+                "nav-about": "हमारे बारे में",
+                "hero-title": "इस संग्रह के बारे में",
+                "hero-desc": "स्वामी विवेकानंद के जीवन, शिक्षाओं और विरासत को संरक्षित और साझा करने के लिए समर्पित एक व्यापक, प्रामाणिक डिजिटल संसाधन।",
+                "mission-title": "हमारा मिशन",
+                "features-title": "हम क्या प्रदान करते हैं",
+                "feat1-title": "संपूर्ण कार्य",
+                "feat1-text": "अनुवाद के साथ सभी प्रकाशित लेखन, व्याख्यान और पत्राचार तक पहुंच",
+                "feat2-title": "ऐतिहासिक कालक्रम",
+                "feat2-text": "प्रमुख घटनाओं और परिवर्तनकारी क्षणों के माध्यम से कालानुक्रमिक यात्रा",
+                "feat3-title": "द्विभाषी सामग्री",
+                "feat3-text": "व्यापक पहुंच के लिए अंग्रेजी और हिंदी दोनों में उपलब्ध सभी सामग्री",
+                "sources-title": "स्रोत और संदर्भ",
+                "contact-title": "संपर्क करें",
+                "footer-text": "© 2024 स्वामी विवेकानंद आर्काइव - तथ्यात्मक और प्रामाणिक संदर्भ"
+            }
+        };
+
+        let currentLang = 'en';
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'hi' : 'en';
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (content[currentLang][key]) {
+                    el.innerText = content[currentLang][key];
+                }
+            });
+            document.getElementById('langBtn').innerText = currentLang === 'en' ? 'हिन्दी' : 'English';
+        }
+
+        // CURSOR
+        const cursor = document.querySelector('#cursor');
+        let mouseX = 0, mouseY = 0;
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            gsap.to(cursor, { x: mouseX, y: mouseY, duration: 0.1 });
+        });
+
+        document.querySelectorAll('a, button').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
+
+        // ASHOK CHAKRA ROTATION
+        gsap.to('#chakra svg', {
+            scrollTrigger: {
+                trigger: 'body',
+                start: 'top top',
+                end: 'bottom bottom',
+                scrub: 1
+            },
+            rotation: 360,
+            ease: 'none'
+        });
+
+        // PARALLAX
+        gsap.to('.giant-title', {
+            scrollTrigger: {
+                trigger: '.hero-section',
+                start: 'top top',
+                end: 'bottom top',
+                scrub: 1
+            },
+            xPercent: -15,
+            ease: 'none'
+        });
+
+        // CARD ANIMATIONS
+        gsap.utils.toArray('.about-card').forEach(card => {
+            gsap.from(card, {
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top 85%'
+                },
+                y: 60,
+                opacity: 0,
+                duration: 0.8,
+                ease: 'power2.out'
+            });
+        });
+    </script>
 </body>
 </html>
