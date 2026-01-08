@@ -168,26 +168,28 @@
             font-weight: 900;
         }
 
+        /* MODERN ORBIT CHAKRA STYLING */
         .ashok-chakra {
             position: fixed;
             top: 50%;
             left: 50%;
-            width: 40vw;
-            height: 40vw;
-            max-width: 500px;
-            max-height: 500px;
-            opacity: 0.04;
+            width: 50vw;
+            height: 50vw;
+            max-width: 600px;
+            max-height: 600px;
+            opacity: 0.12; /* Increased slightly to show the glow better */
             z-index: 1;
             pointer-events: none;
             transform: translate(-50%, -50%);
+            filter: drop-shadow(0 0 10px var(--saffron));
         }
 
         .ashok-chakra svg {
             width: 100%;
             height: 100%;
-            fill: var(--saffron);
+            overflow: visible !important;
+            color: var(--saffron);
         }
-
         .hero-content {
             position: relative;
             z-index: 10;
@@ -308,47 +310,81 @@
             opacity: 0.5;
             font-size: 0.85rem;
         }
+        /* THE ANOMALY */
+        #anomaly-core {
+            position: fixed;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: white;
+            filter: blur(15px);
+            mix-blend-mode: difference; /* This makes it change color based on background */
+            z-index: 10002;
+            pointer-events: none;
+            box-shadow: 0 0 50px white, 0 0 100px var(--saffron);
+            opacity: 0;
+        }
+
+        .anomaly-active {
+            animation: pulse-energy 0.2s infinite alternate;
+        }
+
+        @keyframes pulse-energy {
+            from { transform: translate(-50%, -50%) scale(1); filter: blur(15px); }
+            to { transform: translate(-50%, -50%) scale(1.2); filter: blur(5px); }
+        }
     </style>
 </head>
 <body>
 
-    <div class="grain"></div>
-    <div id="cursor"></div>
+<div class="ashok-chakra" id="chakra">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="overflow: visible;">
+            <defs>
+                <filter id="softGlow">
+                    <feGaussianBlur stdDeviation="1.5" result="blur"/>
+                    <feMerge>
+                        <feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                </filter>
+                <filter id="greenGlow">
+                    <feGaussianBlur stdDeviation="2" result="blur"/>
+                    <feMerge>
+                        <feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                </filter>
+            </defs>
 
-    <!-- ROTATING ASHOK CHAKRA -->
-    <div class="ashok-chakra" id="chakra">
-        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="1"/>
-            <circle cx="50" cy="50" r="8" fill="currentColor"/>
-            <g id="spokes">
-                <line x1="50" y1="50" x2="50" y2="10" stroke="currentColor" stroke-width="1.5"/>
-                <line x1="50" y1="50" x2="68" y2="14" stroke="currentColor" stroke-width="1.5"/>
-                <line x1="50" y1="50" x2="82" y2="24" stroke="currentColor" stroke-width="1.5"/>
-                <line x1="50" y1="50" x2="90" y2="40" stroke="currentColor" stroke-width="1.5"/>
-                <line x1="50" y1="50" x2="90" y2="50" stroke="currentColor" stroke-width="1.5"/>
-                <line x1="50" y1="50" x2="90" y2="60" stroke="currentColor" stroke-width="1.5"/>
-                <line x1="50" y1="50" x2="82" y2="76" stroke="currentColor" stroke-width="1.5"/>
-                <line x1="50" y1="50" x2="68" y2="86" stroke="currentColor" stroke-width="1.5"/>
-                <line x1="50" y1="50" x2="50" y2="90" stroke="currentColor" stroke-width="1.5"/>
-                <line x1="50" y1="50" x2="32" y2="86" stroke="currentColor" stroke-width="1.5"/>
-                <line x1="50" y1="50" x2="18" y2="76" stroke="currentColor" stroke-width="1.5"/>
-                <line x1="50" y1="50" x2="10" y2="60" stroke="currentColor" stroke-width="1.5"/>
-                <line x1="50" y1="50" x2="10" y2="50" stroke="currentColor" stroke-width="1.5"/>
-                <line x1="50" y1="50" x2="10" y2="40" stroke="currentColor" stroke-width="1.5"/>
-                <line x1="50" y1="50" x2="18" y2="24" stroke="currentColor" stroke-width="1.5"/>
-                <line x1="50" y1="50" x2="32" y2="14" stroke="currentColor" stroke-width="1.5"/>
-                <line x1="50" y1="50" x2="59" y2="12" stroke="currentColor" stroke-width="1.5"/>
-                <line x1="50" y1="50" x2="75" y2="18" stroke="currentColor" stroke-width="1.5"/>
-                <line x1="50" y1="50" x2="86" y2="32" stroke="currentColor" stroke-width="1.5"/>
-                <line x1="50" y1="50" x2="88" y2="55" stroke="currentColor" stroke-width="1.5"/>
-                <line x1="50" y1="50" x2="86" y2="68" stroke="currentColor" stroke-width="1.5"/>
-                <line x1="50" y1="50" x2="75" y2="82" stroke="currentColor" stroke-width="1.5"/>
-                <line x1="50" y1="50" x2="59" y2="88" stroke="currentColor" stroke-width="1.5"/>
-                <line x1="50" y1="50" x2="41" y2="88" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="50" cy="50" r="56" fill="none" stroke="currentColor" stroke-width="0.2" stroke-dasharray="1 3" opacity="0.2" />
+            
+            <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="0.5" opacity="0.3"/>
+            
+            <circle cx="50" cy="50" r="8" fill="currentColor" filter="url(#softGlow)"/>
+
+            <g id="chakra-spokes" filter="url(#softGlow)">
+                <script>
+                    for (let i = 0; i < 24; i++) {
+                        const angle = i * 15;
+                        document.write(`
+                            <g transform="rotate(${angle} 50 50)">
+                                <line x1="50" y1="50" x2="50" y2="5" stroke="currentColor" stroke-width="0.6" opacity="0.6"/>
+                                <path d="M50 38 L48.8 22 L50 5 L51.2 22 Z" fill="currentColor" />
+                                <circle cx="50" cy="5" r="1.2" fill="currentColor" />
+                            </g>
+                        `);
+                    }
+                </script>
+            </g>
+
+            <g filter="url(#greenGlow)">
+                <circle r="3" fill="var(--cursor-green, #00ff41)">
+                    <animateMotion 
+                        dur="8s" 
+                        repeatCount="indefinite" 
+                        path="M 50,50 m -56,0 a 56,56 0 1,0 112,0 a 56,56 0 1,0 -112,0" />
+                </circle>
             </g>
         </svg>
     </div>
-
     <!-- NAV -->
     <nav>
         <div class="nav-content">
@@ -552,7 +588,74 @@
             document.getElementById('langBtn').innerText = currentLang === 'en' ? 'हिन्दी' : 'English';
             renderTimeline();
         }
+        const anomaly = document.getElementById('anomaly-core');
+        let anomalyActive = false;
+        let aPos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+        let aTarget = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
 
+        // Anomaly behavior: Satifying "Magnetic" drag
+        function updateAnomaly() {
+            // High tension spring physics
+            aPos.x += (aTarget.x - aPos.x) * 0.08;
+            aPos.y += (aTarget.y - aPos.y) * 0.08;
+            
+            gsap.set(anomaly, { x: aPos.x, y: aPos.y });
+            requestAnimationFrame(updateAnomaly);
+        }
+        updateAnomaly();
+
+        // Trigger: Surprise focus when mouse gets near the center of the Chakra
+        window.addEventListener('mousemove', (e) => {
+            const chakra = document.getElementById('chakra');
+            const rect = chakra.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            
+            const dist = Math.hypot(e.clientX - centerX, e.clientY - centerY);
+
+            if (dist < 100 && !anomalyActive) {
+                // SURPRISE TRIGGER
+                anomalyActive = true;
+                gsap.to(anomaly, { width: 60, height: 60, opacity: 0.8, duration: 0.5, ease: "back.out(2)" });
+                anomaly.classList.add('anomaly-active');
+                
+                // Vibrate the actual cursor away for a moment
+                gsap.to('#cursor', { opacity: 0, duration: 0.2 });
+            }
+
+            if (anomalyActive) {
+                aTarget.x = e.clientX;
+                aTarget.y = e.clientY;
+
+                // Satisfying effect: If moving fast, stretch the anomaly
+                const speed = Math.hypot(e.movementX, e.movementY);
+                gsap.to(anomaly, { 
+                    scaleX: 1 + (speed / 20), 
+                    scaleY: 1 - (speed / 40),
+                    rotation: Math.atan2(e.movementY, e.movementX) * 180 / Math.PI,
+                    duration: 0.2 
+                });
+
+                // Escape mechanism: Snap back if moved too far from Chakra or fast shake
+                if (dist > 400) {
+                    anomalyActive = false;
+                    gsap.to(anomaly, { width: 0, height: 0, opacity: 0, duration: 0.4 });
+                    gsap.to('#cursor', { opacity: 1, duration: 0.5 });
+                }
+            }
+        });
+
+        // Add satisfying "Absorption" when clicking
+        window.addEventListener('mousedown', () => {
+            if (anomalyActive) {
+                gsap.to(anomaly, { scale: 0.5, filter: "blur(0px)", boxShadow: "0 0 100px 50px white", duration: 0.1 });
+            }
+        });
+        window.addEventListener('mouseup', () => {
+            if (anomalyActive) {
+                gsap.to(anomaly, { scale: 1, filter: "blur(15px)", boxShadow: "0 0 50px white", duration: 0.3 });
+            }
+        });
         // CURSOR
         const cursor = document.querySelector('#cursor');
         let mouseX = 0, mouseY = 0, lastX = 0, lastY = 0;
@@ -588,19 +691,14 @@
             el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
             el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
         });
-
-        // ASHOK CHAKRA ROTATION
-        gsap.to('#chakra svg', {
-            scrollTrigger: {
-                trigger: 'body',
-                start: 'top top',
-                end: 'bottom bottom',
-                scrub: 1
-            },
-            rotation: 360 * 2,
-            ease: 'none'
+// Make the orbiting green ball breathe/pulse
+        gsap.to('.ashok-chakra circle[fill*="var(--cursor-green)"]', {
+            r: 4.5,
+            duration: 2,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut"
         });
-
         // PARALLAX ON GIANT TITLE
         gsap.to('.giant-title', {
             scrollTrigger: {
