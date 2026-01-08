@@ -15,7 +15,7 @@
         body{background-color:var(--black);color:#fff;font-family:Inter,sans-serif;overflow-x:hidden;cursor:none}
         .syncopate{font-family:Syncopate,sans-serif}
         .page-transition{position:fixed;inset:0;background:var(--black);z-index:10001;pointer-events:none;opacity:0}
-        #cursor{position:fixed;width:12px;height:12px;background:radial-gradient(circle at 30% 30%,#a2ffb8,var(--cursor-green) 80%);border-radius:50%;pointer-events:none;z-index:10000;box-shadow:0 5px 15px rgba(0,255,65,.4);transform:translate(-50%,-50%)}
+        #cursor{position:fixed;width:12px;height:12px;background:radial-gradient(circle at 30% 30%,#a2ffb8,var(--cursor-green) 80%);border-radius:50%;pointer-events:none;z-index:10000;box-shadow:0 5px 15px rgba(0,255,65,.4);transform:translate(-50%,-50%);transition:width 0.3s, height 0.3s, background 0.3s}
         #cursor.hover{width:24px;height:24px;background:radial-gradient(circle at 30% 30%,#ffb8a2,var(--saffron) 80%);box-shadow:0 8px 25px rgba(242,101,34,.6)}
         .particle{position:fixed;width:4px;height:4px;background:var(--cursor-green);border-radius:50%;pointer-events:none;z-index:9999;opacity:.6}
         .grain{position:fixed;inset:0;z-index:9998;opacity:.03;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.5'/%3E%3C/svg%3E")}
@@ -27,7 +27,8 @@
         .nav-links{display:flex;gap:2rem;align-items:center}
         .nav-links a{color:rgba(255,255,255,.7);text-decoration:none;font-size:.85rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;transition:color .3s;cursor:none}
         .nav-links a.active,.nav-links a:hover{color:var(--saffron)}
-        .lang-btn{background:var(--saffron);color:#fff;padding:.75rem 1.5rem;border:none;border-radius:50px;font-weight:700;font-size:.85rem;cursor:none}
+        .lang-btn{background:var(--saffron);color:#fff;padding:.75rem 1.5rem;border:none;border-radius:50px;font-weight:700;font-size:.85rem;cursor:none;transition:transform 0.2s}
+        .lang-btn:active{transform:scale(0.95)}
         .ashok-chakra{position:fixed;top:50%;left:50%;width:50vw;height:50vw;max-width:600px;max-height:600px;opacity:.06;z-index:1;pointer-events:none;transform:translate(-50%,-50%)}
         .ashok-chakra svg{width:100%;height:100%}
         .chakra-circle{fill:none;stroke:var(--saffron);stroke-width:1}
@@ -38,11 +39,11 @@
         .hero-content{position:relative;z-index:10;max-width:900px}
         .hero-title{font-size:clamp(3rem,8vw,6rem);font-weight:900;margin-bottom:2rem;line-height:1}
         .hero-desc{font-size:1.2rem;opacity:.7;line-height:1.8;font-weight:300}
-        .content-section{padding:6rem 2rem;position:relative}
+        .content-section{padding:6rem 2rem;position:relative;z-index:10}
         .content-container{max-width:1400px;margin:0 auto}
         .section-title{font-size:2.5rem;font-weight:900;color:var(--saffron);margin-bottom:3rem;text-align:center}
         .books-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:2rem}
-        .book-card{background:rgba(255,255,255,.03);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.05);border-radius:12px;padding:2.5rem;transition:all .4s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column}
+        .book-card{background:rgba(255,255,255,.03);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.05);border-radius:12px;padding:2.5rem;transition:all .4s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;height:100%}
         .book-card:hover{transform:translateY(-10px);box-shadow:0 20px 50px rgba(242,101,34,.3);background:rgba(255,255,255,.06);border-color:rgba(242,101,34,.3)}
         .book-icon{width:50px;height:70px;background:rgba(20,20,20,.8);border-left:4px solid var(--saffron);border-radius:4px;display:flex;align-items:center;justify-content:center;margin-bottom:1.5rem;box-shadow:2px 2px 10px rgba(0,0,0,.3)}
         .book-icon i{font-size:1.5rem;color:var(--saffron)}
@@ -56,164 +57,221 @@
     </style>
 </head>
 <body>
+
 <div class="page-transition" id="pageTransition"></div>
 <div class="grain"></div>
 <div id="cursor"></div>
-<div class="ashok-chakra" id="chakra"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="45" class="chakra-circle"/><circle cx="50" cy="50" r="8" class="chakra-center"/><g><line x1="50" y1="50" x2="50" y2="10" class="chakra-spoke"/><line x1="50" y1="50" x2="59" y2="11" class="chakra-spoke"/><line x1="50" y1="50" x2="68" y2="14" class="chakra-spoke"/><line x1="50" y1="50" x2="76" y2="19" class="chakra-spoke"/><line x1="50" y1="50" x2="82" y2="26" class="chakra-spoke"/><line x1="50" y1="50" x2="87" y2="34" class="chakra-spoke"/><line x1="50" y1="50" x2="90" y2="43" class="chakra-spoke"/><line x1="50" y1="50" x2="90" y2="50" class="chakra-spoke"/><line x1="50" y1="50" x2="90" y2="57" class="chakra-spoke"/><line x1="50" y1="50" x2="87" y2="66" class="chakra-spoke"/><line x1="50" y1="50" x2="82" y2="74" class="chakra-spoke"/><line x1="50" y1="50" x2="76" y2="81" class="chakra-spoke"/><line x1="50" y1="50" x2="68" y2="86" class="chakra-spoke"/><line x1="50" y1="50" x2="59" y2="89" class="chakra-spoke"/><line x1="50" y1="50" x2="50" y2="90" class="chakra-spoke"/><line x1="50" y1="50" x2="41" y2="89" class="chakra-spoke"/><line x1="50" y1="50" x2="32" y2="86" class="chakra-spoke"/><line x1="50" y1="50" x2="24" y2="81" class="chakra-spoke"/><line x1="50" y1="50" x2="18" y2="74" class="chakra-spoke"/><line x1="50" y1="50" x2="13" y2="66" class="chakra-spoke"/><line x1="50" y1="50" x2="10" y2="57" class="chakra-spoke"/><line x1="50" y1="50" x2="10" y2="50" class="chakra-spoke"/><line x1="50" y1="50" x2="10" y2="43" class="chakra-spoke"/><line x1="50" y1="50" x2="13" y2="34" class="chakra-spoke"/><line x1="50" y1="50" x2="18" y2="26" class="chakra-spoke"/><line x1="50" y1="50" x2="24" y2="19" class="chakra-spoke"/><line x1="50" y1="50" x2="32" y2="14" class="chakra-spoke"/><line x1="50" y1="50" x2="41" y2="11" class="chakra-spoke"/></g></svg></div>
-<nav><div class="nav-content"><div class="logo-section"><span class="logo-text syncopate" data-key="nav-logo">VIVEKANANDA</span><span class="logo-tagline syncopate" data-key="nav-tagline">Authentic Archive</span></div><div class="nav-links"><a href="index.html" data-key="nav-home">Home</a><a href="timeline.html" data-key="nav-life">Life</a><a href="teachings.html" data-key="nav-teachings">Teachings</a><a href="works.html" class="active" data-key="nav-works">Works</a><a href="legacy.html" data-key="nav-legacy">Legacy</a><a href="quotes.html" data-key="nav-quotes">Quotes</a><a href="about.html" data-key="nav-about">About</a></div><button onclick="toggleLanguage()" id="langBtn" class="lang-btn">हिन्दी</button></div></nav>
-<section class="hero-section"><div class="giant-title syncopate">WORKS</div><div class="hero-content"><h1 class="hero-title syncopate" data-key="hero-title">Works & <span style="color:var(--saffron)">Books</span></h1><p class="hero-desc" data-key="hero-desc">Essential collection of writings by Swami Vivekananda and authoritative biographies. All books available to read online for free.</p></div></section>
-<section class="content-section"><div class="content-container"><h2 class="section-title syncopate" data-key="section1-title">Books BY Swami Vivekananda</h2><div class="books-grid" id="booksByGrid"></div><div class="divider"></div><h2 class="section-title syncopate" data-key="section2-title">Books ABOUT Swami Vivekananda</h2><div class="books-grid" id="booksAboutGrid"></div></div></section>
-<footer><p data-key="footer-text">© 2024 Swami Vivekananda Archive - Factual & Authentic Reference</p></footer>
+
+<div class="ashok-chakra" id="chakra">
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="45" class="chakra-circle"/>
+        <circle cx="50" cy="50" r="8" class="chakra-center"/>
+        <g id="spoke-group">
+            <line x1="50" y1="50" x2="50" y2="10" class="chakra-spoke"/><line x1="50" y1="50" x2="59" y2="11" class="chakra-spoke"/><line x1="50" y1="50" x2="68" y2="14" class="chakra-spoke"/><line x1="50" y1="50" x2="76" y2="19" class="chakra-spoke"/><line x1="50" y1="50" x2="82" y2="26" class="chakra-spoke"/><line x1="50" y1="50" x2="87" y2="34" class="chakra-spoke"/><line x1="50" y1="50" x2="90" y2="43" class="chakra-spoke"/><line x1="50" y1="50" x2="90" y2="50" class="chakra-spoke"/><line x1="50" y1="50" x2="90" y2="57" class="chakra-spoke"/><line x1="50" y1="50" x2="87" y2="66" class="chakra-spoke"/><line x1="50" y1="50" x2="82" y2="74" class="chakra-spoke"/><line x1="50" y1="50" x2="76" y2="81" class="chakra-spoke"/><line x1="50" y1="50" x2="68" y2="86" class="chakra-spoke"/><line x1="50" y1="50" x2="59" y2="89" class="chakra-spoke"/><line x1="50" y1="50" x2="50" y2="90" class="chakra-spoke"/><line x1="50" y1="50" x2="41" y2="89" class="chakra-spoke"/><line x1="50" y1="50" x2="32" y2="86" class="chakra-spoke"/><line x1="50" y1="50" x2="24" y2="81" class="chakra-spoke"/><line x1="50" y1="50" x2="18" y2="74" class="chakra-spoke"/><line x1="50" y1="50" x2="13" y2="66" class="chakra-spoke"/><line x1="50" y1="50" x2="10" y2="57" class="chakra-spoke"/><line x1="50" y1="50" x2="10" y2="50" class="chakra-spoke"/><line x1="50" y1="50" x2="10" y2="43" class="chakra-spoke"/><line x1="50" y1="50" x2="13" y2="34" class="chakra-spoke"/><line x1="50" y1="50" x2="18" y2="26" class="chakra-spoke"/><line x1="50" y1="50" x2="24" y2="19" class="chakra-spoke"/><line x1="50" y1="50" x2="32" y2="14" class="chakra-spoke"/><line x1="50" y1="50" x2="41" y2="11" class="chakra-spoke"/>
+        </g>
+    </svg>
+</div>
+
+<nav>
+    <div class="nav-content">
+        <div class="logo-section">
+            <span class="logo-text syncopate" data-key="nav-logo">VIVEKANANDA</span>
+            <span class="logo-tagline syncopate" data-key="nav-tagline">Authentic Archive</span>
+        </div>
+        <div class="nav-links">
+            <a href="index.html" data-key="nav-home">Home</a>
+            <a href="timeline.html" data-key="nav-life">Life</a>
+            <a href="teachings.html" data-key="nav-teachings">Teachings</a>
+            <a href="works.html" class="active" data-key="nav-works">Works</a>
+            <a href="legacy.html" data-key="nav-legacy">Legacy</a>
+            <a href="quotes.html" data-key="nav-quotes">Quotes</a>
+            <a href="about.html" data-key="nav-about">About</a>
+        </div>
+        <button onclick="toggleLanguage()" id="langBtn" class="lang-btn">हिन्दी</button>
+    </div>
+</nav>
+
+<section class="hero-section">
+    <div class="giant-title syncopate">WORKS</div>
+    <div class="hero-content">
+        <h1 class="hero-title syncopate" data-key="hero-title">Works & <span style="color:var(--saffron)">Books</span></h1>
+        <p class="hero-desc" data-key="hero-desc">Essential collection of writings by Swami Vivekananda and authoritative biographies. All books available to read online for free.</p>
+    </div>
+</section>
+
+<section class="content-section">
+    <div class="content-container">
+        <h2 class="section-title syncopate" data-key="section1-title">Books BY Swami Vivekananda</h2>
+        <div class="books-grid" id="booksByGrid"></div>
+        
+        <div class="divider"></div>
+        
+        <h2 class="section-title syncopate" data-key="section2-title">Books ABOUT Swami Vivekananda</h2>
+        <div class="books-grid" id="booksAboutGrid"></div>
+    </div>
+</section>
+
+<footer>
+    <p data-key="footer-text">© 2024 Swami Vivekananda Archive - Factual & Authentic Reference</p>
+</footer>
+
 <script>
-gsap.registerPlugin(ScrollTrigger);
+    gsap.registerPlugin(ScrollTrigger);
 
-const booksByVivekananda=[
-{en_t:"Complete Works (9 Volumes)",hi_t:"संपूर्ण साहित्य (9 खंड)",en_d:"Comprehensive nine-volume collection of all lectures, writings, letters, poems, and conversations. Covers philosophy, religion, education, social reform, and spirituality.",hi_d:"सभी व्याख्यानों, लेखों, पत्रों, कविताओं का व्यापक संग्रह।",link:"https://www.ramakrishnavivekananda.info/vivekananda/complete_works.htm"},
-{en_t:"Raja Yoga",hi_t:"राज योग",en_d:"Systematic exposition of Patanjali's Yoga Sutras with practical meditation instructions. One of the first books to introduce yoga to Western audiences scientifically.",hi_d:"पतंजलि के योग सूत्र की व्यवस्थित व्याख्या।",link:"https://archive.org/details/RajaYogaBySwamiVivekananda"},
-{en_t:"Karma Yoga",hi_t:"कर्म योग",en_d:"Path of selfless action without attachment to results. Based on Bhagavad Gita, explains how work becomes spiritual practice.",hi_d:"फल की आसक्ति के बिना निस्वार्थ कर्म का मार्ग।",link:"https://epustak.in/75511-karma-yoga-in-hindi-pdf"},
-{en_t:"Bhakti Yoga",hi_t:"भक्ति योग",en_d:"Path of devotion and psychology of love and worship. Explores different forms from formal worship to intense personal relationship with the divine.",hi_d:"भक्ति का मार्ग और प्रेम का मनोविज्ञान।",link:"https://archive.org/details/in.ernet.dli.2015.319767"},
-{en_t:"Jnana Yoga",hi_t:"ज्ञान योग",en_d:"Path of knowledge, reasoning, and philosophical inquiry. Discusses Vedanta philosophy, nature of reality, Self vs. non-Self.",hi_d:"ज्ञान, तर्क और दार्शनिक जांच का मार्ग।",link:"https://www.scribd.com/doc/102538804"},
-{en_t:"Lectures from Colombo to Almora",hi_t:"कोलंबो से अल्मोड़ा तक व्याख्यान",en_d:"Powerful speeches across India after returning from the West in 1897. Focuses on national awakening, self-confidence, and practical spirituality.",hi_d:"1897 में पश्चिम से लौटने के बाद शक्तिशाली भाषण।",link:"https://epustakalay.com/book/67320-vyakhyan-kolambo-se-almoda-tak-by-swami-vivekanand/"},
-{en_t:"My Master (Sri Ramakrishna)",hi_t:"मेरे गुरु (श्री रामकृष्ण)",en_d:"Intimate biographical account of his spiritual master Sri Ramakrishna Paramahamsa. Describes life, teachings, spiritual experiences, and unique personality.",hi_d:"श्री रामकृष्ण परमहंस का अंतरंग जीवनी विवरण।",link:"https://hindipath.com/my-master-ramakrishna-paramhamsa-vivekananda-hindi/"},
-{en_t:"Inspired Talks",hi_t:"प्रेरित वार्ताएं",en_d:"Informal conversations recorded during summer 1895. Covers meditation, philosophy, daily spiritual practice, and practical advice for seekers.",hi_d:"गर्मियों 1895 के दौरान रिकॉर्ड की गई अनौपचारिक बातचीत।",link:"https://www.ramakrishnavivekananda.info/vivekananda/volume_7/inspired_talks.htm"},
-{en_t:"Meditation and Its Methods",hi_t:"ध्यान और इसकी विधियां",en_d:"Practical guide to meditation techniques for different temperaments. Explains concentration, visualization, mantra, breath awareness, and contemplation.",hi_d:"विभिन्न स्वभावों के लिए ध्यान तकनीकों की व्यावहारिक मार्गदर्शिका।",link:"https://www.scribd.com/document/718712427"},
-{en_t:"Letters of Swami Vivekananda",hi_t:"स्वामी विवेकानंद के पत्र",en_d:"Personal correspondence revealing his personality, mission planning, and means for fulfilling his vision. Shows intimate side untouched by biographers.",hi_d:"व्यक्तिगत पत्राचार जो उनके व्यक्तित्व को प्रकट करता है।",link:"https://indianculture.gov.in/ebooks/letters-swami-vivekananda"}
-];
+    // --- Data Management ---
+    const booksByVivekananda = [
+        {en_t:"Complete Works (9 Volumes)",hi_t:"संपूर्ण साहित्य (9 खंड)",en_d:"Comprehensive nine-volume collection of all lectures, writings, letters, poems, and conversations.",hi_d:"सभी व्याख्यानों, लेखों, पत्रों, कविताओं का व्यापक संग्रह।",link:"https://www.ramakrishnavivekananda.info/vivekananda/complete_works.htm"},
+        {en_t:"Raja Yoga",hi_t:"राज योग",en_d:"Systematic exposition of Patanjali's Yoga Sutras with practical meditation instructions.",hi_d:"पतंजलि के योग सूत्र की व्यवस्थित व्याख्या।",link:"https://archive.org/details/RajaYogaBySwamiVivekananda"},
+        {en_t:"Karma Yoga",hi_t:"कर्म योग",en_d:"Path of selfless action without attachment to results. Based on Bhagavad Gita.",hi_d:"फल की आसक्ति के बिना निस्वार्थ कर्म का मार्ग।",link:"https://epustak.in/75511-karma-yoga-in-hindi-pdf"},
+        {en_t:"Bhakti Yoga",hi_t:"भक्ति योग",en_d:"Path of devotion and psychology of love and worship. Divine relationship explored.",hi_d:"भक्ति का मार्ग और प्रेम का मनोविज्ञान।",link:"https://archive.org/details/in.ernet.dli.2015.319767"},
+        {en_t:"Jnana Yoga",hi_t:"ज्ञान योग",en_d:"Path of knowledge, reasoning, and philosophical inquiry into Vedanta philosophy.",hi_d:"ज्ञान, तर्क और दार्शनिक जांच का मार्ग।",link:"https://www.scribd.com/doc/102538804"},
+        {en_t:"Lectures from Colombo to Almora",hi_t:"कोलंबो से अल्मोड़ा तक व्याख्यान",en_d:"Powerful speeches across India focusing on national awakening and practical spirituality.",hi_d:"1897 में भारत लौटने के बाद दिए गए शक्तिशाली भाषण।",link:"https://epustakalay.com/book/67320-vyakhyan-kolambo-se-almoda-tak-by-swami-vivekanand/"},
+        {en_t:"My Master (Sri Ramakrishna)",hi_t:"मेरे गुरु (श्री रामकृष्ण)",en_d:"Biographical account of his master describing teachings and spiritual experiences.",hi_d:"श्री रामकृष्ण परमहंस का अंतरंग जीवनी विवरण।",link:"https://hindipath.com/my-master-ramakrishna-paramhamsa-vivekananda-hindi/"},
+        {en_t:"Inspired Talks",hi_t:"प्रेरित वार्ताएं",en_d:"Informal conversations recorded during summer 1895 covering daily spiritual practice.",hi_d:"गर्मियों 1895 के दौरान रिकॉर्ड की गई अनौपचारिक बातचीत।",link:"https://www.ramakrishnavivekananda.info/vivekananda/volume_7/inspired_talks.htm"},
+        {en_t:"Meditation and Its Methods",hi_t:"ध्यान और इसकी विधियां",en_d:"Practical guide to meditation techniques for different temperaments.",hi_d:"विभिन्न स्वभावों के लिए ध्यान तकनीकों की मार्गदर्शिका।",link:"https://www.scribd.com/document/718712427"},
+        {en_t:"Letters of Swami Vivekananda",hi_t:"स्वामी विवेकानंद के पत्र",en_d:"Personal correspondence revealing his mission planning and vision for India.",hi_d:"व्यक्तिगत पत्राचार जो उनके मिशन और विजन को प्रकट करता है।",link:"https://indianculture.gov.in/ebooks/letters-swami-vivekananda"}
+    ];
 
-const booksAboutVivekananda=[
-{en_t:"The Master as I Saw Him",hi_t:"द मास्टर",en_d:"By Sister Nivedita (1910). Intimate reminiscences by his Western disciple who knew him closely. Chronicles intense spiritual experiences.",hi_d:"सिस्टर निवेदिता द्वारा अंतरंग संस्मरण।",link:"https://archive.org/details/the-master-as-i-saw-him-by-sister-nivedita"},
-{en_t:"Life of Vivekananda",hi_t:"विवेकानंद का जीवन",en_d:"By Romain Rolland (1930). French Nobel laureate's graphic account. Written for Western readers with critical analysis.",hi_d:"रोमां रोलां द्वारा लिखी गई जीवनी।",link:"https://archive.org/details/in.ernet.dli.2015.208711"},
-{en_t:"Vivekananda: A Biography",hi_t:"विवेकानंद जीवनी",en_d:"By Swami Nikhilananda (1953). Authoritative, comprehensive biography. Standard reference work by a monk of the Order.",hi_d:"स्वामी निखिलानंद द्वारा व्यापक जीवनी।",link:"https://archive.org/details/vivekanandabiogr00swam"},
-{en_t:"Life by Eastern and Western Disciples",hi_t:"पूर्वी और पश्चिमी शिष्यों द्वारा",en_d:"Multi-perspective authoritative biography from those who knew him intimately. Two-volume illustrated set with reminiscences.",hi_d:"बहु-परिप्रेक्ष्य जीवनी।",link:"https://www.ramakrishnavivekananda.info/biography/biography.htm"},
-{en_t:"A Short Life of Swami Vivekananda",hi_t:"स्वामी विवेकानंद का संक्षिप्त जीवन",en_d:"Published by Advaita Ashrama. Concise but comprehensive overview of his life and work. Perfect introduction for new readers.",hi_d:"अद्वैत आश्रम द्वारा प्रकाशित संक्षिप्त जीवनी।",link:"https://ebooks.advaitaashrama.org/product/a-short-life-of-swami-vivekananda"},
-{en_t:"Notes of Wanderings with the Swami",hi_t:"स्वामी के साथ भटकने के नोट्स",en_d:"By Sister Nivedita (1913). Beautiful intimate glimpse into his life during Himalayan pilgrimage. Describes rare experiences during travels.",hi_d:"सिस्टर निवेदिता द्वारा हिमालयी तीर्थयात्रा का वर्णन।",link:"https://archive.org/details/The.Complete.Works.of.Sister.Nivedita"},
-{en_t:"Reminiscences of Swami Vivekananda",hi_t:"स्वामी विवेकानंद के संस्मरण",en_d:"Collection from disciples, friends, and admirers who knew him personally. Multiple perspectives showing different facets of his personality.",hi_d:"शिष्यों और मित्रों द्वारा संस्मरणों का संग्रह।",link:"https://www.ramakrishnavivekananda.info/reminiscences/reminiscences.htm"},
-{en_t:"Swami Vivekananda in Contemporary Indian News",hi_t:"समकालीन भारतीय समाचार में विवेकानंद",en_d:"Multi-volume compilation of newspaper and periodical reports published during his lifetime. Historical documentation of contemporary reception.",hi_d:"उनके जीवनकाल के समाचार पत्रों का संकलन।",link:"https://www.ramakrishnavivekananda.info/news_reports/news_reports.htm"},
-{en_t:"Vivekananda and Modern India",hi_t:"विवेकानंद और आधुनिक भारत",en_d:"By Swami Jagadiswarananda (1941). Context of his social reform work and impact on modern India. Brief biography covering nation-building role.",hi_d:"स्वामी जगदीश्वरानंद द्वारा सामाजिक सुधार कार्य का विवरण।",link:"https://www.ramakrishnavivekananda.info/vivekananda/complete_works.htm"},
-{en_t:"Living at the Source: Yoga Teachings",hi_t:"स्रोत पर रहना: योग शिक्षाएं",en_d:"Selected excerpts focused specifically on yogic practice and teachings. Practical guidance extracted from complete works.",hi_d:"योगिक अभ्यास पर केंद्रित चयनित अंश।",link:"https://www.ramakrishnavivekananda.info/vivekananda/complete_works.htm"}
-];
+    const booksAboutVivekananda = [
+        {en_t:"The Master as I Saw Him",hi_t:"द मास्टर",en_d:"By Sister Nivedita. Intimate reminiscences by his Western disciple.",hi_d:"सिस्टर निवेदिता द्वारा अंतरंग संस्मरण।",link:"https://archive.org/details/the-master-as-i-saw-him-by-sister-nivedita"},
+        {en_t:"Life of Vivekananda",hi_t:"विवेकानंद का जीवन",en_d:"By Romain Rolland. Nobel laureate's graphic and critical account of Swami's life.",hi_d:"रोमां रोलां द्वारा लिखी गई प्रसिद्ध जीवनी।",link:"https://archive.org/details/in.ernet.dli.2015.208711"},
+        {en_t:"Vivekananda: A Biography",hi_t:"विवेकानंद जीवनी",en_d:"By Swami Nikhilananda. Authoritative reference by a monk of the Order.",hi_d:"स्वामी निखिलानंद द्वारा प्रामाणिक जीवनी।",link:"https://archive.org/details/vivekanandabiogr00swam"},
+        {en_t:"Life by Eastern and Western Disciples",hi_t:"शिष्यों द्वारा लिखित जीवन",en_d:"Multi-perspective authoritative biography from those who knew him intimately.",hi_d:"उनके करीबी शिष्यों द्वारा लिखा गया विस्तृत जीवन वृत्तांत।",link:"https://www.ramakrishnavivekananda.info/biography/biography.htm"},
+        {en_t:"A Short Life of Swami Vivekananda",hi_t:"संक्षिप्त जीवन परिचय",en_d:"Published by Advaita Ashrama. Concise but comprehensive overview.",hi_d:"अद्वैत आश्रम द्वारा प्रकाशित संक्षिप्त जीवनी।",link:"https://ebooks.advaitaashrama.org/product/a-short-life-of-swami-vivekananda"},
+        {en_t:"Notes of Wanderings with the Swami",hi_t:"स्वामी के साथ यात्रा के नोट्स",en_d:"By Sister Nivedita. Glimpse into his life during Himalayan pilgrimage.",hi_d:"हिमालयी तीर्थयात्रा के दौरान उनके जीवन की एक झलक।",link:"https://archive.org/details/The.Complete.Works.of.Sister.Nivedita"},
+        {en_t:"Reminiscences of Swami Vivekananda",hi_t:"स्वामी विवेकानंद के संस्मरण",en_d:"Collection from friends and admirers who knew him personally.",hi_d:"शिष्यों और मित्रों द्वारा संस्मरणों का संग्रह।",link:"https://www.ramakrishnavivekananda.info/reminiscences/reminiscences.htm"},
+        {en_t:"Swami Vivekananda in Contemporary Indian News",hi_t:"समाचारों में विवेकानंद",en_d:"Historical documentation of news reports published during his lifetime.",hi_d:"उनके जीवनकाल के समाचार पत्रों का संकलन।",link:"https://www.ramakrishnavivekananda.info/news_reports/news_reports.htm"},
+        {en_t:"Vivekananda and Modern India",hi_t:"विवेकानंद और आधुनिक भारत",en_d:"Context of his social reform work and impact on nation-building.",hi_d:"स्वामी जगदीश्वरानंद द्वारा सामाजिक सुधार कार्य का विवरण।",link:"https://www.ramakrishnavivekananda.info/vivekananda/complete_works.htm"},
+        {en_t:"Living at the Source: Yoga Teachings",hi_t:"स्रोत पर रहना: योग शिक्षाएं",en_d:"Selected excerpts focused specifically on yogic practice.",hi_d:"योगिक अभ्यास पर केंद्रित चयनित अंश।",link:"https://www.ramakrishnavivekananda.info/vivekananda/complete_works.htm"}
+    ];
 
-let currentLang='en';
-const content={en:{...Object.fromEntries(["nav-logo,VIVEKANANDA","nav-tagline,Authentic Archive","nav-home,Home","nav-life,Life","nav-teachings,Teachings","nav-works,Works","nav-legacy,Legacy","nav-quotes,Quotes","nav-about,About","hero-title,Works & Books","hero-desc,Essential collection of writings by Swami Vivekananda and authoritative biographies. All books available to read online for free.","section1-title,Books BY Swami Vivekananda","section2-title,Books ABOUT Swami Vivekananda","footer-text,© 2024 Swami Vivekananda Archive - Factual & Authentic Reference"].map(x=>x.split(',')))},hi:{...Object.fromEntries(["nav-logo,विवेकानंद","nav-tagline,प्रामाणिक संग्रहालय","nav-home,होम","nav-life,जीवन","nav-teachings,शिक्षाएं","nav-works,कृतियां","nav-legacy,विरासत","nav-quotes,अनमोल वचन","nav-about,हमारे बारे में","hero-title,कृतियां और पुस्तकें","hero-desc,स्वामी विवेकानंद द्वारा लेखन का संग्रह। सभी पुस्तकें मुफ्त में ऑनलाइन उपलब्ध हैं।","section1-title,स्वामी विवेकानंद द्वारा लिखित पुस्तकें","section2-title,स्वामी विवेकानंद पर लिखी गई पुस्तकें","footer-text,© 2024 स्वामी विवेकानंद आर्काइव"].map(x=>x.split(',')))}};
-
-function renderBooks(){
-const g1=document.getElementById('booksByGrid'),g2=document.getElementById('booksAboutGrid');
-g1.innerHTML='';g2.innerHTML='';
-booksByVivekananda.forEach(b=>g1.innerHTML+=`<div class="book-card"><div class="book-icon"><i class="fa-solid fa-book-open"></i></div><h3 class="book-title">${currentLang==='en'?b.en_t:b.hi_t}</h3><p class="book-desc">${currentLang==='en'?b.en_d:b.hi_d}</p><a href="${b.link}" target="_blank" class="book-link"><i class="fa-solid fa-external-link-alt"></i><span>${currentLang==='en'?'Read Online':'ऑनलाइन पढ़ें'}</span></a></div>`);
-booksAboutVivekananda.forEach(b=>g2.innerHTML+=`<div class="book-card"><div class="book-icon"><i class="fa-solid fa-book"></i></div><h3 class="book-title">${currentLang==='en'?b.en_t:b.hi_t}</h3><p class="book-desc">${currentLang==='en'?b.en_d:b.hi_d}</p><a href="${b.link}" target="_blank" class="book-link"><i class="fa-solid fa-external-link-alt"></i><span>${currentLang==='en'?'Read Online':'ऑनलाइन पढ़ें'}</span></a></div>`);
-animateCards()
-}
-
-function toggleLanguage(){
-currentLang=currentLang==='en'?'hi':'en';
-document.querySelectorAll('[data-key]').forEach(el=>{const k=el.getAttribute('data-key');if(content[currentLang][k])el.innerText=content[currentLang][k]});
-document.getElementById('langBtn').innerText=currentLang==='en'?'हिन्दी':'English';
-renderBooks()
-}
-
-function animateCards(){
-gsap.utils.toArray('.book-card').forEach((c,i)=>gsap.from(c,{scrollTrigger:{trigger:c,start:'top 85%'},y:60,opacity:0,scale:.9,duration:.8,delay:i*.08,ease:'power2.out'}))
-}
-
-const cursor=document.querySelector('#cursor');
-let mouseX=0,mouseY=0,curX=0,curY=0,lastX=0,lastY=0;
-
-function updateCursor(){
-curX+=(mouseX-curX)*0.2;
-curY+=(mouseY-curY)*0.2;
-cursor.style.left=curX+'px';
-cursor.style.top=curY+'px';
-requestAnimationFrame(updateCursor);
-}
-
-window.addEventListener('mousemove',e=>{
-mouseX=e.clientX;
-mouseY=e.clientY;
-const dx=mouseX-lastX,dy=mouseY-lastY;
-if(Math.abs(dx)>3||Math.abs(dy)>3){
-const p=document.createElement('div');
-p.className='particle';
-document.body.appendChild(p);
-gsap.set(p,{x:mouseX,y:mouseY,scale:gsap.utils.random(.5,1)});
-gsap.to(p,{x:mouseX-(dx*2),y:mouseY-(dy*2),opacity:0,scale:0,duration:.6,ease:'power2.out',onComplete:()=>p.remove()})
-}
-lastX=mouseX;lastY=mouseY;
-});
-
-updateCursor();
-
-document.querySelectorAll('a,button,.book-card').forEach(el=>{
-el.addEventListener('mouseenter',()=>cursor.classList.add('hover'));
-el.addEventListener('mouseleave',()=>cursor.classList.remove('hover'))
-});
-
-gsap.to('#chakra svg',{scrollTrigger:{trigger:'body',start:'top top',end:'bottom bottom',scrub:1},rotation:720,ease:'none'});
-gsap.utils.toArray('.chakra-spoke').forEach((s,i)=>gsap.to(s,{scrollTrigger:{trigger:'body',start:'top top',end:'bottom bottom',scrub:2},opacity:.3+(Math.sin(i*.5)*.5),attr:{x2:(i%2===0)?'+=3':'-=
-// --- Continued JavaScript ---
-
-// Rotate the Ashok Chakra on Scroll
-gsap.to('#chakra svg', {
-    scrollTrigger: {
-        trigger: 'body',
-        start: 'top top',
-        end: 'bottom bottom',
-        scrub: 1
-    },
-    rotation: 720,
-    ease: 'none'
-});
-
-// Dynamic Spoke Opacity Animation
-gsap.utils.toArray('.chakra-spoke').forEach((s, i) => {
-    gsap.to(s, {
-        scrollTrigger: {
-            trigger: 'body',
-            start: 'top top',
-            end: 'bottom bottom',
-            scrub: 2
+    let currentLang = 'en';
+    const content = {
+        en: {
+            "nav-logo":"VIVEKANANDA", "nav-tagline":"Authentic Archive", "nav-home":"Home", "nav-life":"Life", "nav-teachings":"Teachings", "nav-works":"Works", "nav-legacy":"Legacy", "nav-quotes":"Quotes", "nav-about":"About",
+            "hero-title":"Works & Books", "hero-desc":"Essential collection of writings by Swami Vivekananda and authoritative biographies. All books available to read online for free.",
+            "section1-title":"Books BY Swami Vivekananda", "section2-title":"Books ABOUT Swami Vivekananda", "footer-text":"© 2024 Swami Vivekananda Archive - Factual & Authentic Reference"
         },
-        opacity: 0.8,
-        duration: 1,
-        repeat: -1,
-        yoyo: true,
-        delay: i * 0.1
+        hi: {
+            "nav-logo":"विवेकानंद", "nav-tagline":"प्रामाणिक संग्रहालय", "nav-home":"होम", "nav-life":"जीवन", "nav-teachings":"शिक्षाएं", "nav-works":"कृतियां", "nav-legacy":"विरासत", "nav-quotes":"अनमोल वचन", "nav-about":"हमारे बारे में",
+            "hero-title":"कृतियां और पुस्तकें", "hero-desc":"स्वामी विवेकानंद द्वारा लेखन का संग्रह। सभी पुस्तकें मुफ्त में ऑनलाइन उपलब्ध हैं।",
+            "section1-title":"स्वामी विवेकानंद द्वारा लिखित पुस्तकें", "section2-title":"स्वामी विवेकानंद पर लिखी गई पुस्तकें", "footer-text":"© 2024 स्वामी विवेकानंद आर्काइव"
+        }
+    };
+
+    // --- Core Functions ---
+
+    function renderBooks(){
+        const g1 = document.getElementById('booksByGrid');
+        const g2 = document.getElementById('booksAboutGrid');
+        g1.innerHTML = ''; 
+        g2.innerHTML = '';
+        
+        booksByVivekananda.forEach(b => {
+            g1.innerHTML += createBookTemplate(b, 'fa-book-open');
+        });
+        
+        booksAboutVivekananda.forEach(b => {
+            g2.innerHTML += createBookTemplate(b, 'fa-book');
+        });
+        
+        setupCursorHover();
+        animateCards();
+    }
+
+    function createBookTemplate(book, iconClass){
+        return `
+            <div class="book-card">
+                <div class="book-icon"><i class="fa-solid ${iconClass}"></i></div>
+                <h3 class="book-title">${currentLang === 'en' ? book.en_t : book.hi_t}</h3>
+                <p class="book-desc">${currentLang === 'en' ? book.en_d : book.hi_d}</p>
+                <a href="${book.link}" target="_blank" class="book-link">
+                    <i class="fa-solid fa-external-link-alt"></i>
+                    <span>${currentLang === 'en' ? 'Read Online' : 'ऑनलाइन पढ़ें'}</span>
+                </a>
+            </div>
+        `;
+    }
+
+    function toggleLanguage(){
+        currentLang = currentLang === 'en' ? 'hi' : 'en';
+        document.querySelectorAll('[data-key]').forEach(el => {
+            const k = el.getAttribute('data-key');
+            if(content[currentLang][k]) el.innerText = content[currentLang][k];
+        });
+        document.getElementById('langBtn').innerText = currentLang === 'en' ? 'हिन्दी' : 'English';
+        renderBooks();
+    }
+
+    // --- Animation & Effects ---
+
+    function animateCards(){
+        gsap.utils.toArray('.book-card').forEach((c, i) => {
+            gsap.from(c, {
+                scrollTrigger: { trigger: c, start: 'top 90%' },
+                y: 50, opacity: 0, scale: 0.95, duration: 0.6, delay: i % 3 * 0.1, ease: 'power2.out'
+            });
+        });
+    }
+
+    const cursor = document.querySelector('#cursor');
+    let mouseX = 0, mouseY = 0, curX = 0, curY = 0, lastX = 0, lastY = 0;
+
+    function updateCursor(){
+        curX += (mouseX - curX) * 0.15;
+        curY += (mouseY - curY) * 0.15;
+        cursor.style.left = curX + 'px';
+        cursor.style.top = curY + 'px';
+        requestAnimationFrame(updateCursor);
+    }
+
+    window.addEventListener('mousemove', e => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        const dx = mouseX - lastX, dy = mouseY - lastY;
+        if(Math.abs(dx) > 5 || Math.abs(dy) > 5){
+            const p = document.createElement('div');
+            p.className = 'particle';
+            document.body.appendChild(p);
+            gsap.set(p, {x: mouseX, y: mouseY, scale: gsap.utils.random(0.5, 1.2)});
+            gsap.to(p, {
+                x: mouseX - (dx * 1.5), y: mouseY - (dy * 1.5), 
+                opacity: 0, scale: 0, duration: 0.8, 
+                onComplete: () => p.remove()
+            });
+        }
+        lastX = mouseX; lastY = mouseY;
     });
-});
 
-// Hero Section Entrance Animation
-window.addEventListener('load', () => {
-    const tl = gsap.timeline();
-    tl.to('#pageTransition', {
-        opacity: 0,
-        duration: 1,
-        ease: 'power2.inOut'
-    })
-    .from('.hero-title', {
-        y: 100,
-        opacity: 0,
-        duration: 1,
-        ease: 'power4.out'
-    }, "-=0.5")
-    .from('.hero-desc', {
-        y: 50,
-        opacity: 0,
-        duration: 1,
-        ease: 'power3.out'
-    }, "-=0.7")
-    .from('.giant-title', {
-        scale: 0.8,
-        opacity: 0,
-        duration: 2,
-        ease: 'expo.out'
-    }, "-=1");
+    function setupCursorHover(){
+        document.querySelectorAll('a, button, .book-card').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
+    }
 
-    renderBooks(); // Initialize the books on load
-});
+    // Scroll-based Chakra Rotation
+    gsap.to('#chakra svg', {
+        scrollTrigger: {
+            trigger: 'body', start: 'top top', end: 'bottom bottom', scrub: 1
+        },
+        rotation: 360, ease: 'none'
+    });
 
-// Handle Window Resize for GSAP
-window.addEventListener('resize', () => {
-    ScrollTrigger.refresh();
-});
+    // Spoke Pulse Effect
+    gsap.utils.toArray('.chakra-spoke').forEach((s, i) => {
+        gsap.to(s, {
+            opacity: 0.1, duration: 1.5, repeat: -1, yoyo: true, delay: i * 0.05
+        });
+    });
+
+    // Init
+    window.addEventListener('load', () => {
+        gsap.to('#pageTransition', {opacity: 0, duration: 1, ease: 'power2.inOut'});
+        renderBooks();
+        updateCursor();
+    });
 </script>
+
 </body>
 </html>
