@@ -149,3 +149,71 @@ el.addEventListener('mouseleave',()=>cursor.classList.remove('hover'))
 
 gsap.to('#chakra svg',{scrollTrigger:{trigger:'body',start:'top top',end:'bottom bottom',scrub:1},rotation:720,ease:'none'});
 gsap.utils.toArray('.chakra-spoke').forEach((s,i)=>gsap.to(s,{scrollTrigger:{trigger:'body',start:'top top',end:'bottom bottom',scrub:2},opacity:.3+(Math.sin(i*.5)*.5),attr:{x2:(i%2===0)?'+=3':'-=
+// --- Continued JavaScript ---
+
+// Rotate the Ashok Chakra on Scroll
+gsap.to('#chakra svg', {
+    scrollTrigger: {
+        trigger: 'body',
+        start: 'top top',
+        end: 'bottom bottom',
+        scrub: 1
+    },
+    rotation: 720,
+    ease: 'none'
+});
+
+// Dynamic Spoke Opacity Animation
+gsap.utils.toArray('.chakra-spoke').forEach((s, i) => {
+    gsap.to(s, {
+        scrollTrigger: {
+            trigger: 'body',
+            start: 'top top',
+            end: 'bottom bottom',
+            scrub: 2
+        },
+        opacity: 0.8,
+        duration: 1,
+        repeat: -1,
+        yoyo: true,
+        delay: i * 0.1
+    });
+});
+
+// Hero Section Entrance Animation
+window.addEventListener('load', () => {
+    const tl = gsap.timeline();
+    tl.to('#pageTransition', {
+        opacity: 0,
+        duration: 1,
+        ease: 'power2.inOut'
+    })
+    .from('.hero-title', {
+        y: 100,
+        opacity: 0,
+        duration: 1,
+        ease: 'power4.out'
+    }, "-=0.5")
+    .from('.hero-desc', {
+        y: 50,
+        opacity: 0,
+        duration: 1,
+        ease: 'power3.out'
+    }, "-=0.7")
+    .from('.giant-title', {
+        scale: 0.8,
+        opacity: 0,
+        duration: 2,
+        ease: 'expo.out'
+    }, "-=1");
+
+    renderBooks(); // Initialize the books on load
+});
+
+// Handle Window Resize for GSAP
+window.addEventListener('resize', () => {
+    ScrollTrigger.refresh();
+});
+</script>
+</body>
+</html>
