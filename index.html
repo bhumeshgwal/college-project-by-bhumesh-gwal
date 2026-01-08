@@ -3,187 +3,798 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Swami Vivekananda Archive</title>
+    <title>Swami Vivekananda Archive | National Youth Day</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        :root { --primary-orange: #f26522; --navy-dark: #0a1d37; }
-        .text-orange { color: var(--primary-orange); }
-        .bg-orange { background-color: var(--primary-orange); }
-        .bg-navy { background-color: var(--navy-dark); }
-        .dropdown:hover .dropdown-menu { display: block; }
-        .nav-card { transition: all 0.3s ease; }
-        .nav-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Inter:wght@300;400;700;900&display=swap');
+
+        :root {
+            --saffron: #f26522;
+            --black: #0f0f0f;
+            --cursor-green: #0ae641;
+            --navy-dark: #0a1d37;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--black);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            height: 500vh;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        .syncopate { font-family: 'Syncopate', sans-serif; }
+
+        /* CURSOR - SMALLER, COLOR CHANGE ONLY */
+        #cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle at 30% 30%, #2eff5f, var(--cursor-green) 80%);
+            border-radius: 100%;
+            pointer-events: none;
+            z-index: 10000;
+            box-shadow: 0 5px 15px rgba(5, 235, 112, 0.4);
+            transform: translate(-50%, -50%);
+            transition: background 0.5s ease;
+        }
+
+        #cursor.hover {
+            background: radial-gradient(circle at 30% 30%, #000000, var(--saffron) 80%);
+            box-shadow: 0 10px 15px rgba(242, 101, 34, 0.4);
+        }
+
+        .particle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: var(--cursor-green);
+            border-radius: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 2;
+        }
+
+        /* GRAIN */
+        .grain {
+            position: fixed;
+            inset: 0;
+            z-index: 9998;
+            opacity: 0.03;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.5'/%3E%3C/svg%3E");
+        }
+
+        /* NAVIGATION */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(20px);
+            background: rgba(15, 15, 15, 0.85);
+            border-bottom: 1px solid rgba(242, 101, 34, 0.1);
+        }
+
+      .nav-content {
+  max-width: 80rem;       /* tailwind's 7xl ≈ 80rem */
+  margin: 0 auto;         /* mx-auto */
+  padding: 1.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+        .logo-section {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 900;
+            letter-spacing: -0.05em;
+        }
+
+        .logo-tagline {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: var(--saffron);
+            font-weight: 700;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: color 0.3s ease;
+            cursor: none;
+        }
+
+        .nav-links a:hover {
+            color: var(--saffron);
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(242, 101, 34, 0.2);
+            border-radius: 8px;
+            padding: 1rem 0;
+            margin-top: 1rem;
+            min-width: 200px;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 0.75rem 1.5rem;
+        }
+
+        .dropdown-menu a:hover {
+            background: rgba(242, 101, 34, 0.1);
+        }
+
+        .lang-btn {
+            background: var(--saffron);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: none;
+            transition: all 0.3s ease;
+        }
+
+        /* SCROLLYTELLING CONTAINER */
+        .stage-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .stage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    padding: 8rem 2rem 2rem;
+    pointer-events: none; /* This prevents hidden stages from blocking clicks */
+}
+
+/* This makes the active stage clickable */
+.stage[style*="opacity: 1"] {
+    pointer-events: auto;
+}
+
+        /* GIANT AWAKEN TEXT - DEEP BACKGROUND */
+        .giant-title {
+            position: absolute;
+            font-size: 15vw;
+            line-height: 0.8;
+            color: var(--saffron);
+            opacity: 0.03;
+            z-index: 0;
+            pointer-events: none;
+            white-space: nowrap;
+            font-weight: 900;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* ROTATING ASHOK CHAKRA */
+        .ashok-chakra {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 40vw;
+            height: 40vw;
+            max-width: 500px;
+            max-height: 500px;
+            opacity: 0.04;
+            z-index: 1;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+        }
+
+        .ashok-chakra svg {
+            width: 100%;
+            height: 100%;
+            fill: var(--saffron);
+        }
+
+        /* STAGE 1 - HERO WITH IMAGE */
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1400px;
+            width: 100%;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-text {
+            text-align: left;
+        }
+
+        .accent-line {
+            width: 80px;
+            height: 4px;
+            background: var(--saffron);
+            margin-bottom: 2rem;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 7vw, 5rem);
+            font-weight: 900;
+            line-height: 0.95;
+            margin-bottom: 2rem;
+        }
+
+        .hero-quote {
+            font-size: 1.4rem;
+            font-weight: 300;
+            font-style: italic;
+            opacity: 0.7;
+            border-left: 4px solid var(--saffron);
+            padding-left: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero-desc {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            opacity: 0.8;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-primary, .btn-secondary {
+            padding: 1.1rem 2rem;
+            border-radius: 4px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-size: 0.8rem;
+            cursor: none;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border: 2px solid transparent;
+        }
+
+        .btn-primary {
+            background: var(--saffron);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .hero-image-wrapper {
+            position: relative;
+            aspect-ratio: 8/11;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+        }
+
+        .hero-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-dates {
+            position: absolute;
+            bottom: -2rem;
+            left: -2rem;
+            background: var(--saffron);
+            padding: 1.8rem;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-dates-years {
+            font-size: 2.2rem;
+            font-weight: 900;
+            line-height: 1;
+        }
+
+        .hero-dates-label {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            opacity: 0.8;
+            margin-top: 0.5rem;
+        }
+
+        /* STAGE 2 - NAVIGATION CARDS */
+        .cards-section {
+            max-width: 1400px;
+            width: 100%;
+            position: relative;
+            z-index: 10;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--saffron);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            opacity: 0.6;
+            margin-bottom: 3rem;
+            font-size: 1rem;
+        }
+
+        .nav-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .nav-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 4px solid var(--saffron);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: none;
+            text-decoration: none;
+            display: block;
+        }
+
+        .nav-card:hover {
+            transform: translateY(-12px);
+            border-bottom-width: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 20px 50px rgba(242, 101, 34, 0.3);
+        }
+
+        .nav-card-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(242, 101, 34, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-card:hover .nav-card-icon {
+            background: rgba(242, 101, 34, 0.2);
+            transform: scale(1.1);
+        }
+
+        .nav-card-icon i {
+            font-size: 1.8rem;
+            color: var(--saffron);
+            transition: color 0.3s ease;
+        }
+
+        .nav-card-title {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .nav-card-desc {
+            font-size: 0.85rem;
+            opacity: 0.5;
+        }
+
+        /* STAGE 3 - VISION CARDS */
+        .vision-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            width: 100%;
+            position: relative;
+            z-index: 10;
+        }
+
+        .vision-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 4px solid var(--saffron);
+            border-radius: 12px;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .vision-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(242, 101, 34, 0.25);
+        }
+
+        .vision-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(242, 101, 34, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .vision-icon i {
+            font-size: 1.8rem;
+            color: var(--saffron);
+        }
+
+        .vision-title {
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .vision-text {
+            font-size: 0.95rem;
+            opacity: 0.7;
+            line-height: 1.7;
+        }
+
+        /* STAGE 4 - ABOUT */
+        .about-content {
+            max-width: 900px;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .about-label {
+            color: var(--saffron);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            font-size: 0.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text {
+            font-size: 1.3rem;
+            font-weight: 300;
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .hero-text {
+                text-align: center;
+            }
+
+            .accent-line {
+                margin: 0 auto 2rem;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .nav-cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hero-dates {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
     </style>
 </head>
-<body class="bg-gray-50 text-slate-800">
+<body>
 
-    <nav class="sticky top-0 z-50 bg-white shadow-md px-6 py-4">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="flex flex-col">
-                <span class="text-2xl font-black text-slate-900 tracking-tighter" data-key="nav-logo">VIVEKANANDA</span>
-                <span class="text-[10px] uppercase tracking-[0.3em] font-bold text-orange" data-key="nav-tagline">Authentic Archive</span>
+    <div class="grain"></div>
+    <div id="cursor"></div>
+
+   <div class="ashok-chakra" id="chakra">
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="overflow: visible;">
+        <defs>
+            <filter id="softGlow">
+                <feGaussianBlur stdDeviation="1" result="blur"/>
+                <feMerge>
+                    <feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/>
+                </feMerge>
+            </filter>
+        </defs>
+
+        <circle cx="50" cy="50" r="54" fill="none" stroke="currentColor" stroke-width="0.3" stroke-dasharray="1 3" opacity="0.2" />
+        
+        <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="2" />
+        
+        <circle cx="50" cy="50" r="8" fill="currentColor" filter="url(#softGlow)"/>
+
+        <g id="chakra-spokes">
+            <script>
+                for (let i = 0; i < 24; i++) {
+                    const angle = i * 15; // 360 / 24 = 15 degrees
+                    document.write(`
+                        <g transform="rotate(${angle} 50 50)">
+                            <line x1="50" y1="50" x2="50" y2="5" stroke="currentColor" stroke-width="0.8" opacity="0.9"/>
+                            <path d="M50 38 L48.8 22 L50 5 L51.2 22 Z" fill="currentColor" />
+                            <circle cx="50" cy="5" r="1.2" fill="currentColor" />
+                        </g>
+                    `);
+                }
+            </script>
+        </g>
+
+        <g>
+            <circle r="2.5" fill="var(--cursor-green, #00ff41)" filter="url(#softGlow)">
+                <animateMotion 
+                    dur="8s" 
+                    repeatCount="indefinite" 
+                    path="M 50,50 m -54,0 a 54,54 0 1,0 108,0 a 54,54 0 1,0 -108,0" />
+            </circle>
+        </g>
+    </svg>
+</div>
+
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="nav-content">
+            <div class="logo-section">
+                <span class="logo-text syncopate" data-key="nav-logo">VIVEKANANDA</span>
+                <span class="logo-tagline syncopate" data-key="nav-tagline">Authentic Archive</span>
             </div>
-            <div class="hidden lg:flex items-center space-x-8 font-bold text-sm uppercase tracking-wide">
-                <a href="index.html" class="text-orange" data-key="nav-home">Home</a>
-                <a href="timeline.html" class="hover:text-orange transition" data-key="nav-life">Life</a>
-                <div class="relative dropdown">
-                    <a href="#" class="hover:text-orange transition flex items-center" data-key="nav-teachings">
-                        Teachings <i class="fa-solid fa-chevron-down ml-1 text-[10px]"></i>
+
+            <div class="nav-links">
+                <a href="javascript:void(0)" onclick="scrollToTop()" data-key="nav-home">Home</a>
+
+                <a href="timeline.html" data-key="nav-life">Life</a>
+                <div class="dropdown">
+                    <a href="#" data-key="nav-teachings">
+                        Teachings <i class="fa-solid fa-chevron-down" style="font-size: 0.6rem;"></i>
                     </a>
-                    <div class="dropdown-menu absolute hidden bg-white shadow-xl rounded-lg py-4 w-48 mt-2 border-t-4 border-orange">
-                        <a href="teachings.html" class="block px-6 py-2 hover:bg-orange hover:text-white transition" data-key="drop-phil">Philosophy</a>
-                        <a href="achievements.html" class="block px-6 py-2 hover:bg-orange hover:text-white transition" data-key="drop-achieve">Achievements</a>
+                    <div class="dropdown-menu">
+                        <a href="teachings.html" data-key="drop-phil">Philosophy</a>
+                        <a href="achievements.html" data-key="drop-achieve">Achievements</a>
                     </div>
                 </div>
-                <a href="works.html" class="hover:text-orange transition" data-key="nav-works">Works</a>
-                <a href="legacy.html" class="hover:text-orange transition" data-key="nav-legacy">Legacy</a>
-                <a href="quotes.html" class="hover:text-orange transition" data-key="nav-quotes">Quotes</a>
-                <a href="about.html" class="hover:text-orange transition" data-key="nav-about">About</a>
+                <a href="works.html" data-key="nav-works">Works</a>
+                <a href="legacy.html" data-key="nav-legacy">Legacy</a>
+                <a href="quotes.html" data-key="nav-quotes">Quotes</a>
+                <a href="about.html" data-key="nav-about">About</a>
             </div>
-            <button onclick="toggleLanguage()" id="langBtn" class="bg-orange text-white px-6 py-2 rounded-full font-bold shadow-lg hover:brightness-110 transition active:scale-95">
-                हिन्दी
-            </button>
+
+            <button onclick="toggleLanguage()" id="langBtn" class="lang-btn">हिन्दी</button>
         </div>
     </nav>
 
-    <header class="relative bg-white pt-16 pb-24 px-6">
-        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
-            <div class="order-2 lg:order-1">
-                <div class="w-20 h-1 bg-orange mb-6"></div>
-                <h1 class="text-6xl font-black text-slate-900 mb-6 leading-[1.1]" data-key="hero-title">Swami Vivekananda</h1>
-                <p class="text-2xl font-light text-slate-500 italic mb-8 border-l-4 border-orange pl-6" data-key="hero-quote">
-                    "Arise, awake, and stop not till the goal is reached."
-                </p>
-                <p class="text-lg text-slate-600 leading-relaxed max-w-xl mb-10" data-key="hero-desc">
-                    A monk, philosopher, and reformer who played a crucial role in introducing Indian philosophy to the modern world. His teachings inspired millions and continue to guide spiritual seekers globally.
-                </p>
-                <div class="hidden md:flex space-x-4">
-                    <a href="timeline.html" class="bg-navy text-white px-8 py-4 rounded font-bold uppercase tracking-wider hover:bg-slate-800 transition" data-key="btn-explore">Explore Archive</a>
-                    <a href="timeline.html" class="border-2 border-slate-200 px-8 py-4 rounded font-bold uppercase tracking-wider hover:bg-gray-50 transition" data-key="btn-timeline">View Timeline</a>
-                </div>
-            </div>
-            <div class="order-1 lg:order-2 relative">
-                <div class="aspect-[8/11] bg-gray-200 rounded-2xl shadow-2xl overflow-hidden relative group">
-                    <img src="swamiji01.jpeg" alt="Swami Vivekananda" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition duration-500"></div>
-                </div>
-                <div class="absolute -bottom-6 -left-6 bg-orange p-6 rounded-lg shadow-xl text-white">
-                    <p class="text-3xl font-black">1863 – 1902</p>
-                    <p class="text-xs uppercase tracking-widest opacity-80" data-key="hero-years">Spanning 39 Years</p>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Mobile-Friendly Navigation Cards -->
-    <section class="py-16 px-6 bg-gray-100">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-3xl font-bold text-center mb-3 text-navy" data-key="explore-title">Explore the Archive</h2>
-            <p class="text-center text-slate-600 mb-10 max-w-2xl mx-auto" data-key="explore-subtitle">Click on any section below to learn more about Swami Vivekananda's life, teachings, and legacy</p>
+    <!-- SCROLLYTELLING STAGES -->
+    <div class="stage-container">
+        
+        <!-- STAGE 1: HERO WITH IMAGE -->
+        <section class="stage" id="stage1">
+            <div class="giant-title syncopate">AWAKEN</div>
             
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                <a href="timeline.html" class="nav-card bg-white p-6 rounded-xl shadow-sm border-b-4 border-orange text-center">
-                    <div class="w-12 h-12 bg-orange/10 rounded-full flex items-center justify-center mx-auto mb-3">
-                        <i class="fa-solid fa-timeline text-2xl text-orange"></i>
+            <div class="hero-grid">
+                <div class="hero-text">
+                    <div class="accent-line"></div>
+                    <h1 class="hero-title syncopate" data-key="hero-title">
+                        Swami <span style="color: var(--saffron);">Vivekananda</span>
+                    </h1>
+                    <p class="hero-quote" data-key="hero-quote">
+                        "Arise, awake, and stop not till the goal is reached."
+                    </p>
+                    <p class="hero-desc" data-key="hero-desc">
+                        A monk, philosopher, and reformer who played a crucial role in introducing Indian philosophy to the modern world. His teachings inspired millions and continue to guide spiritual seekers globally.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="timeline.html" class="btn-primary" data-key="btn-explore">Explore Archive</a>
+                        <a href="timeline.html" class="btn-secondary" data-key="btn-timeline">View Timeline</a>
                     </div>
-                    <h3 class="font-bold text-navy text-sm mb-1" data-key="card-life">Life & Timeline</h3>
-                    <p class="text-xs text-slate-500" data-key="card-life-desc">1863-1902</p>
-                </a>
-
-                <a href="teachings.html" class="nav-card bg-white p-6 rounded-xl shadow-sm border-b-4 border-orange text-center">
-                    <div class="w-12 h-12 bg-orange/10 rounded-full flex items-center justify-center mx-auto mb-3">
-                        <i class="fa-solid fa-book-open text-2xl text-orange"></i>
-                    </div>
-                    <h3 class="font-bold text-navy text-sm mb-1" data-key="card-teach">Teachings</h3>
-                    <p class="text-xs text-slate-500" data-key="card-teach-desc">Philosophy</p>
-                </a>
-
-                <a href="achievements.html" class="nav-card bg-white p-6 rounded-xl shadow-sm border-b-4 border-orange text-center">
-                    <div class="w-12 h-12 bg-orange/10 rounded-full flex items-center justify-center mx-auto mb-3">
-                        <i class="fa-solid fa-trophy text-2xl text-orange"></i>
-                    </div>
-                    <h3 class="font-bold text-navy text-sm mb-1" data-key="card-achieve">Achievements</h3>
-                    <p class="text-xs text-slate-500" data-key="card-achieve-desc">Major Works</p>
-                </a>
-
-                <a href="works.html" class="nav-card bg-white p-6 rounded-xl shadow-sm border-b-4 border-orange text-center">
-                    <div class="w-12 h-12 bg-orange/10 rounded-full flex items-center justify-center mx-auto mb-3">
-                        <i class="fa-solid fa-book text-2xl text-orange"></i>
-                    </div>
-                    <h3 class="font-bold text-navy text-sm mb-1" data-key="card-works">Books</h3>
-                    <p class="text-xs text-slate-500" data-key="card-works-desc">Complete Works</p>
-                </a>
-
-                <a href="legacy.html" class="nav-card bg-white p-6 rounded-xl shadow-sm border-b-4 border-orange text-center">
-                    <div class="w-12 h-12 bg-orange/10 rounded-full flex items-center justify-center mx-auto mb-3">
-                        <i class="fa-solid fa-globe text-2xl text-orange"></i>
-                    </div>
-                    <h3 class="font-bold text-navy text-sm mb-1" data-key="card-legacy">Legacy</h3>
-                    <p class="text-xs text-slate-500" data-key="card-legacy-desc">Global Impact</p>
-                </a>
-
-                <a href="quotes.html" class="nav-card bg-white p-6 rounded-xl shadow-sm border-b-4 border-orange text-center">
-                    <div class="w-12 h-12 bg-orange/10 rounded-full flex items-center justify-center mx-auto mb-3">
-                        <i class="fa-solid fa-quote-left text-2xl text-orange"></i>
-                    </div>
-                    <h3 class="font-bold text-navy text-sm mb-1" data-key="card-quotes">Quotes</h3>
-                    <p class="text-xs text-slate-500" data-key="card-quotes-desc">Wisdom</p>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <section class="bg-navy py-20 px-6 text-white text-center">
-        <div class="max-w-3xl mx-auto">
-            <h2 class="text-orange font-bold uppercase tracking-[0.3em] text-sm mb-4" data-key="about-label">About This Website</h2>
-            <p class="text-xl font-light leading-relaxed opacity-90" data-key="about-text">
-                This website presents a structured and authentic view of Swami Vivekananda's life, ideas, and contributions. It aims to provide clear, factual information about his spiritual journey, philosophical teachings, and lasting impact on both India and the world.
-            </p>
-        </div>
-    </section>
-
-    <section class="py-20 px-6 bg-white">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-3xl font-bold text-center mb-12 text-navy" data-key="vision-title">Core Vision</h2>
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="bg-white p-8 rounded-xl shadow-sm border-b-4 border-orange hover:shadow-lg transition">
-                    <div class="w-12 h-12 bg-orange/10 rounded-lg flex items-center justify-center mb-4">
-                        <i class="fa-solid fa-person-praying text-2xl text-orange"></i>
-                    </div>
-                    <p class="font-bold text-gray-800 text-lg mb-2" data-key="v1-title">Divine Potential</p>
-                    <p class="text-slate-600 text-sm" data-key="v1">Every individual possesses infinite divine potential within</p>
                 </div>
-                <div class="bg-white p-8 rounded-xl shadow-sm border-b-4 border-orange hover:shadow-lg transition">
-                    <div class="w-12 h-12 bg-orange/10 rounded-lg flex items-center justify-center mb-4">
-                        <i class="fa-solid fa-om text-2xl text-orange"></i>
+
+                <div class="hero-image">
+                    <div class="hero-image-wrapper">
+                        <img src="swamiji01.jpeg" alt="Swami Vivekananda" style="width: 100% !important; height: 100% !important; object-fit: cover;">
+
                     </div>
-                    <p class="font-bold text-gray-800 text-lg mb-2" data-key="v2-title">Self-Realization</p>
-                    <p class="text-slate-600 text-sm" data-key="v2">True religion lies in self-realization and service</p>
-                </div>
-                <div class="bg-white p-8 rounded-xl shadow-sm border-b-4 border-orange hover:shadow-lg transition">
-                    <div class="w-12 h-12 bg-orange/10 rounded-lg flex items-center justify-center mb-4">
-                        <i class="fa-solid fa-dumbbell text-2xl text-orange"></i>
+                    <div class="hero-dates">
+                        <p class="hero-dates-years">1863 – 1902</p>
+                        <p class="hero-dates-label" data-key="hero-years">Spanning 39 Years</p>
                     </div>
-                    <p class="font-bold text-gray-800 text-lg mb-2" data-key="v3-title">Strength & Character</p>
-                    <p class="text-slate-600 text-sm" data-key="v3">Strength and character are essential for growth</p>
-                </div>
-                <div class="bg-white p-8 rounded-xl shadow-sm border-b-4 border-orange hover:shadow-lg transition">
-                    <div class="w-12 h-12 bg-orange/10 rounded-lg flex items-center justify-center mb-4">
-                        <i class="fa-solid fa-earth-asia text-2xl text-orange"></i>
-                    </div>
-                    <p class="font-bold text-gray-800 text-lg mb-2" data-key="v4-title">Universal Brotherhood</p>
-                    <p class="text-slate-600 text-sm" data-key="v4">Humanity is one family beyond all divisions</p>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <footer class="bg-navy py-10 text-center text-white/60 text-sm">
-        <p data-key="footer-text">© 2024 Swami Vivekananda Archive - Factual & Authentic Reference</p>
-    </footer>
+        <!-- STAGE 2: NAVIGATION CARDS -->
+        <section class="stage" id="stage2">
+            <div class="cards-section">
+                <h2 class="section-title syncopate" data-key="explore-title">Explore the Archive</h2>
+                <p class="section-subtitle" data-key="explore-subtitle">
+                    Click on any section below to learn more about Swami Vivekananda's life, teachings, and legacy
+                </p>
+
+                <div class="nav-cards-grid">
+                    <a href="timeline.html" class="nav-card">
+                        <div class="nav-card-icon">
+                            <i class="fa-solid fa-timeline"></i>
+                        </div>
+                        <h3 class="nav-card-title" data-key="card-life">Life & Timeline</h3>
+                        <p class="nav-card-desc" data-key="card-life-desc">1863-1902</p>
+                    </a>
+
+                    <a href="teachings.html" class="nav-card">
+                        <div class="nav-card-icon">
+                            <i class="fa-solid fa-book-open"></i>
+                        </div>
+                        <h3 class="nav-card-title" data-key="card-teach">Teachings</h3>
+                        <p class="nav-card-desc" data-key="card-teach-desc">Philosophy</p>
+                    </a>
+
+                    <a href="achievements.html" class="nav-card">
+                        <div class="nav-card-icon">
+                            <i class="fa-solid fa-trophy"></i>
+                        </div>
+                        <h3 class="nav-card-title" data-key="card-achieve">Achievements</h3>
+                        <p class="nav-card-desc" data-key="card-achieve-desc">Major Works</p>
+                    </a>
+
+                    <a href="works.html" class="nav-card">
+                        <div class="nav-card-icon">
+                            <i class="fa-solid fa-book"></i>
+                        </div>
+                        <h3 class="nav-card-title" data-key="card-works">Books</h3>
+                        <p class="nav-card-desc" data-key="card-works-desc">Complete Works</p>
+                    </a>
+
+                    <a href="legacy.html" class="nav-card">
+                        <div class="nav-card-icon">
+                            <i class="fa-solid fa-globe"></i>
+                        </div>
+                        <h3 class="nav-card-title" data-key="card-legacy">Legacy</h3>
+                        <p class="nav-card-desc" data-key="card-legacy-desc">Global Impact</p>
+                    </a>
+
+                    <a href="quotes.html" class="nav-card">
+                        <div class="nav-card-icon">
+                            <i class="fa-solid fa-quote-left"></i>
+                        </div>
+                        <h3 class="nav-card-title" data-key="card-quotes">Quotes</h3>
+                        <p class="nav-card-desc" data-key="card-quotes-desc">Wisdom</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- STAGE 3: VISION CARDS -->
+        <section class="stage" id="stage3">
+            <div class="cards-section">
+                <h2 class="section-title syncopate" data-key="vision-title">Core Vision</h2>
+                <p class="section-subtitle">The foundational principles that guide his teachings</p>
+
+                <div class="vision-grid">
+                    <div class="vision-card">
+                        <div class="vision-icon">
+                            <i class="fa-solid fa-person-praying"></i>
+                        </div>
+                        <p class="vision-title" data-key="v1-title">Divine Potential</p>
+                        <p class="vision-text" data-key="v1">Every individual possesses infinite divine potential within</p>
+                    </div>
+
+                    <div class="vision-card">
+                        <div class="vision-icon">
+                            <i class="fa-solid fa-om"></i>
+                        </div>
+                        <p class="vision-title" data-key="v2-title">Self-Realization</p>
+                        <p class="vision-text" data-key="v2">True religion lies in self-realization and service</p>
+                    </div>
+
+                    <div class="vision-card">
+                        <div class="vision-icon">
+                            <i class="fa-solid fa-dumbbell"></i>
+                        </div>
+                        <p class="vision-title" data-key="v3-title">Strength & Character</p>
+                        <p class="vision-text" data-key="v3">Strength and character are essential for growth</p>
+                    </div>
+
+                    <div class="vision-card">
+                        <div class="vision-icon">
+                            <i class="fa-solid fa-earth-asia"></i>
+                        </div>
+                        <p class="vision-title" data-key="v4-title">Universal Brotherhood</p>
+                        <p class="vision-text" data-key="v4">Humanity is one family beyond all divisions</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STAGE 4: ABOUT -->
+        <section class="stage" id="stage4">
+            <div class="about-content">
+                <h2 class="about-label syncopate" data-key="about-label">About This Website</h2>
+                <p class="about-text" data-key="about-text">
+                    This website presents a structured and authentic view of Swami Vivekananda's life, ideas, and contributions. It aims to provide clear, factual information about his spiritual journey, philosophical teachings, and lasting impact on both India and the world.
+                </p>
+            </div>
+        </section>
+
+    </div>
 
     <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        // LANGUAGE SYSTEM
         const content = {
             "en": {
                 "nav-logo": "VIVEKANANDA",
@@ -227,8 +838,7 @@
                 "v3-title": "Strength & Character",
                 "v3": "Strength and character are essential for growth",
                 "v4-title": "Universal Brotherhood",
-                "v4": "Humanity is one family beyond all divisions",
-                "footer-text": "© 2024 Swami Vivekananda Archive - Factual & Authentic Reference"
+                "v4": "Humanity is one family beyond all divisions"
             },
             "hi": {
                 "nav-logo": "विवेकानंद",
@@ -256,7 +866,7 @@
                 "card-teach-desc": "दर्शन",
                 "card-achieve": "उपलब्धियां",
                 "card-achieve-desc": "प्रमुख कार्य",
-                "card-works": "पुस्तकें",
+                "card-works"        : "पुस्तकें",
                 "card-works-desc": "संपूर्ण कृतियां",
                 "card-legacy": "विरासत",
                 "card-legacy-desc": "वैश्विक प्रभाव",
@@ -272,8 +882,7 @@
                 "v3-title": "शक्ति और चरित्र",
                 "v3": "विकास के लिए शक्ति और चरित्र आवश्यक हैं",
                 "v4-title": "सार्वभौमिक भाईचारा",
-                "v4": "मानवता सभी विभाजनों से परे एक परिवार है",
-                "footer-text": "© 2024 स्वामी विवेकानंद आर्काइव - तथ्यात्मक और प्रामाणिक संदर्भ"
+                "v4": "मानवता सभी विभाजनों से परे एक परिवार है"
             }
         };
 
@@ -289,9 +898,122 @@
             });
             document.getElementById('langBtn').innerText = currentLang === 'en' ? 'हिन्दी' : 'English';
         }
+
+        // CURSOR - SMALLER, COLOR CHANGE ONLY
+        const cursor = document.querySelector('#cursor');
+        let mouseX = 0, mouseY = 0;
+        let lastX = 0, lastY = 0;
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            gsap.to(cursor, { x: mouseX, y: mouseY, duration: 0.1 });
+
+            const dx = mouseX - lastX;
+            const dy = mouseY - lastY;
+
+            if (Math.abs(dx) > 2 || Math.abs(dy) > 2) {
+                createParticle(mouseX, mouseY, dx, dy);
+            }
+
+            lastX = mouseX;
+            lastY = mouseY;
+        });
+
+        function createParticle(x, y, dx, dy) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            document.body.appendChild(p);
+            gsap.set(p, { x: x, y: y, scale: gsap.utils.random(0.5, 1) });
+            gsap.to(p, {
+                x: x - (dx * 2),
+                y: y - (dy * 2),
+                opacity: 0,
+                scale: 0,
+                duration: 0.6,
+                onComplete: () => p.remove()
+            });
+        }
+
+        // CURSOR INTERACTIONS - COLOR CHANGE ONLY
+        const hoverTargets = document.querySelectorAll('a, button, .nav-card, .vision-card, i');
+
+        hoverTargets.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.classList.add('hover');
+                if (el.tagName === 'I') {
+                    gsap.to(el, { color: 'var(--cursor-green)', duration: 0.3 });
+                }
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.classList.remove('hover');
+                if (el.tagName === 'I') {
+                    gsap.to(el, { color: 'var(--saffron)', duration: 0.3 });
+                }
+            });
+        });
+
+        // ASHOK CHAKRA ROTATION ON SCROLL
+        gsap.to('#chakra svg', {
+            scrollTrigger: {
+                trigger: 'body',
+                start: 'top top',
+                end: 'bottom bottom',
+                scrub: 1
+            },
+            rotation: 360 * 3,
+            ease: 'none'
+        });
+
+        // SCROLLYTELLING
+        // sab stages ko hide karo
+        gsap.set('.stage', { autoAlpha: 0, zIndex: 0 });
+        gsap.set('#stage1', { autoAlpha: 1, zIndex: 10 });
+
+
+
+
+        const mainTl = gsap.timeline({
+            scrollTrigger: {
+                trigger: 'body',
+                start: 'top top',
+                end: 'bottom bottom',
+                scrub: 1.5
+            }
+        });
+
+        mainTl
+            // STAGE 1 EXIT
+            .to('#stage1', { autoAlpha: 0, y: -50, duration: 1 })
+
+            // STAGE 2 ARRIVAL (Cards) - FIXED VISIBILITY
+            .set('#stage2', { autoAlpha: 1, visibility: 'visible', zIndex: 20 }) 
+            .from('#stage2 .nav-card', { 
+                y: 100, 
+                stagger: 0.15, 
+                opacity: 0, 
+                duration: 1.2, 
+                ease: 'power3.out' 
+            })
+            .to('#stage2', { autoAlpha: 0, scale: 0.9, duration: 1, delay: 2 })
+
+            // STAGE 3 ARRIVAL (Vision) - FIXED VISIBILITY
+            .set('#stage3', { autoAlpha: 1, visibility: 'visible', zIndex: 30 })
+            .from('#stage3 .section-title', { y: -50, opacity: 0, duration: 1 })
+            .from('#stage3 .vision-card', {
+                y: 80,
+                opacity: 1,
+                stagger: 0.15,
+                duration: 1.5,
+                ease: 'power2.out'
+            })
+            .to('#stage3', { scale: 0.9, autoAlpha: 0, duration: 1, delay: 2 })
+
+            // STAGE 4 ARRIVAL
+            .set('#stage4', { autoAlpha: 1, visibility: 'visible', zIndex: 40 })
+            .from('#stage4 .about-label', { y: -30, opacity: 0, duration: 1 })
+            .from('#stage4 .about-text', { y: 30, opacity: 0, duration: 1 }, '-=0.5');
     </script>
 </body>
 </html>
-
-
-
