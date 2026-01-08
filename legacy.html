@@ -323,49 +323,47 @@
     <div id="cursor"></div>
 
     <!-- IMPROVED ASHOK CHAKRA -->
-    <div class="ashok-chakra" id="chakra">
-    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="overflow: visible;">
-        <defs>
-            <filter id="softGlow">
-                <feGaussianBlur stdDeviation="1" result="blur"/>
-                <feMerge>
-                    <feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/>
-                </feMerge>
-            </filter>
-        </defs>
+<div class="ashok-chakra" id="chakra">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="overflow: visible;">
+            <defs>
+                <filter id="ultraGlow">
+                    <feGaussianBlur stdDeviation="1.5" result="blur"/>
+                    <feMerge>
+                        <feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                </filter>
+            </defs>
 
-        <circle cx="50" cy="50" r="54" fill="none" stroke="currentColor" stroke-width="0.3" stroke-dasharray="1 3" opacity="0.2" />
-        
-        <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="2" />
-        
-        <circle cx="50" cy="50" r="8" fill="currentColor" filter="url(#softGlow)"/>
+            <circle cx="50" cy="50" r="54" fill="none" stroke="currentColor" stroke-width="0.2" stroke-dasharray="1 3" opacity="0.2" />
+            <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.3"/>
+            
+            <circle cx="50" cy="50" r="8" fill="currentColor" filter="url(#ultraGlow)"/>
 
-        <g id="chakra-spokes">
-            <script>
-                for (let i = 0; i < 24; i++) {
-                    const angle = i * 15; // 360 / 24 = 15 degrees
-                    document.write(`
-                        <g transform="rotate(${angle} 50 50)">
-                            <line x1="50" y1="50" x2="50" y2="5" stroke="currentColor" stroke-width="0.8" opacity="0.9"/>
-                            <path d="M50 38 L48.8 22 L50 5 L51.2 22 Z" fill="currentColor" />
-                            <circle cx="50" cy="5" r="1.2" fill="currentColor" />
-                        </g>
-                    `);
-                }
-            </script>
-        </g>
+            <g id="chakra-spokes">
+                <script>
+                    for (let i = 0; i < 24; i++) {
+                        const angle = i * 15;
+                        document.write(`
+                            <g transform="rotate(${angle} 50 50)">
+                                <line x1="50" y1="50" x2="50" y2="5" stroke="currentColor" stroke-width="0.8" opacity="0.6"/>
+                                <path d="M50 35 L48.5 20 L50 5 L51.5 20 Z" fill="currentColor" opacity="0.8" />
+                                <circle cx="50" cy="5" r="1.5" fill="currentColor" />
+                            </g>
+                        `);
+                    }
+                </script>
+            </g>
 
-        <g>
-            <circle r="2.5" fill="var(--cursor-green, #00ff41)" filter="url(#softGlow)">
-                <animateMotion 
-                    dur="8s" 
-                    repeatCount="indefinite" 
-                    path="M 50,50 m -54,0 a 54,54 0 1,0 108,0 a 54,54 0 1,0 -108,0" />
-            </circle>
-        </g>
-    </svg>
-</div>
-
+            <g>
+                <circle r="3.5" fill="var(--cursor-green, #00ff41)" filter="url(#ultraGlow)">
+                    <animateMotion 
+                        dur="10s" 
+                        repeatCount="indefinite" 
+                        path="M 50,50 m -54,0 a 54,54 0 1,0 108,0 a 54,54 0 1,0 -108,0" />
+                </circle>
+            </g>
+        </svg>
+    </div>
     <!-- NAV -->
     <nav>
         <div class="nav-content">
@@ -650,3 +648,4 @@
     </script>
 </body>
 </html>
+
