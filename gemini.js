@@ -1,38 +1,18 @@
 // ========================================
-// GEMINI AI CHAT - Reusable Module
+// AI CHAT - Google Gemini API
 // ========================================
 
-const GEMINI_CONFIG = {
-  apiKey: 'AIzaSyCJFf35xLDWwPmX2SCbiZmaq-RRUuLy8SQ',
-  model: 'gemini-pro',
-  systemPrompt: `You are an expert on Swami Vivekananda's life, teachings, and philosophy.
-
-CONTEXT:
-- Born 1863 in Calcutta as Narendranath Datta
-- Disciple of Sri Ramakrishna Paramahamsa
-- Famous 1893 Chicago Parliament speech: "Sisters and Brothers of America"
-- Founded Ramakrishna Mission in 1897
-- Teachings: Practical Vedanta, Four Yogas (Karma, Bhakti, Raja, Jnana)
-- Key books: Raja Yoga, Karma Yoga, Bhakti Yoga, Jnana Yoga
-- Emphasized: "Arise, awake, and stop not till the goal is reached"
-- Died 1902 at age 39 (Mahasamadhi at Belur Math)
-
-Answer questions accurately in under 150 words. Use a warm, educational tone. Include relevant quotes when appropriate.`
+const AI_CONFIG = {
+  apiKey: 'AIzaSyAPJ7AIJiSk7txm5Fpr-6I9E_D-RGs7jg4',
+  model: 'gemini-pro'  // Using latest stable version
 };
 
-class GeminiChat {
+class AIChat {
   constructor() {
-    this.chatBtn = null;
-    this.chatWindow = null;
-    this.closeBtn = null;
-    this.sendBtn = null;
-    this.chatInput = null;
-    this.messagesDiv = null;
     this.init();
   }
 
   init() {
-    // Wait for DOM to load
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', () => this.setup());
     } else {
@@ -44,7 +24,7 @@ class GeminiChat {
     this.injectHTML();
     this.cacheElements();
     this.attachEvents();
-    console.log('✅ Gemini AI Chat initialized');
+    console.log('✅ AI Chat initialized with Gemini');
   }
 
   injectHTML() {
@@ -73,7 +53,6 @@ class GeminiChat {
         </div>
       </div>
     `;
-
     document.body.insertAdjacentHTML('beforeend', html);
   }
 
@@ -94,7 +73,6 @@ class GeminiChat {
       if (e.key === 'Enter') this.sendMessage();
     });
 
-    // Cursor hover effects
     [this.chatBtn, this.closeBtn, this.sendBtn].forEach(el => {
       el.addEventListener('mouseenter', () => {
         const cursor = document.getElementById('cursor');
@@ -119,54 +97,49 @@ class GeminiChat {
   }
 
   async sendMessage() {
-    const userMessage = this.chatInput.value.trim();
-    if (!userMessage) return;
+  const userMessage = this.chatInput.value.trim();
+  if (!userMessage) return;
 
-    this.chatInput.disabled = true;
-    this.sendBtn.disabled = true;
+  this.chatInput.disabled = true;
+  this.sendBtn.disabled = true;
+  this.addMessage(userMessage, 'user');
+  this.chatInput.value = '';
+  const loadingId = this.addMessage('Thinking...', 'ai', true);
 
-    this.addMessage(userMessage, 'user');
-    this.chatInput.value = '';
+  try {
+    const response = await fetch('https://api.cohere.com/v2/chat', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer aa03FFBl6CzD3lAWAnhsuFfBB7P4bC1IhVAYEzcd`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        model: 'command-r-08-2024',
+        messages: [{
+          role: 'user',
+          content: `Expert on Vivekananda. Answer in 100 words: ${userMessage}`
+        }]
+      })
+    });
 
-    const loadingId = this.addMessage('Thinking...', 'ai', true);
+    const data = await response.json();
+    this.removeMessage(loadingId);
 
-    try {
-      const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_CONFIG.model}:generateContent?key=${GEMINI_CONFIG.apiKey}`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            contents: [{
-              parts: [{
-                text: `${GEMINI_CONFIG.systemPrompt}\n\nQuestion: ${userMessage}`
-              }]
-            }]
-          })
-        }
-      );
-
-      const data = await response.json();
-      this.removeMessage(loadingId);
-
-      if (data.candidates?.[0]?.content?.parts?.[0]?.text) {
-        this.addMessage(data.candidates[0].content.parts[0].text, 'ai');
-      } else if (data.error) {
-        this.addMessage(`Error: ${data.error.message}`, 'ai');
-      } else {
-        this.addMessage('Sorry, please try again.', 'ai');
-      }
-    } catch (error) {
-      this.removeMessage(loadingId);
-      this.addMessage('Connection error. Please try again.', 'ai');
-      console.error('Gemini API Error:', error);
+    if (data.message?.content?.[0]?.text) {
+      this.addMessage(data.message.content[0].text, 'ai');
+    } else {
+      this.addMessage('Error. Check console.', 'ai');
+      console.log(data);
     }
-
-    this.chatInput.disabled = false;
-    this.sendBtn.disabled = false;
-    this.chatInput.focus();
+  } catch (error) {
+    this.removeMessage(loadingId);
+    this.addMessage('Error: ' + error.message, 'ai');
   }
 
+  this.chatInput.disabled = false;
+  this.sendBtn.disabled = false;
+  this.chatInput.focus();
+}
   addMessage(text, sender, isLoading = false) {
     const msgId = Date.now();
     const msgDiv = document.createElement('div');
@@ -184,5 +157,4 @@ class GeminiChat {
   }
 }
 
-// Auto-initialize when script loads
-new GeminiChat();
+new AIChat();
