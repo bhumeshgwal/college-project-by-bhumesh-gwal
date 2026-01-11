@@ -1,10 +1,10 @@
 // ========================================
-// AI CHAT - Google Gemini API
+// AI CHAT - Cohere (FREE & WORKING)
 // ========================================
 
 const AI_CONFIG = {
-  apiKey: 'AIzaSyAPJ7AIJiSk7txm5Fpr-6I9E_D-RGs7jg4',
-  model: 'gemini-pro'  // Using latest stable version
+  apiKey: 'aa03FFBl6CzD3lAWAnhsuFfBB7P4bC1IhVAYEzcd',
+  model: 'command-r'
 };
 
 class AIChat {
@@ -24,7 +24,7 @@ class AIChat {
     this.injectHTML();
     this.cacheElements();
     this.attachEvents();
-    console.log('✅ AI Chat initialized with Gemini');
+    console.log('✅ AI Chat ready');
   }
 
   injectHTML() {
@@ -32,19 +32,14 @@ class AIChat {
       <button id="aiChatBtn" class="ai-chat-btn">
         <i class="fa-solid fa-robot"></i>
       </button>
-
       <div id="aiChatWindow" class="ai-chat-window">
         <div class="chat-header">
           <h3>VIVEKANANDA AI</h3>
           <button id="closeChatBtn" class="close-chat-btn">&times;</button>
         </div>
-
         <div id="chatMessages" class="chat-messages">
-          <div class="message ai">
-            Namaste! 🙏 I'm an AI assistant trained on Swami Vivekananda's teachings. Ask me anything!
-          </div>
+          <div class="message ai">Namaste! 🙏 Ask me anything about Swami Vivekananda!</div>
         </div>
-
         <div class="chat-input-container">
           <div class="chat-input-wrapper">
             <input type="text" id="chatInput" class="chat-input" placeholder="Ask about Vivekananda..." autocomplete="off">
@@ -72,7 +67,6 @@ class AIChat {
     this.chatInput.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') this.sendMessage();
     });
-
     [this.chatBtn, this.closeBtn, this.sendBtn].forEach(el => {
       el.addEventListener('mouseenter', () => {
         const cursor = document.getElementById('cursor');
@@ -87,9 +81,7 @@ class AIChat {
 
   toggleChat() {
     this.chatWindow.classList.toggle('active');
-    if (this.chatWindow.classList.contains('active')) {
-      this.chatInput.focus();
-    }
+    if (this.chatWindow.classList.contains('active')) this.chatInput.focus();
   }
 
   closeChat() {
@@ -140,6 +132,7 @@ class AIChat {
   this.sendBtn.disabled = false;
   this.chatInput.focus();
 }
+
   addMessage(text, sender, isLoading = false) {
     const msgId = Date.now();
     const msgDiv = document.createElement('div');
