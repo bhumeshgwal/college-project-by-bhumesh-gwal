@@ -27,7 +27,7 @@
             background-color: var(--black);
             color: white;
             font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
+            overflow-x: auto;
             cursor: none;
         }
 
@@ -38,18 +38,18 @@
             position: fixed;
             width: 12px;
             height: 12px;
-            background: radial-gradient(circle at 30% 30%, #a2ffb8, var(--cursor-green) 80%);
+            background: radial-gradient(circle at 30% 30%, #16eb0b, var(--cursor-green) 80%);
             border-radius: 50%;
-            pointer-events: none;
+            pointer-events:none;
             z-index: 10000;
-            box-shadow: 0 5px 15px rgba(0, 255, 65, 0.4);
+            box-shadow: 0 5px 15px rgba(28, 255, 84, 0.4);
             transform: translate(-50%, -50%);
             transition: background 0.3s ease;
         }
 
         #cursor.hover {
             background: radial-gradient(circle at 30% 30%, #ffb8a2, var(--saffron) 80%);
-            box-shadow: 0 5px 15px rgba(242, 101, 34, 0.4);
+            box-shadow: 2px 5px 15px rgba(183, 78, 29, 0.4);
         }
 
         .particle {
@@ -336,8 +336,13 @@
     </style>
 </head>
 <body>
+<body>
 
-<div class="ashok-chakra" id="chakra">
+        <div class="grain"></div>
+        <div id="cursor"></div>
+        
+   
+        <div class="ashok-chakra" id="chakra">
         <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="overflow: visible;">
             <defs>
                 <filter id="softGlow">
@@ -618,9 +623,9 @@
                 anomalyActive = true;
                 gsap.to(anomaly, { width: 60, height: 60, opacity: 0.8, duration: 0.5, ease: "back.out(2)" });
                 anomaly.classList.add('anomaly-active');
-                
-                // Vibrate the actual cursor away for a moment
-                gsap.to('#cursor', { opacity: 0, duration: 0.2 });
+                        
+                // REMOVED: Don't hide cursor
+                // gsap.to('#cursor', { opacity: 0, duration: 0.2 });
             }
 
             if (anomalyActive) {
@@ -639,8 +644,7 @@
                 // Escape mechanism: Snap back if moved too far from Chakra or fast shake
                 if (dist > 400) {
                     anomalyActive = false;
-                    gsap.to(anomaly, { width: 0, height: 0, opacity: 0, duration: 0.4 });
-                    gsap.to('#cursor', { opacity: 1, duration: 0.5 });
+                    gsap.to(anomaly, { width: 0, height: 0, opacity: 1, duration: 0.4 });
                 }
             }
         });
@@ -695,7 +699,7 @@
         gsap.to('.ashok-chakra circle[fill*="var(--cursor-green)"]', {
             r: 4.5,
             duration: 2,
-            repeat: -1,
+            repeat: 1,
             yoyo: true,
             ease: "sine.inOut"
         });
@@ -715,3 +719,4 @@
     </script>
 </body>
 </html>
+
