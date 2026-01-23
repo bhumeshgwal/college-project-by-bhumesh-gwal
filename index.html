@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="gemini.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Inter:wght@300;400;700;900&display=swap');
-
+    
         :root {
             --saffron: #f26522;
             --black: #0f0f0f;
@@ -87,6 +87,15 @@
             background: rgba(15, 15, 15, 0.85);
             border-bottom: 1px solid rgba(242, 101, 34, 0.1);
         }
+    .nav-cards-grid {
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+
+    .nav-card {
+            opacity: 1;
+    transform: translateY(0);
+}
 
       .nav-content {
   max-width: 80rem;       /* tailwind's 7xl ≈ 80rem */
@@ -968,9 +977,10 @@
         });
 
         // SCROLLYTELLING
-        // sab stages ko hide karo
-        gsap.set('.stage', { autoAlpha: 0, zIndex: 0 });
-        gsap.set('#stage1', { autoAlpha: 1, zIndex: 10 });
+
+        gsap.set('.stage', { autoAlpha: 0, zIndex: 0, visibility: 'hidden' });
+        gsap.set('#stage1', { autoAlpha: 1, zIndex: 10, visibility: 'visible' });
+
 
 
 
@@ -989,14 +999,17 @@
             .to('#stage1', { autoAlpha: 0, y: -50, duration: 1 })
 
             // STAGE 2 ARRIVAL (Cards) - FIXED VISIBILITY
-            .set('#stage2', { autoAlpha: 1, visibility: 'visible', zIndex: 20 }) 
-            .from('#stage2 .nav-card', { 
-                y: 100, 
-                stagger: 0.15, 
-                opacity: 0, 
-                duration: 1.2, 
-                ease: 'power3.out' 
-            })
+        .set('#stage2', { autoAlpha: 1, visibility: 'visible', zIndex: 20, display: 'flex' })    
+        .set('#stage2 .nav-card', { clearProps: 'all' }) // Clear any inherited transforms
+        .from('#stage2 .nav-card', { 
+            y: 100, 
+            stagger: 0.15, 
+            opacity: 0, 
+            duration: 1.2, 
+            ease: 'power3.out',
+            overwrite: 'auto'
+        })
+
             .to('#stage2', { autoAlpha: 0, scale: 0.9, duration: 1, delay: 2 })
 
             // STAGE 3 ARRIVAL (Vision) - FIXED VISIBILITY
@@ -1019,4 +1032,5 @@
     <script src="gemini.js"></script>
 </body>
 </html>
+
 
