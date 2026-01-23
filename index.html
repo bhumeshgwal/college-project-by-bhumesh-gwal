@@ -1010,12 +1010,14 @@
                 opacity: 0, 
                 duration: 0.8 
             }, '-=0.5')
+            .set('#stage2 .nav-card', { opacity: 1, y: 0 })
             .from('#stage2 .nav-card', { 
                 y: 80, 
                 opacity: 0,
                 stagger: 0.12, 
                 duration: 1,
-                ease: 'power2.out'
+                ease: 'power2.out',
+                clearProps: 'transform'
             }, '-=0.3')
             
             // STAGE 2 → STAGE 3
@@ -1067,3 +1069,4 @@
     <script src="gemini.js"></script>
 </body>
 </html>
+
